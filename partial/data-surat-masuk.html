@@ -1,0 +1,103 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li><a href="#" class="active">Surat Masuk</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+          <div class="col-xs-6 col-sm-2 sm-m-b-10">
+            <input type="text" ng-model="datestart" class="form-control datepick" placeholder="Tanggal Awal" />
+          </div>
+          <div class="col-xs-6 col-sm-2 sm-m-b-10">
+            <input type="text" ng-model="dateend" class="form-control datepick" placeholder="Tanggal Akhir" />
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 s2cont">
+            <select class="form-control select2filter select2" ng-model="kode_proyek" style="font-size:13px">
+              <option value="" select2>SEMUA PROYEK</option>
+              <option value="0" select2>UMUM</option>
+              <option ng-repeat="p in data_proyek" value="{{p.IDProyek}}" select2>{{p.KodeProyek}} / {{p.Tahun}} /
+                {{p.NamaProyek}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-3 sm-m-b-10">
+            <input type="text" ng-model="keyword" class="form-control" placeholder="Keyword" />
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info"><i class="fa fa-filter"></i>
+              Filter</button>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info btn-block"><i class="fa fa-filter"></i>
+              Filter</button>
+            <a href="#/surat-masuk/new/" type="button" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Add new</a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10 hidden-xs">
+        <a href="#/surat-masuk/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:140px">No. Surat</th>
+              <th style="width:100px">Tanggal</th>
+              <th>Departement</th>
+              <th>Proyek</th>
+              <th>Prihal</th>
+              <th>Jenis</th>
+              <th style="width:170px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_suratmasuk" jq-table>
+              <td class="v-align-middle center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NoSurat }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Tanggal }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Departement }}</p>
+              </td>
+              <td class="v-align-midJenisdle">
+                <p ng-show="x.KodeProyek!=='' && x.KodeProyek!==null">{{ x.KodeProyek }}/{{ x.TahunProyek }}</p>
+                <p ng-show="x.KodeProyek===null || x.KodeProyek===''">UMUM</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Prihal }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Jenis }}</p>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/surat-masuk/edit/{{ x.IDSuratMasuk }}" class="btn btn-default btn-xs"><i
+                    class="fa fa-edit"></i> Edit</a>
+                <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/surat_masuk_sopan/{{ x.FileSurat }}"
+                  class="btn btn-primary btn-xs" download=""><i class="fa fa-download"></i> Download</a>
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDSuratMasuk)"><i class="fa fa-remove"></i>
+                  Hapus</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

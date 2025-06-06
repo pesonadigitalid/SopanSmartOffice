@@ -1,0 +1,468 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-penjualan">Data SPB</a>
+        </li>
+        <li><a class="active">Laba Rugi SPB</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">Ringkasan Projeksi SPB</div>
+        </div>
+        <div class="panel-body">
+          <h5 class="m-t-0">Detail SPB</h5>
+          <div class="form-group row">
+            <label class="col-xs-6">No. SPB</label>
+            <label class="col-xs-6" style="font-weight: normal !important;">: {{SPB.NoPenjualan}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Pelanggan</label>
+            <label class="col-xs-6" style="font-weight: normal !important;">: {{SPB.Pelanggan}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Tanggal</label>
+            <label class="col-xs-6" style="font-weight: strong !important;">: {{SPB.Tanggal}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Jenis SPB</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.Kategori}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Nilai SPB</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.Total | number}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Diskon ({{SPB.DiskonPersen | number}} %)</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.Diskon | number}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">PPN ({{SPB.PPNPersen | number}} %)</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.PPN | number}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Ongkos Kirim</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.OngkosKirim | number}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-6">Grand Total</label>
+            <label class="col-xs-6" style="font-weight: bold !important;">: {{SPB.GrandTotal | number}}</label>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title"></div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <h5 class="m-t-0">Summary Cash Flow</h5>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="">Penerimaan</th>
+                  <th class="text-right" width="100">Invoice</th>
+                  <th class="text-right" width="100">Terbayar</th>
+                  <th class="text-right" width="100">Piutang</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>PENDAPATAN SPB</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lPendapatan" class="childRecord">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/invoice/edit/{{x.IDInvoice}}"
+                        target="_blank">INV. {{x.NoInv}}</a> / {{x.Tanggal}} / {{x.Keterangan}}</p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL PENDAPATAN : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pendapatan1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pendapatan2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pendapatan3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr class="childRecord" ng-show="TotalPajak>0">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>DPP : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{DPP |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">-</td>
+                  <td class="text-right">-</td>
+                </tr>
+                <tr class="childRecord" ng-show="TotalPajak>0">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>PPN : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">({{PPN10 |
+                      number}})</p>
+                  </td>
+                  <td class="text-right">-</td>
+                  <td class="text-right">-</td>
+                </tr>
+                <tr class="childRecord" ng-show="TotalPajak>0">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>PPH 2% : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">({{PPH2 |
+                      number}})</p>
+                  </td>
+                  <td class="text-right">-</td>
+                  <td class="text-right">-</td>
+                </tr>
+                <tr class="childRecord" ng-show="TotalPajak>0">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL PAJAK : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">({{TotalPajak |
+                      number}})</p>
+                  </td>
+                  <td class="text-right">-</td>
+                  <td class="text-right">-</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="">Pengeluaran</th>
+                  <th class="text-right" width="100">Invoice</th>
+                  <th class="text-right" width="100">Terbayar</th>
+                  <th class="text-right" width="100">Hutang</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>BIAYA MATERIAL</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lMaterial" class="childRecord" ng-show="x.Tipe==='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/purchase-order/detail/{{x.NoInv}}"
+                        target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / {{x.Supplier}}</a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr ng-repeat="x in lMaterial" class="childRecord" ng-show="x.Tipe==='NON-PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom">{{x.NoInv}} / {{x.Tanggal}} / {{x.Keterangan}}</p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL BIAYA MATERIAL : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Material1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Material2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Material3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>PENGIRIMAN STOK GUDANG</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lPengiriman" class="childRecord">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/surat-jalan/detail/{{x.IDPengiriman}}"
+                        target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / {{x.Supplier}} <i class="fa fa-check"
+                          ng-show="x.StatusJurnal==='1'" style="display: inline-block; margin-left: 5px; color: #23b328;"></i></a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL NILAI PENGIRIMAN : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pengiriman1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pengiriman2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Pengiriman3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>BIAYA TENAGA &amp; SUBKON</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lTenaga" class="childRecord" ng-show="x.Tipe==='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/purchase-order/detail/{{x.NoInv}}"
+                        target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / {{x.Supplier}}</a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr ng-repeat="x in lTenaga" class="childRecord" ng-show="x.Tipe!=='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom">{{x.NoInv}} / {{x.Tanggal}} / {{x.Keterangan}}</p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL BIAYA TENAGA &amp; SUBKON :
+                      </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Tenaga1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Tenaga2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Tenaga3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>BIAYA OVERHEAD</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lOverhead" class="childRecord" ng-show="x.Tipe==='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/purchase-order/detail/{{x.NoInv}}"
+                        target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / {{x.Supplier}}</a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr ng-repeat="x in lOverhead" class="childRecord" ng-show="x.Tipe!=='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom">{{x.NoInv}} / {{x.Tanggal}} / {{x.Keterangan}}</p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL BIAYA OVERHEAD : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Overhead1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Overhead2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Overhead3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <!-- <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>BIAYA ACCIDENTAL</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lAccidental" class="childRecord" ng-show="x.Tipe==='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/purchase-order/detail/{{x.NoInv}}" target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / {{x.Supplier}}</a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr ng-repeat="x in lAccidental" class="childRecord" ng-show="x.Tipe!=='PO'">
+                  <td class="">
+                    <p class="text-black small-margin-bottom">{{x.NoInv}} / {{x.Tanggal}} / {{x.Keterangan}}</p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL BIAYA ACCIDENTAL : </strong></p>
+                  </td>
+                  <td class="text-right"><p class="small-margin-bottom" style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Accidental1 | number}}</p></td>
+                  <td class="text-right"><p class="small-margin-bottom" style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Accidental2 | number}}</p></td>
+                  <td class="text-right"><p class="small-margin-bottom" style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Accidental3 | number}}</p></td>
+                </tr> -->
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL PENGELUARAN : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#000;text-decoration: underline;">{{Pengeluaran1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#000;text-decoration: underline;">{{Pengeluaran2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#000;text-decoration: underline;">{{Pengeluaran3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr class="childRecord" ng-show="TotalPajak>0">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL PENGELUARAN + PAJAK : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#000;text-decoration: underline;">
+                      {{(Pengeluaran1+TotalPajak) | number}}</p>
+                  </td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="" colspan="4">
+                    <p class="small-margin-bottom" style="color:#000"><strong>RETUR BARANG</strong></p>
+                  </td>
+                </tr>
+                <tr ng-repeat="x in lReturn" class="childRecord">
+                  <td class="">
+                    <p class="text-black small-margin-bottom"><a href="#/audit-stok/detail/{{x.NoInv}}"
+                        target="_blank">INV. {{x.NoInv}} / {{x.Tanggal}} / <span
+                          ng-show="x.Keterangan!==null">{{x.Keterangan}}</span> <span
+                          ng-show="x.Keterangan===null">-</span></a></p>
+                  </td>
+                  <td class="text-right">{{x.Jumlah | number}}</td>
+                  <td class="text-right">{{x.Bayar | number}}</td>
+                  <td class="text-right">{{x.Sisa | number}}</td>
+                </tr>
+                <tr class="childRecord">
+                  <td class="text-right">
+                    <p class="small-margin-bottom" style="color:#000"><strong>TOTAL RETUR : </strong></p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Return1 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Return2 |
+                      number}}</p>
+                  </td>
+                  <td class="text-right">
+                    <p class="small-margin-bottom"
+                      style="font-weight: bold;font-size:13px;color:#1899d8;text-decoration: underline;">{{Return3 |
+                      number}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="" style="text-align: right; border-bottom: none;">
+                    <strong class="text-black">Profit and Loss :</strong>
+                  </td>
+                  <td class="text-right" colspan="3" style="border-bottom: none;">Rp. {{Profit | number}}</td>
+                </tr>
+                <tr>
+                  <td class="" style="text-align: right; border-bottom: none;">
+                    <strong class="text-black">Total Piutang Proyek :</strong>
+                  </td>
+                  <td class="text-right" colspan="3" style="border-bottom: none;">Rp. {{Pendapatan3 | number}}</td>
+                </tr>
+                <tr>
+                  <td class="" style="text-align: right; border-bottom: none;">
+                    <strong class="text-black">Total Hutang Proyek :</strong>
+                  </td>
+                  <td class="text-right" colspan="3" style="border-bottom: none;">Rp. {{Pengeluaran3 | number}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <button class="btn btn-danger"><i class="fa fa-print"></i> Print</button>
+            <a href="#/proyek/cash-flow/{{proyekID}}" class="btn btn-info"><i class="fa fa-dollar"></i> Cash Flow Proyek</a>
+            <a href="#/proyek/pajak-proyek/{{proyekID}}" class="btn btn-info"><i class="fa fa-folder"></i> Laporan Pajak Proyek</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

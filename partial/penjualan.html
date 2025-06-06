@@ -1,0 +1,75 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <ul class="breadcrumb">
+          <li>
+            <a href="#/data-penjualan">Data Penjualan</a>
+          </li>
+          <li><a class="active">Penjualan Baru</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+      <div class="container-fluid container-fixed-lg bg-white">
+        <div class="row">
+              <div class="col-md-6">
+        <div class="panel panel-transparent">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Input Penjualan Baru
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <h5>Silahkan lengkapi form dibawah untuk menambahkan kategori aktivitas baru...</h5>
+                    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.tourname.$invalid }">
+                        <label>Tour Name.</label>
+                        <input type="text" name="tourname" ng-model="tourname" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.tourname.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.ref.$invalid }">
+                        <label>Ref.</label>
+                        <input type="text" name="ref" ng-model="ref" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.ref.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                      <div class="row" style="margin: 0;">
+                        <div class="col-sm-6">
+                          <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.period.$invalid }">
+                            <label>Period.</label>
+                            <input type="text" name="period" ng-model="period" class="form-control datepick" id="datepicker-range" required>
+                            <p ng-show="userForm.$submitted && userForm.period.$invalid" class="help-block">Wajib diisi.</p>
+                          </div>
+                        </div>
+                        <div class="col-sm-6"  datePick>
+                          <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.until.$invalid }">
+                            <label>Until.</label>
+                            <input type="text" name="until" ng-model="until" class="form-control datepick" required>
+                            <p ng-show="userForm.$submitted && userForm.until.$invalid" class="help-block">Wajib diisi.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.pax.$invalid }">
+                        <label>Pax.</label>
+                        <input type="number" name="pax" ng-model="pax" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.pax.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.price.$invalid }">
+                        <label>Price (USD).</label>
+                        <input type="text" name="price" ng-model="price" class="form-control" fcsa-number="{  }" required>
+                        <p ng-show="userForm.$submitted && userForm.price.$invalid" class="help-block">Wajib diisi dan format yang diijinkan hanya angka.</p>
+                      </div>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.rate.$invalid }">
+                        <label>Rate USD (Rupiah).</label>
+                        <input type="text" name="rate" ng-model="rate" class="form-control" fcsa-number="{  }" required>
+                        <p ng-show="userForm.$submitted && userForm.rate.$invalid" class="help-block">Wajib diisi dan format yang diijinkan hanya angka.</p>
+                      </div>
+                      <br /><br />
+                      <button type="submit" class="btn btn-info" ng-disabled="processing">Selanjutnya <i class="fa fa-long-arrow-right"></i></button>
+                    </form>
+                  </div>
+                </div>
+        </div>
+        </div>
+        </div>
+

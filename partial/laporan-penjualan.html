@@ -1,0 +1,113 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Laporan</a>
+        </li>
+        <li><a class="active">Laporan Penjualan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white" style="padding-bottom: 0;">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="min-width: 500px;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-4" style="text-align: right;padding-top:5px;font-size:13px">Laporan Periode :</label>
+          <div class="col-xs-4">
+            <select class="form-control" ng-model="month_selected" style="font-size:13px">
+                              <option ng-repeat="x in month" value="{{ x.id }}">{{ x.value }}</option>
+                            </select>
+          </div>
+          <div class="col-xs-2">
+            <select class="form-control" ng-model="year_selected" style="font-size:13px">
+                              <option ng-repeat="x in year" value="{{ x }}">{{ x }}</option>
+                              
+                              
+                            </select>
+          </div>
+          <div class="col-xs-2">
+            <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;">Filter</button>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10">
+        <a target="_blank" type="button" class="btn btn-info" style="font-size:13px;text-transform: none;" ng-click="doPrint()"><i class="fa fa-print"></i> Print</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-smaller" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:150px">Tour Name</th>
+              <th style="width:100px">Ref</th>
+              <th>Periode</th>
+              <th style="width:100px">Pax</th>
+              <th style="width:100px">Price (USD)</th>
+              <th style="width:130px">Price (RP)</th>
+              <th style="width:150px">Total Biaya (RP)</th>
+              <th style="width:130px">Margin (RP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_penjualan">
+              <td class="v-align-middle">
+                {{ x.TourName }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.Ref }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.PeriodeStart }} - {{ x.PariodeAkhir }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.Pax }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.HargaJualUSD | number }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.HargaJualIDR | number }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.TotalBiaya | number }}
+              </td>
+              <td class="v-align-middle">
+                {{ x.Margin | number }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="v-align-middle" colspan="3">
+                <div class="form-group row">
+                  <label style="text-align: right;padding-top:15px;font-size:13px; display: block">Total :</label>
+                </div>
+              </td>
+              <td class="v-align-middle">
+                <strong>{{ totalPax | number }}</strong>
+              </td>
+              <td class="v-align-middle">
+                <strong>{{ totalPriceUSD | number }}</strong>
+              </td>
+              <td class="v-align-middle">
+                <strong>{{ totalPriceIDR | number }}</strong>
+              </td>
+              <td class="v-align-middle">
+                <strong>{{ totalBiaya | number }}</strong>
+              </td>
+              <td class="v-align-middle">
+                <strong>{{ totalMargin | number }}</strong>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

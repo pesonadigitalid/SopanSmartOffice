@@ -1,0 +1,54 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Laporan</a>
+        </li>
+        <li><a class="active">Laporan Data Absen Karyawan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class=" form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+          <div class="col-xs-6 col-sm-3 sm-m-b-10">
+            <select class="form-control" ng-model="bulan" style="font-size:13px">
+              <option ng-repeat="p in month" value="{{p.id}}">{{p.value}}</option>
+            </select>
+          </div>
+          <div class="col-xs-6 col-sm-2 sm-m-b-10">
+            <select class="form-control" ng-model="tahun" style="font-size:13px">
+              <option ng-repeat="p in year" value="{{p}}">{{p}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <select class="form-control" ng-model="jenis" style="font-size:13px">
+              <option value="">Semua Karyawan</option>
+              <option value="0">Staff Kantor</option>
+              <option value="1">Tenaga Harian</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-3 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="doPrint()" class="btn btn-danger"
+                    style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Lihat Laporan Absen
+              Karyawan</button>
+          </div>
+          <div class="col-xs-12 col-sm-3 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="doPrint()" class="btn btn-danger btn-block"
+                    style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Lihat Laporan Absen
+              Karyawan</button>
+          </div>
+        </div>
+      </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="panel-body">
+  </div>
+</div>
+</div>

@@ -1,0 +1,64 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Asset Control</a>
+        </li>
+        <li>
+          <a href="#/assign-asset">Assign Asset</a>
+        </li>
+        <li><a class="active">Assign Asset Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Assign Asset Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk menambahkan data baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.noassign.$invalid }">
+              <label>No Assign.</label>
+              <input type="text" name="noassign" ng-model="noassign" class="form-control" readonly="">
+              <p ng-show="userForm.$submitted && userForm.noassign.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+              <label>Tanggal.</label>
+              <input type="text" name="tanggal" ng-model="tanggal" class="form-control datepick" required>
+              <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.karyawan.$invalid }">
+              <label>Karyawan</label>
+              <select class="form-control" name="karyawan" ng-model="karyawan" required>
+                <option value="">--- Silahkan pilih karyawan ---</option>
+                <option ng-repeat="x in data_karyawan" value="{{x.IDKaryawan}}">{{x.Nama}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.karyawan.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.total_item.$invalid }">
+              <label>Total Item</label>
+              <input type="number" name="total_item" ng-model="total_item" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.total_item.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <br /><br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing">Selanjutnya <i
+                class="fa fa-long-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

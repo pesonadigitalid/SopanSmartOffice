@@ -1,0 +1,96 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#" class="active">Data Supplier</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+          <!-- <div class="col-xs-4">
+            <select class="form-control" ng-change="chooseCat()" ng-model="kategori" style="font-size:13px">
+              <option value="">SEMUA KATEGORI</option>
+              <option ng-repeat="p in data_departement" value="{{p.IDDepartement}}">{{p.NamaDepartement}}</option>
+            </select>
+          </div> -->
+          <div class="col-xs-13 col-sm-3 sm-m-b-10">
+            <input type="text" ng-model="nama" class="form-control" placeholder="Nama Supplier" />
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info btn-block"><i class="fa fa-filter"></i> Filter</button>
+            <a href="#/supplier/new/" type="button" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Add new</a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10 hidden-xs">
+        <a href="#/supplier/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:40px">Kode</th>
+              <th>Nama</th>
+              <th style="width:80px">Departement</th>
+              <!-- <th style="width:150px">Jenis Produk</th> -->
+              <th style="width:80px">Provinsi</th>
+              <th style="width:80px">No. Telp</th>
+              <th style="width:100px">Email</th>
+              <th style="width:160px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_supplier" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle  v-align-center">
+                <p>{{ x.KodeSupplier }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Nama }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Departement }}</p>
+              </td>
+              <!-- <td class="v-align-middle">
+                <p>{{ x.JenisProduk }}</p>
+              </td> -->
+              <td class="v-align-middle">
+                <p>{{ x.Provinsi }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NoTelp }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Email }}</p>
+              </td>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/supplier/edit/{{ x.IDSupplier }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDSupplier)"><i class="fa fa-remove"></i> Hapus</button>
+                <button class="btn btn-primary btn-xs" ng-click="doPrint(x.IDSupplier)"><i class="fa fa-print"></i> Print</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

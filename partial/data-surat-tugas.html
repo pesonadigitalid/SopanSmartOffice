@@ -1,0 +1,86 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Tugas</a>
+              </li>
+              <li><a href="#" class="active">Data Surat Tugas</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+              <div class="panel-title" style="min-width: 800px;">
+                  <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                      <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+                      <div class="col-xs-3">
+                        <select class="form-control" ng-model="bulan">
+                          <option ng-repeat="x in bulanList" value="{{x.id}}">{{x.value}}</option>
+                        </select>
+                      </div>
+                      <div class="col-xs-2">
+                        <select class="form-control" ng-model="tahun">
+                          <option ng-repeat="x in tahunList" value="{{x}}">{{x}}</option>
+                        </select>
+                      </div>
+                      <div class="col-xs-4">
+                          <select class="form-control" ng-model="karyawan" style="font-size:13px">
+                              <option value="">KARYAWAN</option>
+                              <option ng-repeat="x in data_karyawan" value="{{ x.IDKaryawan }}">{{ x.Nama }}</option>
+                          </select>
+                      </div>
+                      <div class="col-xs-2">
+                          <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                      </div>
+                  </div>
+              </div>
+                <div class="btn-group pull-right m-b-10">
+                  <a href="#/surat-tugas/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+                </div>                
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:20px">No</th>
+                        <th style="width:140px">No. Surat</th>
+                        <th>Karyawan</th>
+                        <th style="width:140px">Perihal</th>
+                        <th style="width:200px">Durasi Tugas</th>
+                        <th style="width:200px">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_surattugas" jq-table>
+                        <td class="v-align-middle v-align-center">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.NoSurat }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Karyawan }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Prihal }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.TanggalMulai }} - {{ x.TanggalSelesai }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <a href="#/surat-tugas/edit/{{ x.IDSuratTugas }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                          <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDSuratKeluar)"><i class="fa fa-remove"></i> Hapus</button>
+                          <button class="btn btn-primary btn-xs" ng-click="doDownload(x.FileSurat)"><i class="fa fa-download"></i> Download</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

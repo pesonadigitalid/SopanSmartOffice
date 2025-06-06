@@ -1,0 +1,72 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-mail-blasting" class="active">Data Mail Blasting</a>
+        </li>
+        <li><a class="active">Blasting Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Mail Blasting
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Blasting Baru</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.kepada.$invalid }">
+                <label>Kepada</label>
+                <select class="s2multiple form-control" ng-model="kepada" name="kepada" multiple="multiple" style="padding: 0;border: none;height: auto" select-multiple required>
+                  <option ng-repeat="x in to_list" value="{{x.IDTo}}">{{x.Nama}}</option>
+                </select>
+                <p ng-show="userForm.$submitted && userForm.kepada.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.from.$invalid }">
+                <label>Dari</label>
+                <input type="text" name="from" ng-model="from" class="form-control" required>
+                <p ng-show="userForm.$submitted && userForm.from.$invalid" class="help-block">Wajib diisi.</p>
+              </div><div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.from.$invalid }">
+                <label>Subject</label>
+                <input type="text" name="subject" ng-model="subject" class="form-control" required>
+                <p ng-show="userForm.$submitted && userForm.subject.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" id="message" ng-model="message" class="form-control" rows="20" ui-tinymce="tinymceOptions"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Image I</label>
+                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" />
+                <img ng-src="../smartoffice/files/blasting/{{file1_e}}" width="200" ng-show="file1_e!=='' && file1_e!==null" style="margin-top: 10px;">
+              </div>
+              <div class="form-group">
+                <label>Image II</label>
+                <input type="file" ngf-select ng-model="file2" name="file2" ngf-pattern="'image/*'" ngf-accept="'image/*'" />
+                <img ng-src="../smartoffice/files/blasting/{{file2_e}}" width="200" ng-show="file2_e!=='' && file2_e!==null" style="margin-top: 10px;">
+              </div>
+              <div class="form-group">
+                <label>Image III</label>
+                <input type="file" ngf-select ng-model="file3" name="file3" ngf-pattern="'image/*'" ngf-accept="'image/*'" />
+                <img ng-src="../smartoffice/files/blasting/{{file3_e}}" width="200" ng-show="file3_e!=='' && file3_e!==null" style="margin-top: 10px;">
+              </div><br/><br/>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-send"></i> Kirim</button>
+          <a href="#/data-audit-stok" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-file-category">Data Kategori File</a>
+        </li>
+        <li><a class="active">Kategori File Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Kategori File Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat Kategori File baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.Nama.$invalid }">
+              <label>Nama Kategori </label>
+              <input type="text" name="Nama" id="Nama" ng-model="Nama" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.Nama.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div
+              style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: bbackground-color 0.2s ease;transition: bbackground-color 0.2s ease;">
+              <label
+                style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Status</label>
+              <div class="checkbox check-primary checkbox-circle">
+                <input type="checkbox" name="Status" id="Status" ng-model="Status"
+                  ng-checked="Status=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                <label for="Status">Publish Kategori ini...</label>
+              </div>
+            </div>
+            <br />
+            <br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+              Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+              Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

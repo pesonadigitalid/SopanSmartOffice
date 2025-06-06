@@ -1,0 +1,119 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Purchasing</a>
+        </li>
+        <li><a href="#/data-return-penjualan">Data Return Penjualan</a>
+        </li>
+        <li><a class="active">Detail Return Penjualan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detail Return Penjualan
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Summary Return Penjualan</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_return.$invalid }">
+                <label>No. Return (AUTO)</label>
+                <input type="text" name="no_return" ng-model="no_return" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.no_return.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.pelanggan.$invalid }">
+                <label>Pelanggan.</label>
+                <input type="text" name="Pelanggan" id="pelanggan" ng-model="pelanggan" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.pelanggan.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row" style="margin: 0">
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.nopenjualan.$invalid }">
+                    <label>No. Penjualan.</label>
+                    <input type="text" name="No. Penjualan" id="nopenjualan" ng-model="nopenjualan" class="form-control" readonly="">
+                    <p ng-show="userForm.$submitted && userForm.nopenjualan.$invalid" class="help-block">Wajib dipilih.</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+                    <label>Tanggal.</label>
+                    <input type="text" name="tanggal" ng-model="tanggal" class="form-control" readonly="">
+                    <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>User.</label>
+                <input type="text" name="usrlogin" value="{{ userLoginName }}" class="form-control" readonly="">
+              </div>
+            </div>
+          </div>
+          <h5>Detail Cart.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px">No</th>
+                    <th>Nama Barang</th>
+                    <th style="width:100px">Qty</th>
+                    <th style="width:200px">SN</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.NamaBarang }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Qty }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="4">Belum ada barang yang terdaftar...</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><strong>Keterangan : </strong>{{ keterangan }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <br />
+            </div>
+          </div>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Item :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total" id="total" ng-model="total" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-info" ng-click="doPrint()"><i class="fa fa-print"></i> Cetak Invoice</button>
+          <a href="#/data-return-penjualan" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

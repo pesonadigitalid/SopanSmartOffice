@@ -1,0 +1,164 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Work Order</a>
+        </li>
+        <li><a href="#/data-work-schedule">Data Work Order</a>
+        </li>
+        <li><a class="active">Work Order Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Work Order Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat work order baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data"
+            autocomplete="off">
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.no_schedule.$invalid }">
+              <label>No. Work Order</label>
+              <input type="text" name="no_schedule" ng-model="no_schedule" class="form-control"
+                placeholder="No. Work Order (Auto)" disabled>
+              <p ng-show="userForm.$submitted && userForm.no_schedule.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.tipe.$invalid }">
+              <label>Tipe</label>
+              <select class="form-control" name="tipe" ng-model="tipe" required>
+                <option value="">--- Silahkan pilih tipe ---</option>
+                <option value="3">Survey Unit Water Heater</option>
+                <option value="1">Pemasangan Unit Water Heater</option>
+                <option value="2">Service / Maintenance Unit Water Heater</option>
+                <option value="4">Pengiriman Unit</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.tipe.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.spb.$invalid }">
+              <label>SPB</label>
+              <select name="spb" id="spb" ng-model="spb" class="form-control select2" id="spb">
+                <option value="">--- Silahkan SPB ---</option>
+                <option ng-repeat="x in data_spb" value="{{x.IDPenjualan}}">{{x.NoPenjualan}} / {{x.NamaPelanggan}}
+                </option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.spb.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.pelanggan.$invalid }"
+              ng-show="!disablePelanggan">
+              <label>Pelanggan</label>
+              <select name="pelanggan" id="pelanggan" ng-model="pelanggan" class="form-control select2">
+                <option value="">--- Silahkan Pelanggan ---</option>
+                <option ng-repeat="x in data_pelanggan" value="{{x.IDPelanggan}}" select2>{{x.NamaPelanggan}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.pelanggan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.pelanggan.$invalid }"
+              ng-show="disablePelanggan">
+              <label>Pelanggan</label>
+              <select ng-model="pelanggan" class="form-control" disabled>
+                <option value="">--- Silahkan Pelanggan ---</option>
+                <option ng-repeat="x in data_pelanggan" value="{{x.IDPelanggan}}">{{x.NamaPelanggan}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.pelanggan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default">
+              <label>PIC Pelanggan</label>
+              <input type="text" name="pic_pelanggan" ng-model="pic_pelanggan" class="form-control">
+            </div>
+            <div class="form-group form-group-default" ng-repeat="karyawan_id in karyawan_ids track by $index">
+              <label>Teknisi {{$index + 1}}</label>
+              <select ng-model="karyawan_ids[$index]" class="form-control">
+                <option value="">--- Silahkan Karyawan ---</option>
+                <option ng-repeat="x in data_karyawan" value="{{x.IDKaryawan}}" select2>{{x.Nama}}</option>
+              </select>
+              <button ng-show="$index>0" type="button" ng-click="removeTeknisi($index)"
+                class="btn btn-xs btn-danger">Hapus</button>
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-primary" ng-click="addTeknisi()"><i class="fa fa-plus"></i> Tambah
+                Teknisi</button>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+              <label>Tanggal Order</label>
+              <input type="text" name="tanggal" ng-model="tanggal" class="form-control datepick" required>
+              <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.judul.$invalid }" style="display: none;">
+              <label>Prihal</label>
+              <input type="text" name="judul" ng-model="judul" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.judul.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }" style="display: none;">
+              <label>Detail</label>
+              <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height:200px"></textarea>
+              <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Jenis Unit</label>
+              <select name="jenis_unit" ng-model="jenis_unit" class="form-control">
+                <option value="EWH">EWH</option>
+                <option value="SWH">SWH</option>
+                <option value="Heatpump">Heatpump</option>
+              </select>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Tangki</label>
+              <input type="text" name="no_tangki" ng-model="no_tangki" class="form-control">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Panel A</label>
+              <input type="text" name="no_panel_a" ng-model="no_panel_a" class="form-control">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Panel B</label>
+              <input type="text" name="no_panel_b" ng-model="no_panel_b" class="form-control">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Panel C</label>
+              <input type="text" name="no_panel_c" ng-model="no_panel_c" class="form-control">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Tangki Heatpump</label>
+              <input type="text" name="no_tangki_heatpump" ng-model="no_tangki_heatpump" class="form-control">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Nomor Outdoor Heatpump</label>
+              <input type="text" name="no_outdoor_heatpump" ng-model="no_outdoor_heatpump" class="form-control">
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.status.$invalid }">
+              <label>Status</label>
+              <select class="form-control" name="status" ng-model="status" required>
+                <option value="">--- Silahkan pilih status ---</option>
+                <option value="0">In-Progress</option>
+                <option value="1">Completed</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.status.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+              Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+              Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

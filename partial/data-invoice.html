@@ -1,0 +1,256 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Invoice</a>
+        </li>
+        <li><a class="active">Data Invoice</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter
+            :</label>
+          <div class="col-xs-6 col-sm-1 sm-m-b-10">
+            <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Tanggal awal"
+              style="font-size: 12px;" />
+          </div>
+          <div class="col-xs-6 col-sm-1 sm-m-b-10">
+            <input type="text" class="form-control datepick" ng-model="dateend" placeholder="Tanggal akhir"
+              style="font-size: 12px;" />
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10">
+            <select class="form-control" ng-model="spb" style="font-size:13px">
+              <option value="">SEMUA SPB</option>
+              <option ng-repeat="p in data_penjualan" value="{{p.IDPenjualan}}">{{p.NoPenjualan}} / {{p.Pelanggan}}
+              </option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10">
+            <select class="form-control" ng-model="jenis" style="font-size:13px">
+              <option value="">JENIS</option>
+              <option value="0">INVOICE NON-PPN</option>
+              <option value="1">INVOICE PPN</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10">
+            <select class="form-control" ng-model="pelanggan" style="font-size:13px">
+              <option value="">PELANGGAN</option>
+              <option ng-repeat="p in data_pelanggan" value="{{p.IDPelanggan}}">{{p.NamaPelanggan}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10">
+            <select class="form-control" ng-model="marketing" style="font-size:13px">
+              <option value="">MARKETING</option>
+              <option ng-repeat="p in data_marketing" value="{{p.IDKaryawan}}">{{p.Nama}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-3 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="refreshData()" class="btn btn-info"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+            <button type="button" ng-click="doPrint2()" class="btn btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+            <button type="button" ng-click="doPrint4()" class="btn btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print Piutang</button>
+          </div>
+          <div class="col-xs-12 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="refreshData()" class="btn btn-block btn-info"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+            <button type="button" ng-click="doPrint2()" class="btn btn-block btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+            <button type="button" ng-click="doPrint4()" class="btn btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print Piutang</button>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <a href="#/invoice/new" class="btn btn-complete btn-block btn-compose m-b-30"
+              ng-show="listMenu.invoicemms.write===true"><i class="pg-plus"></i> INVOICE BARU</a>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:100px">No Inv.</th>
+              <th style="width:80px">No Faktur Pajak</th>
+              <th style="width:80px">Pelanggan</th>
+              <th style="width:80px">SPB</th>
+              <th style="width:70px">Tanggal</th>
+              <!-- <th>Keterangan</th> -->
+              <th style="width:100px">Jatuh Tempo</th>
+              <th style="width:100px">Grand Total</th>
+              <th style="width:120px">Piutang</th>
+              <th style="width:90px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_invoice" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.NoInv }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.NoFakturPajak }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.Pelanggan }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.SPB }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.Tanggal }}</p>
+              </td>
+              <!-- <td class="v-align-middle">
+            <p>{{ x.KodeProyek }} / {{ x.NamaProyek }}</p>
+          </td> -->
+              <!-- <td class="v-align-middle">
+                <p>{{ x.Keterangan }}</p>
+              </td> -->
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.JatuhTempo }}</p>
+              </td>
+              <!--
+          <td class="v-align-middle">
+            <p>{{ x.Jumlah }}</p>
+          </td>
+          <td class="v-align-middle">
+            <p>{{ x.PPN }}</p>
+          </td> -->
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.GrandTotal }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.Sisa }}</p>
+              </td>
+              </td>
+              <td class="v-align-middle">
+                <a class="btn btn-success btn-xs" title="History Pembayaran" ng-click="showModal2(x)"><i
+                    class="fa fa-history"></i></a>
+                <a href="#/invoice/edit/{{ x.IDInvoice }}" class="btn btn-default btn-xs" title="Detail"><i
+                    class="fa fa-search"></i></a>
+                <!--
+            <button class="btn btn-success btn-xs" ng-click="paidRow(x.IDInvoice)" ng-show="x.Status==='0'"><i class="fa fa-check"></i> Paid</button>
+            -->
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDInvoice)"
+                  ng-show="listMenu.invoicemms.write===true" title="Hapus"><i class="fa fa-remove"></i></button>
+                <a href="" ng-click="doPrint(x.IDInvoice)" class="btn btn-primary btn-xs" title="Print"><i
+                    class="fa fa-print"></i></a>
+
+                <a href="api/print/print-kwitansi.php?id={{x.IDInvoice}}" target="_blank" class="btn btn-warning btn-xs"
+                  title="Print Kwitansi"><i class="fa fa-print"></i></a>
+                <a href="api/export/export-invoice-pdf.php?id={{x.IDInvoice}}" target="_blank"
+                  class="btn btn-danger btn-xs" title="Download PDF"><i class="fa fa-download"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade stick-middle" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header clearfix text-left">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+          </button>
+          <h5>History Pembayaran Invoice <span class="semi-bold">{{NoInv}}</span> </h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group-attached">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-less-space" id="basicTable">
+                  <thead>
+                    <tr>
+                      <th style="width:50px">No.</th>
+                      <th style="width:80px">No. Bukti</th>
+                      <th style="width:80px">Tanggal</th>
+                      <!-- <th>Bank</th> -->
+                      <th style="width:120px">Jumlah</th>
+                      <th style="width:120px">By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in detailpembayaran">
+                      <td class="v-align-middle v-align-center">
+                        {{ x.No }}
+                      </td>
+                      <td class="v-align-middle" ng-show="x.NoPembayaran !== ''">
+                        <strong>{{ x.NoPembayaran }}</strong>
+                      </td>
+                      <td class="v-align-middle" ng-show="x.NoPembayaran === ''">
+                        <strong>0000</strong>
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.Tanggal }}
+                      </td>
+                      <!-- <td class="v-align-middle">
+                        {{ x.Bank }}
+                      </td> -->
+                      <td class="v-align-middle">
+                        {{ x.Jumlah | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UserName }}
+                      </td>
+                    </tr>
+                    <tr ng-show="!detailpembayaran.length">
+                      <td colspan="5">Belum ada pembayaran yang diterima untuk Invoice ini...</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Total Pembayaran : </label>
+                      </td>
+                      <td class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{Terbayar |
+                        number}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Total Tagihan : </label>
+                      </td>
+                      <td class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{GrandTotal |
+                        number}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Sisa Piutang Progress : </label>
+                      </td>
+                      <td class="v-align-middle"
+                        style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{Sisa |
+                        number}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <button type="button" ng-click="closeModal2()" class="btn btn-primary btn-block m-t-5">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

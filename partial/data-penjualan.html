@@ -1,0 +1,215 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="#/penjualan/new" class="btn btn-complete btn-block btn-compose m-b-30"
+      ng-show="listMenu.spb.write===true"><i class="pg-plus"></i> SPB BARU</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === ''}">
+        <a href="" ng-click="doFilter('')">
+          <span class="title"><i class="pg-tables"></i> Semua SPB</span>
+          <span class="badge pull-right">{{ all }}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === 'Lunas'}">
+        <a href="" ng-click="doFilter('Lunas')">
+          <span class="title"><i class="fa fa-check"></i> SPB Lunas</span>
+          <span class="badge pull-right">{{ lunas }}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === 'Hutang'}">
+        <a href="" ng-click="doFilter('Hutang')">
+          <span class="title"><i class="pg-tables"></i> SPB Terhutang</span>
+          <span class="badge pull-right">{{ hutang }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>SPB</a>
+            </li>
+            <li><a class="active">Data SPB</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="width: 100%;">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter
+                :</label>
+              <div class="col-xs-6 col-sm-2 sm-m-b-10">
+                <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Tanggal awal" />
+              </div>
+              <div class="col-xs-6 col-sm-2 sm-m-b-10">
+                <input type="text" class="form-control datepick" ng-model="dateend" placeholder="Tanggal akhir" />
+              </div>
+              <div class="col-xs-12 col-sm-3 sm-m-b-10" ng-show="jabatan !== '9' && jabatan2 !== '9'">
+                <select class="form-control" ng-model="sales" style="font-size:13px">
+                  <option value="">Semua Sales</option>
+                  <option ng-repeat="x in data_sales" value="{{ x.IDKaryawan }}">{{ x.Nama }}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-3 sm-m-b-10" ng-show="jabatan !== '9' && jabatan2 !== '9'">
+                <select class="form-control" ng-model="pelanggan" style="font-size:13px">
+                  <option value="">Semua Pelanggan</option>
+                  <option ng-repeat="x in data_pelanggan" value="{{ x.IDPelanggan }}">{{ x.NamaPelanggan }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1 sm-m-b-10 hidden-xs" style="text-align: left;padding-top:5px;font-size:13px"></label>
+              <div class="col-xs-12 col-sm-4 sm-m-b-10 hidden-xs">
+                <button type="button" ng-click="refreshData()" class="btn btn-info"
+                  style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+                <button type="button" ng-click="doPrint2()" class="btn btn-danger"
+                  style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+                <!-- <button type="button" ng-click="doPrint3()" class="btn btn-danger" style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Rekap SPB</button> -->
+              </div>
+              <div class="col-xs-12 visible-xs">
+                <button type="button" ng-click="refreshData()" class="btn btn-block btn-info"
+                  style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                <button type="button" ng-click="doPrint2()" class="btn btn-block btn-danger"
+                  style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+                <button type="button" ng-click="doPrint4()" class="btn btn-block btn-danger"
+                  style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print Piutang</button>
+                <a href="#/penjualan/new" class="btn btn-complete btn-block btn-compose m-b-30"><i class="pg-plus"></i>
+                  SPB BARU</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:10px">No</th>
+                  <th style="width:150px">No. SPB</th>
+                  <th style="width:100px">Tanggal</th>
+                  <th style="width:100px">No. PO Konsumen</th>
+                  <th>Sales</th>
+                  <th>Pelanggan</th>
+                  <th style="width:100px">Grand Total</th>
+                  <th style="width:120px">Sisa Pembayaran</th>
+                  <th style="width:250px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in data_penjualan" jq-table>
+                  <td class="v-align-middle v-align-center" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.No }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.NoPenjualan }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.Tanggal }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.NoPOKonsumen }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.Sales }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.Pelanggan }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.GrandTotal | number }}</p>
+                  </td>
+                  <td class="v-align-middle" ng-class="{'removed' : x.IsComplete == 2}">
+                    <p>{{ x.Sisa | number }}</p>
+                  </td>
+                  </td>
+                  <td class="v-align-middle">
+
+                    <a href="#/penjualan/detail/{{ x.IDPenjualan }}" class="btn btn-default btn-xs" title="Detail"
+                      style="margin: 2px 0;"><i class="fa fa-search"></i></a>
+
+                    <a href="#/penjualan/edit/{{ x.IDPenjualan }}" class="btn btn-success btn-xs"
+                      style="margin: 2px 0;"><i class="fa fa-edit"></i></a>
+
+                    <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDPenjualan,x.NoPenjualan)"
+                      ng-show="x.IsComplete != 2" ng-show="listMenu.spb.write===true" title="Hapus"
+                      style="margin: 2px 0;"><i class="fa fa-remove"></i></button>
+
+                    <button class="btn btn-primary btn-xs" ng-click="doPrint(x.IDPenjualan)" title="Print"
+                      ng-show="x.IsComplete != 2" style="margin: 2px 0;"><i class="fa fa-print"></i></button>
+
+                    <button class="btn btn-danger btn-xs" ng-click="doPrintRincian(x.IDPenjualan)"
+                      ng-show="x.IsComplete != 2" title="Print PO Rincian" style="margin: 2px 0;"><i
+                        class="fa fa-print"></i></button>
+
+                    <a href="#/laba-rugi-penjualan/{{ x.IDPenjualan }}" class="btn btn-primary btn-xs"
+                      ng-show="x.IsComplete != 2 && listMenu.invoicemms.read===true && listMenu.suratjalanmms.write===true"
+                      title="Proyeksi SPB" style="margin: 2px 0;"><i class="fa fa-file-o"></i></a>
+
+                    <a href="#/data-vo-spb/{{ x.IDPenjualan }}" class="btn btn-secondary btn-xs"
+                      ng-show="x.IsComplete != 2" title="Variant Order SPB" style="margin: 2px 0;"><i
+                        class="fa fa-edit"></i></a>
+
+                    <div class="dropdown btn-dropdown" style="display: inline-block;margin: 1px; padding: 1px 9px;"
+                      ng-show="x.IsComplete != 2">
+                      <button class="btn btn-info dropdown-toggle btn-xs" type="button" data-toggle="dropdown"
+                        title="File Management"><i class="fa fa-file"></i>
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li ng-repeat="(key, f) in kategori_spb"><a
+                            href="#/data-file-penjualan/{{f.IDPenjualanFileCategory}}/{{x.IDPenjualan}}">{{f.Nama}}
+                            <span class="badge badge-danger"
+                              ng-show="x.penjualanFile[key]>0">{{x.penjualanFile[key]}}</span></a></li>
+                      </ul>
+                    </div>
+
+                    <!-- <a href="api/export/export-penjualan-pdf.php?id={{x.IDPenjualan}}" class="btn btn-info btn-xs" target="_blank" title="Export PDF"><i class="fa fa-download"></i></a> -->
+                    <!-- <button ng-click="removeComplete(x.IDPenjualan)" class="btn btn-danger btn-xs" title="Remove Complete" ng-show="x.IsComplete==='1'"><i class="fa fa-check-circle-o"></i></button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade stick-middle" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Hapus <span class="semi-bold">Data SPB</span> {{noPenjualan}}</h5>
+      </div>
+      <div class="modal-body">
+        <form name="userForm" ng-submit="submitFormDelete(userForm.$valid)" enctype="multipart/form-data"
+          autocomplete="off">
+          <div class="form-group form-group-default"
+            ng-class="{ 'has-error' : userForm.$submitted && userForm.remark.$invalid }">
+            <label>Masukan alasan kenapa ingin menghapus SPB ini</label>
+            <textarea name="remark" ng-model="remark" class="form-control" style="height:150px" required></textarea>
+            <p ng-show="userForm.$submitted && userForm.remark.$invalid" class="help-block">Wajib diisi.</p>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <button type="submit" class="btn btn-info btn-block" ng-disabled="processing">Simpan</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

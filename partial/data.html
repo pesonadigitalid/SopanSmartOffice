@@ -1,0 +1,82 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Purchase</a>
+              </li>
+              <li><a href="#" class="active">Data Purchase Order</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title">MANAGEMENT DATA PURCHASE ORDER
+                </div>
+                <div class="btn-group pull-right m-b-10">
+                  <a href="#/purchase-order/new" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+                </div>                
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:1%">
+                          <button class="btn"><i class="pg-trash"></i>
+                          </button>
+                        </th>
+                        <th style="width:20px">No</th>
+                        <th>No. PO</th>
+                        <th style="width:100px">Tanggal</th>
+                        <th>Kode Proyek</th>
+                        <th>Grand Total</th>
+                        <th style="width:100px">DP</th>
+                        <th>Created By</th>
+                        <th style="width:100px">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_purchase" jq-table>
+                        <td class="v-align-middle">
+                          <div class="checkbox ">
+                            <input type="checkbox" value="3" id="checkbox1">
+                            <label for="checkbox1"></label>
+                          </div>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.NoPO }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Tanggal }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.KodeProyek }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.GrandTotal | number }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.PembayaranDP }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.CreatedBy }}</p>
+                        </td>
+                        </td>
+                        <td class="v-align-middle">
+                          <a href="#/purchase-order/detail/{{ x.NoPO }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detail</a>
+                          <button class="btn btn-danger btn-xs" ng-click="removeRow(x.NoPO)"><i class="fa fa-remove"></i> Hapus</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

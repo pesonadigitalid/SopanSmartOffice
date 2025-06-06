@@ -1,0 +1,153 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Kasir &amp; Finance</a>
+        </li>
+        <li><a href="#/data-reimburse">Data Reimburse</a></li>
+        <li><a href="#" class="active">Reimburse Baru</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Reimburse Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat reimburse baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+            <div class="form-group form-group-default">
+              <label>No. Reimburse</label>
+              <input type="text" name="no_reimburse" id="no_reimburse" ng-model="no_reimburse" class="form-control" readonly="">
+            </div>
+            <div class="form-group form-group-default">
+              <label>Tanggal</label>
+              <input type="text" name="tanggal" id="tanggal" ng-model="tanggal" ng-readonly="disablecode" class="form-control datepick">
+              <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.karyawan.$invalid }">
+              <label>Karyawan</label>
+              <select class="form-control" name="karyawan" ng-model="karyawan" ng-readonly="disablecode" required>
+                <option value="">Pilih Karyawan</option>
+                <option ng-repeat="p in data_karyawan" value="{{p.IDKaryawan}}">{{p.Nama}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.karyawan.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.category.$invalid }">
+              <label>Kategori</label>
+              <select class="form-control" name="category" ng-model="category" ng-readonly="disablecode" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Reimburse BBM">Reimburse BBM</option>
+                <option value="Reimburse Service">Reimburse Service</option>
+                <option value="Reimburse BBM Non-Asset">Reimburse BBM Non-Asset</option>
+                <option value="Reimburse Service Non-Asset">Reimburse Service Non-Asset</option>
+                <option value="Reimburse Umum">Reimburse Umum</option>
+                <option value="Reimburse Maintenace">Reimburse Maintenace</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.category.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Proyek</label>
+              <select class="form-control" name="proyek" ng-model="proyek" ng-readonly="disablecode">
+                <option value="0" ng-selected="proyek==='' || proyek==='0'">Umum/Kantor</option>
+                <option ng-repeat="p in data_proyek" value="{{p.IDProyek}}">{{p.KodeProyek}} / {{p.Tahun}} / {{p.NamaProyek}}</option>
+              </select>
+            </div>
+            <div class="form-group form-group-default" ng-show="category=='Reimburse BBM' || category=='Reimburse Service'">
+              <label>No. Kendaraan / DK</label>
+              <input type="text" name="no_kendaraan" ng-model="no_kendaraan" ng-readonly="disablecode" class="form-control">
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_nilai.$invalid }">
+              <label>Total Nilai</label>
+              <input type="text" name="total_nilai" ng-model="total_nilai" ng-readonly="disablecode" class="form-control" fcsa-number="{  }" required>
+              <p ng-show="userForm.$submitted && userForm.total_nilai.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="category=='Reimburse BBM'">
+              <label>Jumlah Liter BBM</label>
+              <input type="text" name="jumlah_liter" ng-model="jumlah_liter" ng-readonly="disablecode" class="form-control" fcsa-number="{  }">
+            </div>
+            <div class="form-group form-group-default" ng-show="category=='Reimburse BBM'">
+              <label>KM Kendaraan</label>
+              <input type="text" name="km_kendaraan" ng-model="km_kendaraan" ng-readonly="disablecode" class="form-control" fcsa-number="{  }">
+            </div>
+            <div class="form-group form-group-default" ng-show="category=='Reimburse Service'">
+              <label>Lokasi Service</label>
+              <input type="text" name="lokasi_service" ng-model="lokasi_service" ng-readonly="disablecode" class="form-control" fcsa-number="{  }">
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+              <label>Keterangan</label>
+              <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height:100px" required></textarea>
+              <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Status</label>
+              <select class="form-control" id="stts" name="stts" ng-model="stts">
+                <option value="">Pilih Status</option>
+                <option value="0">Pending</option>
+                <option value="1">Disetujui HRD</option>
+                <option value="2">Terbayar oleh Finance</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.stts.$invalid" class="help-block">Wajib dipilih.</p>
+            </div><!-- 
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.metode_pem.$invalid }" ng-show="stts=='1'">
+              <label>Metode Pembayaran</label>
+              <select class="form-control" name="metode_pem" id="metode_pem" ng-model="metode_pem" ng-change="changeMetodePembayaran()" ng-readonly="disablecode">
+                <option value="" data-rekening=''>Pilih Metode Pembayaran</option>
+                <option value="TUNAI" data-rekening='4'>TUNAI</option>
+                <option value="TRANSFER" data-rekening='6'>TRANSFER</option>
+                <option value="BG" data-rekening='6'>BILYET GIRO</option>
+              </select>
+              <select class="form-control" name="metode_pem1" ng-model="metode_pem1" style="display: none" ng-readonly="disablecode">
+                <option value="">Pilih Pembayaran</option>
+                <option ng-repeat="p in data_pembayaran" value="{{p.IDRekening}}">{{p.KodeRekening}} / {{p.NamaRekening}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.metode_pem.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.metode_pem2.$invalid }" ng-show="stts=='1'">
+              <label>Pilih Sub Pembayaran</label>
+              <select class="form-control" name="metode_pem2" id="metode_pem2" ng-model="metode_pem2" ng-readonly="disablecode">
+                <option value="">Pilih Sub Pembayaran</option>
+                <option ng-repeat="p in data_sub_pembayaran" value="{{p.IDRekening}}" data-parent="{{p.IDParent}}">{{p.KodeRekening}} / {{p.NamaRekening}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.metode_pem2.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default bg_container" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_bg.$invalid }" style="display: none;">
+              <label>No BG</label>
+              <input type="text" name="no_bg" id="no_bg" ng-model="no_bg" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.no_bg.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default bg_container" ng-class="{ 'has-error' : userForm.$submitted && userForm.jatuh_tempo.$invalid }" style="display: none;">
+              <label>Jatuh Tempo</label>
+              <input type="text" name="jatuh_tempo" id="jatuh_tempo" ng-model="jatuh_tempo" class="form-control datepick">
+              <p ng-show="userForm.$submitted && userForm.jatuh_tempo.$invalid" class="help-block">Wajib diisi.</p>
+            </div> -->
+            <button type="submit" class="btn btn-info" ng-disabled="processing" ng-hide="hideSave"><i class="fa fa-save"></i> Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <br/><br/><br/><br/>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Bukti Foto: 
+          </div>
+        </div>
+        <div class="panel-body">
+          <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image1 }}" target="_blank" ng-show="Image1 !== '' && Image1 !== null"><img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image1 }}" height="200"/></a>
+          <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image2 }}" target="_blank" ng-show="Image2 !== '' && Image2 !== null"><img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image2 }}" height="200"/></a>
+          <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image3 }}" target="_blank" ng-show="Image3 !== '' && Image3 !== null"><img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/reimburse_sopan/{{ Image3 }}" height="200"/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

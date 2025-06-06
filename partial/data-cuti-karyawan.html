@@ -1,0 +1,129 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="#/cuti-karyawan/new" class="btn btn-complete btn-block btn-compose m-b-30"><i class="pg-plus"></i> TAMBAH CUTI BARU</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === '1'}">
+        <a href="" ng-click="doFilter('1')">
+          <span class="title"><i class="pg-folder"></i> Request Cuti Baru</span>
+          <span class="badge pull-right">{{new}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '2'}">
+        <a href="" ng-click="doFilter('2')">
+          <span class="title"><i class="fa fa-check"></i> Cuti Diterima</span>
+          <span class="badge pull-right">{{approved}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '0'}">
+        <a href="" ng-click="doFilter('0')">
+          <span class="title"><i class="fa fa-remove"></i> Cuti Ditolak</span>
+          <span class="badge pull-right">{{rejected}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === ''}">
+        <a href="" ng-click="doFilter('')">
+          <span class="title"><i class="pg-tables"></i> Semua Data Cuti</span>
+          <span class="badge pull-right">{{ all }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>HRD</a>
+            </li>
+            <li><a class="active">Data Cuti Karyawan</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="width: 100%;">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+              <div class="col-xs-12 col-sm-2 sm-m-b-10">
+                <select class="form-control" ng-model="datestart">
+                  <option ng-repeat="x in yearlist" value="{{x}}">{{x}}</option>
+                </select>
+              </div>
+              <!--
+              <div class="col-xs-2">
+                <input type="text" ng-model="datestart" class="form-control datepick" placeholder="Tanggal Awal" />
+              </div>
+              <div class="col-xs-2">
+                <input type="text" ng-model="dateend" class="form-control datepick" placeholder="Tanggal Akhir" />
+              </div> -->
+              <div class="col-xs-12 col-sm-4 sm-m-b-10">
+                <select class="form-control" name="id_karyawan" ng-model="id_karyawan" required>
+                  <option value="0">Pilih Karyawan</option>
+                  <option ng-repeat="p in data_karyawan" value="{{p.IDKaryawan}}">{{p.Nama}}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-1 sm-m-b-10 hidden-xs">
+                <button type="button" ng-click="filterdata()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+              </div>
+              <div class="col-xs-12 visible-xs">
+                <button type="button" ng-click="filterdata()" class="btn btn-block btn-info"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                <a href="#/cuti-karyawan/new" class="btn btn-complete btn-block btn-compose m-b-30"><i
+                        class="pg-plus"></i> TAMBAH CUTI BARU</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:20px">No</th>
+                  <th style="width:150px">Tanggal</th>
+                  <th style="width:100px">Jumlah Hari</th>
+                  <th>Karyawan</th>
+                  <th style="width:100px">Keterangan</th>
+                  <th style="width:80px">Jenis</th>
+                  <th style="width:100px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in data_cuti" jq-table>
+                  <td class="v-align-middle v-align-center">
+                    <p>{{ x.No }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.DariTanggal }} <span ng-hide="x.SampaiTanggal==='00/00/0000'">- {{ x.SampaiTanggal }}</span></p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.JumlahHari }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Karyawan }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Keterangan }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Jenis }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <a href="#/cuti-karyawan/edit/{{ x.IDCuti }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                    <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDCuti)"><i class="fa fa-remove"></i> Hapus</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

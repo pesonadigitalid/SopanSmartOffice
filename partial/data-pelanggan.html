@@ -1,0 +1,101 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#" class="active">Data Pelanggan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+          <!-- <div class="col-xs-4">
+            <select class="form-control" ng-change="chooseCat()" ng-model="kategori" style="font-size:13px">
+              <option value="">SEMUA KATEGORI</option>
+              <option ng-repeat="p in data_departement" value="{{p.IDDepartement}}">{{p.NamaDepartement}}</option>
+            </select>
+          </div> -->
+          <div class="col-xs-12 col-sm-3 sm-m-b-10">
+            <input type="text" ng-model="nama" class="form-control" placeholder="Nama Pelanggan" />
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="filtersupplier()" class="btn btn-info btn-block"><i class="fa fa-filter"></i> Filter</button>
+            <a href="#/pelanggan/new/" type="button" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Add new</a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10 hidden-xs">
+        <a href="#/pelanggan/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:100px">Kode</th>
+              <th style="width:100px">Kategori</th>
+              <th>Nama</th>
+              <th style="width:150px">Departement</th>
+              <th style="width:100px">Provinsi</th>
+              <th style="width:230px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_pelanggan" jq-table>
+              <td class="v-align-middle">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.KodePelanggan }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Jenis }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Nama }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Departement }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Provinsi }}</p>
+              </td>
+              </td>
+              <td class="v-align-middle">
+
+                <div class="dropdown" style="display: inline-block;margin: 1px">
+                  <button class="btn btn-info dropdown-toggle btn-xs" type="button" data-toggle="dropdown"><i
+                      class="fa fa-file"></i> File Management
+                    <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="(key, f) in data_file_category"><a href="#/data-file-pelanggan/{{f.IDFileCategory}}/{{x.IDPelanggan}}">{{f.Nama}}<span class="badge badge-danger"
+                          ng-show="x.PelangganFile[key]>0">{{x.PelangganFile[key]}}</span></a></li>
+                  </ul>
+                </div>
+
+                <a href="#/pelanggan/edit/{{ x.IDPelanggan }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDPelanggan)" ng-show="departement === x.IDDepartement"><i class="fa fa-remove"></i> Hapus</button>
+
+                <button class="btn btn-primary btn-xs" ng-click="doPrint(x.IDPelanggan)"><i class="fa fa-print"></i> Print</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

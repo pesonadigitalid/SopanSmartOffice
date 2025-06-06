@@ -1,0 +1,136 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Laporan</a>
+              </li>
+              <li><a class="active">Laporan {{namaBiaya}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white" style="padding-bottom: 0;">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title" style="min-width: 550px;">
+                    <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                        <label class="col-xs-5" style="text-align: right;padding-top:5px;font-size:13px">Biaya {{namaBiaya}} Periode :</label>
+                        <div class="col-xs-3">
+                            <select class="form-control" ng-model="month_selected" style="font-size:13px">
+                              <option ng-repeat="x in month" value="{{ x.id }}">{{ x.value }}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-2">
+                            <select class="form-control" ng-model="year_selected" style="font-size:13px">
+                              <option ng-repeat="x in year" value="{{ x }}">{{ x }}</option>
+                              
+                              
+                            </select>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;">Filter</button>
+                        </div>
+                        </div>
+                </div>
+                <div class="btn-group pull-right m-b-10">
+                  <a href="" target="_blank" type="button" class="btn btn-info" style="font-size:13px;text-transform: none;" ng-click="doPrint()"><i class="fa fa-print"></i> Print</a>
+                </div>                
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="table table-hover table-smaller2" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:110px">Tour Name</th>
+                        <th style="width:80px">Ref</th>
+                        <th style="width:130px">Periode</th>
+                        <th style="width:50px">Pax</th>
+                        <th style="width:50px">Kode</th>
+                        <th>Nama</th>
+                        <th style="width:150px">Price (USD)</th>
+                        <th style="width:100px">Rate</th>
+                        <th style="width:150px">Price (RP)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_penjualan">
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.TourName }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.Ref }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.PeriodeStart }} - {{ x.PariodeAkhir }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.PaxUnit }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.Kode }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          {{ x.Nama }}
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          <span ng-show="x.hargaUSD>0">{{ x.hargaUSD | number }}</span>
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          <span ng-show="x.rate>0">{{ x.rate | number }}</span>
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==0">
+                          <span ng-show="x.hargaIDR>0">{{ x.hargaIDR | number }}</span>
+                        </td>
+                        
+                        <td class="v-align-middle" ng-show="x.SubTotal==1" style="text-align: right;" colspan="3">
+                          <strong style="color: #000;">SUB TOTAL :</strong>
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1">
+                          <strong style="color: #000;">{{ x.PaxUnit }}</strong>
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1"></td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1"></td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1">
+                          <strong style="color: #000;" ng-show="x.totalHargaUSD>0">{{ x.totalHargaUSD | number }}</strong>
+                        </td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1"></td>
+                        <td class="v-align-middle" ng-show="x.SubTotal==1">
+                          <strong style="color: #000;" ng-show="x.totalHargaIDR>0">{{ x.totalHargaIDR | number }}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                    
+                    <tfoot>
+                      <tr>
+                        <td class="v-align-middle" colspan="6">
+                          <div class="form-group row">
+                            <label style="text-align: right;padding-top:15px;font-size:13px; display: block">Grand Total :</label>
+                          </div>
+                        </td>
+                        <td class="v-align-middle"></td>
+                        <td class="v-align-middle"></td>
+                        <td class="v-align-middle">
+                          <strong style="color: #000;">{{ totalPriceIDR | number }}</strong>
+                        </td>
+                      </tr>
+                      <tr ng-show="idBiaya==10">
+                        <td class="v-align-middle" colspan="6">
+                          <div class="form-group row">
+                            <label style="text-align: right;padding-top:15px;font-size:13px; display: block">PPN (10%) :</label>
+                          </div>
+                        </td>
+                        <td class="v-align-middle"></td>
+                        <td class="v-align-middle"></td>
+                        <td class="v-align-middle">
+                          <strong style="color: #000;">{{ totalPPN | number }}</strong>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>

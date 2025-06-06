@@ -1,0 +1,622 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>SPB</a>
+        </li>
+        <li><a href="#/data-penjualan">Data SPB</a>
+        </li>
+        <li><a class="active">Detail SPB</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detail SPB
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Detail Surat Permintaan Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="row" style="margin: 0;">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>No. SPB</label>
+                    <input type="text" name="no_penjualan" ng-model="no_penjualan" class="form-control" readonly="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Kategori.</label>
+                    <input type="text" name="kategori" ng-model="kategori" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin:0">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>No SPH.</label>
+                    <input type="text" name="sph" ng-model="sph" class="form-control" readonly="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Pelanggan.</label>
+                    <input type="text" name="pelanggan" ng-model="pelanggan" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Jenis.</label>
+                    <input type="text" name="jenis" ng-model="jenis" class="form-control" readonly="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tanggal.</label>
+                    <input type="text" name="tanggal" ng-model="tanggal" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Sales.</label>
+                    <input type="text" name="sales" ng-model="sales" class="form-control" readonly="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>User.</label>
+                    <input type="text" name="userLoginName" ng-model="userLoginName" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5>Daftar Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px"></th>
+                    <th>Nama Produk</th>
+                    <!--
+                    <th style="width:120px">Serial Number</th> -->
+                    <th style="width:120px">Qty</th>
+                    <th style="width:120px">Harga Beli</th>
+                    <th style="width:120px">Harga Jual</th>
+                    <th style="width:120px">Diskon</th>
+                    <th style="width:120px">Harga (Setelah Diskon)</th>
+                    <th style="width:120px">Sub Total</th>
+                    <th style="width:120px">Margin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      <span ng-bind-html="x.NamaBarang"></span>
+                    </td>
+                    <!--
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td> -->
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Qty | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.HPP | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Harga | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="x.Diskon.indexOf('%')>=0">
+                      {{ x.Diskon }}
+                    </td>
+                    <td class="v-align-middle" ng-show="x.Diskon.indexOf('%')===-1">
+                      {{ x.Diskon | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.HargaDiskon | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.SubTotal | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Margin | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="x.header" colspan="7">
+                      <strong style="color: #000">{{ x.header }}</strong>
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="9">Tidak ada barang yang terdaftar...</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <br />
+            </div>
+          </div>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Total Qty :</label>
+                <div class="col-xs-10">
+                  <input type="text" name="totalItem" id="totalItem" ng-model="totalItem" class="form-control"
+                    readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.prihal.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">No. PO Konsumen :</label>
+                <div class="col-xs-10">
+                  <input type="text" name="noPOKonsumen" ng-model="noPOKonsumen" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Keterangan :</label>
+                <div class="col-xs-10">
+                  <textarea name="keterangan" id="keterangan" ng-model="keterangan" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="row" style="margin: 0 !important;">
+                <div class="col-md-12" style="border-bottom: 1px solid #eee; margin: 12px 0 20px 0;"></div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.prihal.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Prihal :</label>
+                <div class="col-xs-10">
+                  <textarea name="prihal" id="prihal" ng-model="prihal" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.term_condition.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Term and Condition :</label>
+                <div class="col-xs-10">
+                  <textarea name="term_condition" id="term_condition" ng-model="term_condition"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.included.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Included :</label>
+                <div class="col-xs-10">
+                  <textarea name="included" id="included" ng-model="included" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal_pemasangan.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Tanggal Pemasangan :</label>
+                <div class="col-xs-10">
+                  <textarea name="tanggal_pemasangan" id="tanggal_pemasangan" ng-model="tanggal_pemasangan"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.kondisi_pembayaran.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Kondisi Pembayaran :</label>
+                <div class="col-xs-10">
+                  <textarea name="kondisi_pembayaran" id="kondisi_pembayaran" ng-model="kondisi_pembayaran"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+              <!-- <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.kondisi_pembayaran.$invalid }">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Daftar Supplier:</label>
+                <div class="col-xs-10">
+                  <textarea name="dataSupplier" id="dataSupplier" ng-model="dataSupplier" class="form-control"
+                   ></textarea>
+                </div>
+              </div> -->
+
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.is_complete.$invalid }"
+                ng-show="deleted_by === null">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">&nbsp;</label>
+                <div class="col-xs-10">
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="is_complete" id="is_complete" ng-model="is_complete"
+                      ng-checked="is_complete==='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="is_complete">Mark SPB as Complete</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row m-t-20 m-b-40" ng-show="deleted_by != null">
+                <div class="delete-card">
+                  <label>Deleted by :</label>
+                  {{ deleted_by }} - {{ deleted_date }} <br>
+                  Remark : {{ deleted_remark }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sub Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total" id="total" ng-model="total" class="form-control hlprice price"
+                    fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <!-- <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Diskon ({{diskon_persen}}%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="diskon" id="diskon" ng-model="diskon"
+                    class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total2" id="total2" ng-model="total2" class="form-control hlprice price"
+                    fcsa-number="{  }" readonly="">
+                </div>
+              </div> -->
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">PPN ({{ppn_persen}}%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="ppn" id="ppn" ng-model="ppn" class="form-control hlprice price"
+                    fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Grand Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="grand_total" id="grand_total" ng-model="grand_total"
+                    class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Ongkos Kirim :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="ongkos_kirim" id="ongkos_kirim" ng-model="ongkos_kirim"
+                    class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <!--
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Metode Pembayaran :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="metode_pembayaran" id="metode_pembayaran" ng-model="metode_pembayaran" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">&nbsp;</label>
+                <div class="col-xs-8">
+                  <input type="text" name="metode_pembayaran2" id="metode_pembayaran2" ng-model="metode_pembayaran2" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Pembayaran Awal :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pembayarandp" id="pembayarandp" ng-model="pembayarandp" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Kembali :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="kembali" id="kembali" ng-model="kembali" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sisa :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="sisa" id="sisa" ng-model="sisa" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div> -->
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Harga Beli :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="totalHPP" id="totalHPP" ng-model="totalHPP"
+                    class="form-control hlprice price" readonly="" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Exp. Margin :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="totalMargin" id="totalMargin" ng-model="totalMargin"
+                    class="form-control hlprice price" readonly="" fcsa-number="{  }">
+                </div>
+              </div>
+
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">DP (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pem_dp" id="pem_dp" ng-model="pem_dp" class="form-control hlprice price"
+                    fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin I (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pem_termin1" id="pem_termin1" ng-model="pem_termin1"
+                    class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin II (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pem_termin2" id="pem_termin2" ng-model="pem_termin2"
+                    class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin III (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pem_termin3" id="pem_termin3" ng-model="pem_termin3"
+                    class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Pelunasan (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pem_pelunasan" id="pem_pelunasan" ng-model="pem_pelunasan"
+                    class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+          <button class="btn btn-info" ng-click="doPrint()" ng-show="deleted_by == null"><i class="fa fa-print"></i>
+            Print</button>
+          <button type="button" class="btn btn-danger" ng-click="showModal()"><i class="fa fa-history"></i> History
+            Pengiriman</button>
+          <button type="button" class="btn btn-danger" ng-click="showModalHistoryVO()"><i class="fa fa-history"></i>
+            History
+            VO</button>
+          <button type="button" class="btn btn-danger" ng-click="showModalNotifikasiMaintenance()"><i
+              class="fa fa-history"></i>
+            Notifikasi Maintenance </button>
+          <a href="#/data-penjualan/" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+            Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade stick-middle" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>History Pengiriman <span class="semi-bold">{{no_po}}</span> </h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:50px">No.</th>
+                    <th>No. Surat Jalan</th>
+                    <th style="width:80px">Tanggal</th>
+                    <th style="width:120px">By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in detailpengiriman">
+                    <td class="v-align-middle v-align-center">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      <a href="#/surat-jalan/detail/{{ x.IDSuratJalan }}" target="_blank"><strong>{{ x.NoSuratJalan
+                          }}</strong></a>
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Tanggal }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.UserName }}
+                    </td>
+                  </tr>
+                  <tr ng-hide="detailpengiriman.length>0">
+                    <td colspan="4">Belum ada pengiriman untuk SPB ini...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4 m-t-10 sm-m-t-10">
+            <button type="button" data-dismiss="modal" class="btn btn-primary btn-block m-t-5">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade stick-middle" id="modalHistoryVO" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width: 1000px;">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>History VO</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px"></th>
+                    <th>Nama Produk</th>
+                    <!--
+                    <th style="width:120px">Serial Number</th> -->
+                    <th style="width:120px">Qty</th>
+                    <th style="width:120px">HPP</th>
+                    <th style="width:120px">Harga Jual</th>
+                    <th style="width:120px">Sub Total</th>
+                    <th style="width:120px">Margin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail_history">
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      <span ng-bind-html="x.NamaBarang"></span>
+                    </td>
+                    <!--
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td> -->
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Qty | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.HPP | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Harga | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.SubTotal | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="!x.header">
+                      {{ x.Margin | number }}
+                    </td>
+                    <td class="v-align-middle" ng-show="x.header" colspan="7">
+                      <strong style="color: #000">{{ x.header }}</strong>
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="7">Tidak ada barang yang terdaftar...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4 m-t-10 sm-m-t-10">
+            <button type="button" data-dismiss="modal" class="btn btn-primary btn-block m-t-5">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade stick-middle" id="modalNotifikasiMaintenance" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="width: 1000px;">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Notifikasi Maintenance</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px">No</th>
+                    <th style="width:80px">Tanggal</th>
+                    <th>Keterangan</th>
+                    <th style="width:200px">Tanggal Maintenance</th>
+                    <th style="width:200px">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(index, x) in notifikasiMaintenance" jq-table>
+                    <td class="v-align-middle v-align-center">
+                      <p>{{ index+1 }}</p>
+                    </td>
+                    <td class="v-align-middle">
+                      <p>{{ x.Tanggal }}</p>
+                    </td>
+                    <td class="v-align-middle">
+                      <p>{{ x.Keterangan }}</p>
+                    </td>
+                    <td class="v-align-middle">
+                      <p>{{ x.TanggalAkhirMaintenance }}</p>
+                    </td>
+                    <td class="v-align-middle">
+                      <p>
+                        <strong ng-show="x.Status==='1'" style="color: black;">NEW</strong>
+                        <strong ng-show="x.Status==='0'" style="color: red;">DELETED</strong>
+                        <strong ng-show="x.Status==='2'" style="color: green ;">COMPLETED</strong>
+                        <br /><em>{{ x.KeteranganStatus }}</em>
+                      </p>
+                    </td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4 m-t-10 sm-m-t-10">
+            <button type="button" data-dismiss="modal" class="btn btn-primary btn-block m-t-5">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

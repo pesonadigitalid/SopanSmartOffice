@@ -1,0 +1,215 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Asset Control</a>
+        </li>
+        <li><a href="#/data-asset">Data Asset</a>
+        </li>
+        <li><a class="active">Asset Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Asset Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat akun asset baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data" autocomplete="off">
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kode_asset.$invalid }">
+              <label>Kode Asset</label>
+              <input type="text" name="kode_asset" id="kode_asset" ng-model="kode_asset" ng-change="lenghtkdasset()" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.kode_asset.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.category.$invalid }">
+              <label>Kategori</label>
+              <select class="form-control" name="category" ng-model="category" required>
+                <option value="">--- Silahkan pilih kategori ---</option>
+                <option ng-repeat="x in data_assetcategory" value="{{x.IDAssetCategory}}">{{x.Nama}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.category.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.jenis.$invalid }">
+              <label>Jenis</label>
+              <select name="jenis" ng-model="jenis" class="form-control" ng-change="changeCat()">
+                <option value="">--- Silahkan jenis asset ---</option>
+                <option value="Non-Kendaraan">Non-Kendaraan</option>
+                <option value="Kendaraan">Kendaraan</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.jenis.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+              <label>Nama</label>
+              <input type="text" name="nama" ng-model="nama" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.deskripsi.$invalid }">
+              <label>Deskripsi</label>
+              <textarea name="deskripsi" ng-model="deskripsi" class="form-control" required></textarea>
+              <p ng-show="userForm.$submitted && userForm.deskripsi.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.jns_kendaraan.$invalid }">
+              <label>Jenis Kendaraan</label>
+              <select class="form-control" id="jns_kendaraan" name="jns_kendaraan" ng-model="jns_kendaraan">
+                <option value="">--- Silahkan pilih kategori ---</option>
+                <option value="Sepeda Motor">Sepeda Motor</option>
+                <option value="Mobil">Mobil</option>
+                <option value="Lain-lain">Lain-lain</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.jns_kendaraan.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.manufaktur.$invalid }">
+              <label>Manufaktur</label>
+              <input type="text" name="manufaktur" ng-model="manufaktur" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.manufaktur.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.thn_rakit.$invalid }">
+              <label>Tahun Rakit</label>
+              <input type="text" name="thn_rakit" ng-model="thn_rakit" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.thn_rakit.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_stnk.$invalid }">
+              <label>No. STNK</label>
+              <input type="text" name="no_stnk" ng-model="no_stnk" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.no_stnk.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_kendaraan.$invalid }">
+              <label>No. Kendaraan</label>
+              <input type="text" name="no_kendaraan" ng-model="no_kendaraan" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.no_kendaraan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.jatuh_tempo_samsat.$invalid }">
+              <label>Jatuh Tempo Samsat Kendaraan</label>
+              <input type="text" name="jatuh_tempo_samsat" ng-model="jatuh_tempo_samsat" class="form-control datepick">
+              <p ng-show="userForm.$submitted && userForm.jatuh_tempo_samsat.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.max_tangki.$invalid }">
+              <label>Max Tangki BBM</label>
+              <input type="text" name="max_tangki" ng-model="max_tangki" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.max_tangki.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.km_kendaraan.$invalid }">
+              <label>KM Kendaraan</label>
+              <input type="text" name="km_kendaraan" ng-model="km_kendaraan" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.km_kendaraan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-show="show_kendaraan_field" ng-class="{ 'has-error' : userForm.$submitted && userForm.jns_bbm.$invalid }">
+              <label>Jenis BBM</label>
+              <select class="form-control" id="jns_bbm" name="jns_bbm" ng-model="jns_bbm">
+                <option value="">--- Silahkan pilih kategori ---</option>
+                <option value="Premium">Premium</option>
+                <option value="Pertalite">Pertalite</option>
+                <option value="Solar">Solar</option>
+                <option value="Pertamax">Pertamax</option>
+                <option value="Lain-lain">Lain-lain</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.jns_bbm.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+
+            <div class="form-group form-group-default">
+              <label>Tanggal Beli</label>
+              <input type="text" name="tanggal" ng-model="tanggal" class="form-control datepick">
+            </div>
+
+            <div class="form-group form-group-default">
+              <label>Harga Beli</label>
+              <input type="text" name="harga" ng-model="harga" class="form-control" fcsa-number="{  }">
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.unit.$invalid }">
+              <label>Unit</label>
+              <input type="text" name="unit" ng-model="unit" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.unit.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.stts_asset.$invalid }">
+              <label>Status</label>
+              <select class="form-control" id="stts_asset" name="stts_asset" ng-model="stts_asset">
+                <option value="1">Aktif</option>
+                <option value="0">Tidak Aktif</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.stts_asset.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.foto1.$invalid }">
+              <label>Foto 1</label>
+              <input type="file" name="foto1" ngf-select ng-model="foto1" class="form-control" ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+              <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_photo_sopan/{{getfoto1}}" width="150" ng-show="getfoto1" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('Foto1')" ng-show="getfoto1">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.foto1.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.foto2.$invalid }">
+              <label>Foto 2</label>
+              <input type="file" name="foto2" ngf-select ng-model="foto2" class="form-control" ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+              <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_photo_sopan/{{getfoto2}}" width="150" ng-show="getfoto2" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('Foto2')" ng-show="getfoto2">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.foto2.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.foto3.$invalid }">
+              <label>Foto 3</label>
+              <input type="file" name="foto3" ngf-select ng-model="foto3" class="form-control" ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+              <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_photo_sopan/{{getfoto3}}" width="150" ng-show="getfoto3" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('Foto3')" ng-show="getfoto3">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.foto3.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div style="border-bottom: 1px dashed #ccc; margin: 15px 0;"></div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.file1.$invalid }">
+              <label>File 1</label>
+              <input type="file" name="file1" ngf-select ng-model="file1" class="form-control" style="margin-top: 7px;">
+              <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_file_sopan/{{getfile1}}" download="download" target="_blank" class="btn btn-info btn-sm mt-2" ng-show="getfile1">Download {{getfile1}}</a>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('File1')" ng-show="getfile1">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.file1.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.file2.$invalid }">
+              <label>File 2</label>
+              <input type="file" name="file2" ngf-select ng-model="file2" class="form-control" style="margin-top: 7px;">
+              <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_file_sopan/{{getfile2}}" download="download" target="_blank" class="btn btn-info btn-sm mt-2" ng-show="getfile2">Download {{getfile2}}</a>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('File2')" ng-show="getfile2">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.file2.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.file3.$invalid }">
+              <label>File 3</label>
+              <input type="file" name="file3" ngf-select ng-model="file3" class="form-control" style="margin-top: 7px;">
+              <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_file_sopan/{{getfile3}}" download="download" target="_blank" class="btn btn-info btn-sm mt-2" ng-show="getfile3">Download {{getfile3}}</a>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('File3')" ng-show="getfile3">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.file3.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.file4.$invalid }">
+              <label>File 4</label>
+              <input type="file" name="file4" ngf-select ng-model="file4" class="form-control" style="margin-top: 7px;">
+              <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_file_sopan/{{getfile4}}" download="download" target="_blank" class="btn btn-info btn-sm mt-2" ng-show="getfile4">Download {{getfile4}}</a>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('File4')" ng-show="getfile4">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.file4.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.file5.$invalid }">
+              <label>File 5</label>
+              <input type="file" name="file5" ngf-select ng-model="file5" class="form-control" style="margin-top: 7px;">
+              <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/asset_file_sopan/{{getfile5}}" download="download" target="_blank" class="btn btn-info btn-sm mt-2" ng-show="getfile5">Download {{getfile5}}</a>
+              <button type="button" class="btn btn-danger btn-sm" ng-click="deleteAttach('File5')" ng-show="getfile5">Delete</button>
+              <p ng-show="userForm.$submitted && userForm.file5.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $('.price').focus(function() {
+      $(this).val($(this).val().toString().replace(/,/g, ""));
+    });
+
+    $('.price').focusout(function() {
+      $(this).val(numberWithCommas($(this).val()));
+    });
+  });
+</script>

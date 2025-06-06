@@ -1,0 +1,45 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Setting Payroll</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Setting Payroll
+          </div>
+        </div>
+        <div class="panel-body">
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.jml_cuti_tahunan.$invalid }">
+              <label>Jumlah Cuti Tahunan</label>
+              <input type="text" name="jml_cuti_tahunan" id="jml_cuti_tahunan" ng-model="jml_cuti_tahunan" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.jml_cuti_tahunan.$invalid" class="help-block">Wajib diisi.</p>
+            </div><br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(function() {
+  $('.price').focus(function() {
+    $(this).val($(this).val().toString().replace(/,/g, ""));
+  });
+
+  $('.price').focusout(function() {
+    $(this).val(numberWithCommas($(this).val()));
+  });
+});
+</script>

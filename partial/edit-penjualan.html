@@ -1,0 +1,519 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>SPB</a>
+        </li>
+        <li><a href="#/data-penjualan">Data SPB</a>
+        </li>
+        <li><a class="active">Edit SPB</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Edit SPB
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Input Surat Permintaan Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="row" style="margin: 0;">
+                <div class="col-md-6">
+                  <div class="form-group"
+                    ng-class="{ 'has-error' : userForm.$submitted && userForm.no_penjualan.$invalid }">
+                    <label>No. SPB (Auto)</label>
+                    <input type="text" name="no_penjualan" ng-model="no_penjualan" class="form-control" readonly="">
+                    <p ng-show="userForm.$submitted && userForm.no_penjualan.$invalid" class="help-block">Wajib diisi.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"
+                    ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori.$invalid }">
+                    <label>Kategori.</label>
+                    <select class="form-control" name="kategori" id="kategori" ng-model="kategori">
+                      <option value="">Pilih Kategori</option>
+                      <option value="Office">Office</option>
+                      <option value="Client">Client</option>
+                    </select>
+                    <p ng-show="userForm.$submitted && userForm.kategori.$invalid" class="help-block">Wajib diisi.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin: 0;">
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.sph.$invalid }">
+                    <label>No SPH.</label>
+                    <select class="form-control select2" id="sph" name="sph" ng-model="sph" ng-change="changeSPH()">
+                      <option value="">Pilih SPH</option>
+                      <option ng-repeat="x in data_sph" value="{{x.NoSPH}}" select2>{{ x.NoSPH }}</option>
+                    </select>
+                    <p ng-show="userForm.$submitted && userForm.sph.$invalid" class="help-block">Wajib dipilih.</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"
+                    ng-class="{ 'has-error' : userForm.$submitted && userForm.pelanggan.$invalid }">
+                    <label>Pelanggan.</label>
+                    <select class="form-control select2" name="pelanggan" id="pelanggan" ng-model="pelanggan"
+                      ng-change="loadListPO()" required>
+                      <option value="">Pilih Pelanggan</option>
+                      <option ng-repeat="x in data_pelanggan" value="{{x.IDPelanggan}}" select2>{{ x.KodePelanggan }} |
+                        {{
+                        x.NamaPelanggan }}</option>
+                    </select>
+                    <p ng-show="userForm.$submitted && userForm.pelanggan.$invalid" class="help-block">Wajib dipilih.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Jenis SPB.</label>
+                    <select class="form-control" name="jenis" ng-model="jenis" required>
+                      <option value="Umum">Umum</option>
+                      <option value="Wika">Wika</option>
+                      <option value="Voksel">Voksel</option>
+                      <option value="Asialing">Asialing</option>
+                      <option value="Mitsubishi">Mitsubishi</option>
+                      <option value="Daikin">Daikin</option>
+                      <option value="Sparepart & Service">Sparepart & Service</option>
+                      <option value="Instalasi Plumbing & Elektrikal">Instalasi Plumbing & Elektrikal</option>
+                      <option value="Citor">Citor</option>
+                      <option value="Ariston Electric">Ariston Electric</option>
+                      <option value="Ariston Renewable">Ariston Renewable</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+                    <label>Tanggal.</label>
+                    <input type="text" name="tanggal" ng-model="tanggal" class="form-control datepick" required>
+                    <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.sales.$invalid }">
+                    <label>Sales.</label>
+                    <input type="text" ng-model="userLoginName" placeholder="Sales" class="form-control" readonly=""
+                      ng-show="jabatan === '9' || jabatan2 === '9'">
+                    <select class="form-control select2" name="sales" id="sales" ng-model="sales"
+                      ng-show="jabatan !== '9' && jabatan2 !== '9'" ng-required="jabatan !== '9' && jabatan2 !== '9'">
+                      <option value="">Pilih Sales</option>
+                      <option ng-repeat="x in data_sales" value="{{x.IDKaryawan}}" select2>{{
+                        x.Nama }}</option>
+                    </select>
+                    <p ng-show="userForm.$submitted && userForm.sales.$invalid" class="help-block">Wajib dipilih.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>User.</label>
+                    <input type="text" name="userLoginName" id="userLoginName" ng-model="userLoginName"
+                      placeholder="User" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5>Daftar Barang.</h5>
+          <div class="row" style="margin: 0; display: none;">
+            <div class="col-sm-2">
+              <select class="form-control select2" name="kode" id="kode" ng-model="kode" ng-change="changeKode()">
+                <option value="">Kode Barang</option>
+                <option ng-repeat="x in data_barang" value="{{$index}}" select2>{{ x.KodeBarang }} | {{ x.Nama }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" name="nama_barang" id="nama_barang" ng-model="anama" placeholder="Nama Barang"
+                class="form-control" readonly="">
+            </div>
+            <!--
+            <div class="col-sm-2">
+              <input type="text" name="serialnumber" id="serialnumber" ng-model="serialnumber" ng-disabled="disabledSN" placeholder="Serial Number" class="form-control">
+            </div> -->
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="text" name="HPP" id="HPP" ng-model="HPP" fcsa-number="{  }" placeholder="HPP"
+                  class="form-control" readonly="">
+                <span class="input-group-addon primary">IDR</span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="text" name="harga" id="harga" ng-model="harga" fcsa-number="{  }" placeholder="Harga Jual"
+                  class="form-control">
+                <span class="input-group-addon primary">IDR</span>
+              </div>
+            </div>
+            <div class="col-sm-1">
+              <input type="number" name="qty" id="qty" ng-model="qty" placeholder="Qty" class="form-control"
+                ng-disabled="disabledQty">
+            </div>
+            <div class="col-sm-1">
+              <button type="button" class="btn btn-danger" ng-click="addtocart()"><i
+                  class="fa fa-plus-circle"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin: 0;">
+          <div class="col-sm-12">
+            <table class="table table-hover table-less-space" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:20px"></th>
+                  <th>Nama Produk</th>
+                  <!--
+                  <th style="width:120px">Serial Number</th> -->
+                  <th style="width:120px">Qty</th>
+                  <th style="width:120px">Harga Beli</th>
+                  <th style="width:120px">Harga Jual</th>
+                  <th style="width:120px">Diskon</th>
+                  <th style="width:120px">Harga (Setelah Diskon)</th>
+                  <th style="width:120px">Sub Total</th>
+                  <th style="width:120px">Margin</th>
+                  <th style="width:50px">Sub</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in displayCartArray">
+                  <td class="v-align-middle">
+                    <button ng-show="can_edit" type="button" class="btn btn-danger btn-xs"
+                      ng-click="removeRow(x.NoUrut); $event.stopPropagation();"><i class="fa fa-remove"></i></button>
+                    <span ng-show="!can_edit">{{x.NoUrut+1}}</span>
+                  </td>
+                  <td class="v-align-middle">
+                    <span ng-bind-html="x.NamaBarang"></span>
+                  </td>
+                  <!-- <td class="v-align-middle">
+                    {{ x.SNBarang }}
+                  </td> -->
+                  <!--
+                  <td class="v-align-middle" ng-show="x.IsSerialize==1">
+                    {{ x.QtyBarang | number }}
+                  </td> -->
+                  <td class="v-align-middle">
+                    <input ng-show="can_edit" type="number" ng-model="QtyBarang" id="QtyBarang{{x.NoUrut}}"
+                      ng-change="changeQty(x.NoUrut)" class="form-control" value="{{ x.QtyBarang | number}}"
+                      style="width: 70px !important;" />
+                    <span ng-show="!can_edit">{{x.QtyBarang}}</span>
+                  </td>
+                  <td class="v-align-middle">
+                    <input type="text" ng-model="zHPP" id="HPP{{x.NoUrut}}"
+                      ng-change="calcHargaAndSubTotal(x.NoUrut, null)" class="form-control" ng-value="x.HPP"
+                      fcsa-number="" style="width: 120px !important;" />
+                  </td>
+                  <td class="v-align-middle">
+                    <input type="text" ng-model="zHarga" id="Harga{{x.NoUrut}}"
+                      ng-change="calcHargaAndSubTotal(x.NoUrut, null)" class="form-control" ng-value="x.Harga"
+                      fcsa-number="" style="width: 120px !important;" />
+                  </td>
+                  <td class="v-align-middle">
+                    <input type="text" ng-model="zDiskonValue" id="Diskon{{x.NoUrut}}"
+                      ng-change="calcHargaAndSubTotal(x.NoUrut, true)" class="form-control" ng-value="x.Diskon"
+                      style="width: 120px !important;" />
+                  </td>
+                  <td class="v-align-middle">
+                    <input type="text" ng-model="zHargaDiskon" id="HargaDiskon{{x.NoUrut}}"
+                      ng-change="calcHargaAndSubTotal(x.NoUrut, false)" class="form-control" ng-value="x.HargaDiskon"
+                      style="width: 120px !important;" fcsa-number="" />
+                  </td>
+                  <td class="v-align-middle">
+                    {{ x.SubTotal | number }}
+                  </td>
+                  <td class="v-align-middle">
+                    {{ x.Margin | number }}
+                  </td>
+                  <td class="v-align-middle">
+                    <input type="checkbox" value="0" id="isParent{{x.NoUrut}}" ng-model="isParentCheckbox"
+                      ng-click="changeIsParent(x.NoUrut)" ng-checked="x.isParent===0">
+                  </td>
+                </tr>
+                <tr ng-show="!displayCartArray.length">
+                  <td colspan="9">Tidak ada data barang yang dimasukan...</td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </div>
+        </div>
+        <div class="row" style="margin: 0;">
+          <div class="col-md-6">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.totalItem.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Total Qty :</label>
+              <div class="col-xs-10">
+                <input type="text" name="totalItem" id="totalItem" ng-model="totalItem" class="form-control" readonly=""
+                  fcsa-number="{  }" required>
+              </div>
+            </div>
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.prihal.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">No. PO Konsumen :</label>
+              <div class="col-xs-10">
+                <input type="text" name="noPOKonsumen" ng-model="noPOKonsumen" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Keterangan :</label>
+              <div class="col-xs-10">
+                <textarea name="keterangan" id="keterangan" ng-model="keterangan" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="row" style="margin: 0 !important;">
+              <div class="col-md-12" style="border-bottom: 1px solid #eee; margin: 12px 0 20px 0;"></div>
+            </div>
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.prihal.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Prihal :</label>
+              <div class="col-xs-10">
+                <textarea name="prihal" id="prihal" ng-model="prihal" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.term_condition.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Term and Condition :</label>
+              <div class="col-xs-10">
+                <textarea name="term_condition" id="term_condition" ng-model="term_condition" class="form-control"
+                  style="height: 100px" ui-tinymce="tinymceOptions"></textarea>
+              </div>
+            </div>
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.included.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Included :</label>
+              <div class="col-xs-10">
+                <textarea name="included" id="included" ng-model="included" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal_pemasangan.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Tanggal Pemasangan :</label>
+              <div class="col-xs-10">
+                <textarea name="tanggal_pemasangan" id="tanggal_pemasangan" ng-model="tanggal_pemasangan"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.kondisi_pembayaran.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">Kondisi Pembayaran :</label>
+              <div class="col-xs-10">
+                <textarea name="kondisi_pembayaran" id="kondisi_pembayaran" ng-model="kondisi_pembayaran"
+                  class="form-control" style="height: 100px"></textarea>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.is_complete.$invalid }">
+              <label class="col-xs-2" style="text-align: right;padding-top:5px;">&nbsp;</label>
+              <div class="col-xs-10">
+                <div class="checkbox check-primary checkbox-circle">
+                  <input type="checkbox" name="is_complete" id="is_complete" ng-model="is_complete"
+                    ng-checked="is_complete==='1'" ng-true-value="'1'" ng-false-value="'0'">
+                  <label for="is_complete">Mark SPB as Complete</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sub Total :</label>
+              <div class="col-xs-8">
+                <input type="text" name="total" id="total" ng-model="total" class="form-control hlprice price"
+                  readonly="" fcsa-number="{  }" required>
+              </div>
+            </div>
+            <!-- <div class="form-group row"
+                ng-class="{ 'has-error' : userForm.$submitted && userForm.diskon_persen.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Diskon (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="diskon_persen" id="diskon_persen" ng-model="diskon_persen"
+                    ng-keyup="countingGrandTotal()" class="form-control hlprice" readonly="">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total2.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total2" id="total2" ng-model="total2" class="form-control hlprice price"
+                    readonly="" fcsa-number="{  }" required>
+                </div>
+              </div> -->
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.ppn_persen.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">PPN (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="ppn_persen" id="ppn_persen" ng-model="ppn_persen"
+                  ng-keyup="countingGrandTotal()" class="form-control hlprice" fcsa-number="{  }">
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Grand Total :</label>
+              <div class="col-xs-8">
+                <input type="text" name="grand_total" id="grand_total" ng-model="grand_total"
+                  class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.ongkos_kirim.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Ongkos Kirim :</label>
+              <div class="col-xs-8">
+                <input type="text" name="ongkos_kirim" id="ongkos_kirim" ng-model="ongkos_kirim"
+                  class="form-control hlprice price" ng-keyup="countingGrandTotal()" fcsa-number="{  }" required>
+              </div>
+            </div>
+            <!--
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Metode Pembayaran :</label>
+                <div class="col-xs-8">
+                  <select class="form-control" name="metode_pembayaran" id="metode_pembayaran" ng-model="metode_pembayaran" style="padding-top: 6px;">
+                    <option value="Tunai">Tunai</option>
+                    <option value="Rekening Transfer">Transfer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">&nbsp;</label>
+                <div class="col-xs-8">
+                  <select class="form-control" name="metode_pembayaran2" id="metode_pembayaran2" ng-model="metode_pembayaran2" style="padding-top: 6px;">
+                    <option value="Kas Kecil">Kas Kecil</option>
+                    <option value="Rekening AAA">Rekening AAA</option>
+                    <option value="Rekening BBB">Rekening BBB</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pembayarandp.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Pembayaran Awal :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pembayarandp" id="pembayarandp" ng-model="pembayarandp" ng-keyup="changePembayaran()" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.kembali.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Kembali :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="kembali" id="kembali" ng-model="kembali" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.sisa.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sisa :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="sisa" id="sisa" ng-model="sisa" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <input type="hidden" name="diskon" ng-model="diskon" class="form-control hlprice price" readonly="" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <input type="hidden" name="ppn" ng-model="ppn" class="form-control hlprice price" readonly="" fcsa-number="{  }">
+                </div>
+              </div> -->
+            <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+              <div class="col-xs-8">
+                <div style="border-top: dashed 1px #aaa;"></div>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Harga Beli :</label>
+              <div class="col-xs-8">
+                <input type="text" name="totalHPP" id="totalHPP" ng-model="totalHPP" class="form-control hlprice price"
+                  readonly="" fcsa-number="{  }" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Exp. Margin :</label>
+              <div class="col-xs-8">
+                <input type="text" name="totalMargin" id="totalMargin" ng-model="totalMargin"
+                  class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+              </div>
+            </div>
+
+            <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+              <div class="col-xs-8">
+                <div style="border-top: dashed 1px #aaa;"></div>
+              </div>
+            </div>
+
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">DP (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="pem_dp" id="pem_dp" ng-model="pem_dp" class="form-control hlprice price"
+                  fcsa-number="{  }" ng-disabled="locked_top" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin I (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="pem_termin1" id="pem_termin1" ng-model="pem_termin1"
+                  class="form-control hlprice price" fcsa-number="{  }" ng-disabled="locked_top" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin II (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="pem_termin2" id="pem_termin2" ng-model="pem_termin2"
+                  class="form-control hlprice price" fcsa-number="{  }" ng-disabled="locked_top" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Termin III (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="pem_termin3" id="pem_termin3" ng-model="pem_termin3"
+                  class="form-control hlprice price" fcsa-number="{  }" ng-disabled="locked_top" required>
+              </div>
+            </div>
+            <div class="form-group row"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.grand_total.$invalid }">
+              <label class="col-xs-4" style="text-align: right;padding-top:5px;">Pelunasan (%) :</label>
+              <div class="col-xs-8">
+                <input type="text" name="pem_pelunasan" id="pem_pelunasan" ng-model="pem_pelunasan"
+                  class="form-control hlprice price" fcsa-number="{  }" ng-disabled="locked_top" required>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+        <a href="#/data-penjualan" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+          Kembali</a>
+      </div>
+  </div>
+  </form>
+</div>
+</div>

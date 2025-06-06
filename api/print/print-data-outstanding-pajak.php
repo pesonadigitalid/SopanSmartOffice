@@ -1,0 +1,164 @@
+<?php
+session_start();
+include_once "../config/connection.php";
+$bulan = array("01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April", "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus", "09" => "September", 10 => "Oktober", "11" => "November", 12 => "Desember");
+
+$datestart = $_GET['datestart'];
+$expstart = explode("/", $datestart);
+$datestartExp = $expstart[2] . "-" . $expstart[1] . "-" . $expstart[0];
+
+$dateend = $_GET['dateend'];
+$expend = explode("/", $dateend);
+$dateendExp = $expend[2] . "-" . $expend[1] . "-" . $expend[0];
+
+$supplier = $_GET['supplier'];
+$nopo = $_GET['nopo'];
+$ispajak = $_GET['ispajak'];
+$isld = $_GET['isld'];
+
+$subtitle = "";
+
+if ($datestart != "" && $dateend != "") {
+    $cond = "WHERE Tanggal BETWEEN '$datestartExp' AND '$dateendExp'";
+    $subtitle .= " <strong>Periode :</strong> $datestart s/d $dateend";
+} else if ($datestart != "") {
+    $cond = "WHERE Tanggal='$datestartExp'";
+    $subtitle .= " <strong>Periode :</strong> $datestart";
+} else {
+    $cond = "WHERE DATE_FORMAT(Tanggal,'%Y-%m') = '" . date("Y-m") . "'";
+    $subtitle .= " <strong>Periode :</strong> " . date("m/Y");
+}
+
+if ($supplier != "") {
+    $cond .= " AND IDSupplier='$supplier'";
+    $d = $db->get_row("SELECT * FROM tb_supplier WHERE IDSupplier='$supplier'");
+    $subtitle .= " <strong>Supplier :</strong> " . $d->NamaPerusahaan;
+}
+
+if ($nopo != "") {
+    $cond .= " AND nopo LIKE '%$proyek%'";
+}
+
+if ($ispajak != "")
+    $cond .= " AND IsPajak='$ispajak'";
+
+if ($isld != "")
+    $cond .= " AND IsLD='$isld'";
+
+$periode = "Periode : " . $bulan[date("m")] . " " . date("Y");
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="author" content="Yogi Pratama - Pesona Creative - 085737654543" />
+
+    <title>SOPAN Smart Office - Smart office for smart people</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="print-style.css" media="all" type="text/css" />
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td width="50%" class="bottom">
+                <h1>CV. Solusi Pemanas Air Nusantara</h1>
+                Jl. Tukad Yeh Aya No.70b, Panjer, Denpasar Selatan, Kota Denpasar, Bali 80234<br />
+                Telp. (0361) 8497915, Fax. -<br />
+                User : <?php echo $_SESSION["name"]; ?>
+            </td>
+            <td width="50%" align="right" class="bottom">
+                Tanggal Cetak : <?php echo date("d/m/Y"); ?>
+            </td>
+        </tr>
+    </table>
+    <div class="laporanTitle">
+        <h1 class="underline">** OUTSTANDING PAJAK PO <?php echo $subjenis; ?>**</h1><?php echo $subtitle; ?>
+    </div>
+    <table class="tabelList2" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:20px">No</th>
+                <th style="width:100px">No. PO</th>
+                <th style="width:80px">Tanggal</th>
+                <th>Supplier</th>
+                <th style="width:100px">Jenis PO</th>
+                <th style="width:80px">Proyek</th>
+                <th style="width:80px">PPN</th>
+                <th style="width:140px">Nilai FP Terinput</th>
+                <th style="width:80px">Sisa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $query = newQuery("get_results", "SELECT *,DATE_FORMAT(Tanggal, '%d/%m/%Y') AS TanggalID FROM tb_po $cond ORDER BY IDPO ASC");
+            if ($query) {
+                $i = 1;
+                foreach ($query as $data) {
+                    $created = $db->get_var("SELECT Nama FROM tb_karyawan WHERE IDKaryawan='" . $data->CreatedBy . "'");
+                    if ($data->KodeProyek == "") {
+                        $kodeProyek = "UMUM";
+                        $kodeProyek2 = "UMUM";
+                    } else {
+                        $proyek = $db->get_row("SELECT * FROM tb_proyek WHERE IDProyek='" . $data->IDProyek . "'");
+                        $kodeProyek = $data->KodeProyek;
+                        $kodeProyek2 = $proyek->KodeProyek . "/" . $proyek->Tahun;
+                    }
+
+                    if ($data->JenisPO == "1")
+                        $jenis_po = "PO MATERIAL";
+                    else if ($data->JenisPO == "2")
+                        $jenis_po = "PO TENAGA/SUBKON";
+                    else if ($data->JenisPO == "3")
+                        $jenis_po = "PO OVERHEAD";
+
+                    $dataSupplier = $db->get_var("SELECT NamaPerusahaan FROM tb_supplier WHERE IDSupplier = '" . $data->IDSupplier . "'");
+
+                    $NilaiFakturPajak = $db->get_var("SELECT SUM(Nilai) FROM tb_po_faktur_pajak WHERE IDPO='" . $data->IDPO . "'");
+                    if ($NilaiFakturPajak) $NilaiFakturPajak = $NilaiFakturPajak;
+                    else $NilaiFakturPajak = 0;
+
+                    $Sisa = $data->PPN - $NilaiFakturPajak;
+                    ?>
+                    <tr>
+                        <td style="text-align: center;"><?php echo $i ?></td>
+                        <td style="text-align: center;"><strong><?php echo $data->NoPO; ?></strong></td>
+                        <td><?php echo $data->TanggalID; ?></td>
+                        <td><?php echo $dataSupplier; ?></td>
+                        <td><?php echo $jenis_po; ?></td>
+                        <td><?php echo $kodeProyek; ?></td>
+                        <td style="text-align: right">Rp. <?php echo number_format($data->PPN); ?></td>
+                        <td style="text-align: right">Rp. <?php echo number_format($NilaiFakturPajak); ?></td>
+                        <td style="text-align: right">Rp. <?php echo number_format($Sisa); ?></td>
+                    </tr>
+                    <?php
+                    $i++;
+                }
+            } else {
+                echo "<td colspan='9'>Tidak ada data yang dapat ditampilkan...</td>";
+            }
+            ?>
+        </tbody>
+    </table>
+    <table class="asignment" style="margin-top: 20px;">
+        <tr>
+            <td class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="center">Mengetahui,<br /><br /><br /><br /><br /><br />(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

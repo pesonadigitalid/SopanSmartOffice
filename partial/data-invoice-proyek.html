@@ -1,0 +1,233 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-penjualan">Data Penjualan</a>
+        </li>
+        <li><a class="active">Data Invoice Penjualan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="jumbotron widgedContainer" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="widged-bar bg-success">
+            <div class="widgetContainer">
+              <p class="widgedTitle">Grand Total Penjualan <i class="fa fa-chevron-right"></i></p>
+              <p class="widgedValue">Rp. {{GrandTotal | number}}</p>
+              <i class="fa fa-shopping-cart bg-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="widged-bar bg-primary">
+            <div class="widgetContainer">
+              <p class="widgedTitle">Grand Total Invoice <i class="fa fa-chevron-right"></i></p>
+              <p class="widgedValue">Rp. {{GrandTotalInvoice | number}}</p>
+              <i class="fa fa-dollar bg-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="widged-bar bg-danger">
+            <div class="widgetContainer">
+              <p class="widgedTitle">Piutang Invoice <i class="fa fa-chevron-right"></i></p>
+              <p class="widgedValue">Rp. {{PiutangProgress | number}}</p>
+              <i class="fa fa-envelope bg-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="widged-bar bg-warning">
+            <div class="widgetContainer">
+              <p class="widgedTitle">Sisa Penagihan <i class="fa fa-chevron-right"></i></p>
+              <p class="widgedValue">Rp. {{SisaPenagihan | number}}</p>
+              <i class="fa fa-send bg-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">
+        INVOICE PENJUALAN
+      </div>
+      <div class="btn-group pull-right m-b-10">
+        <a href="#/invoice-penjualan/new/{{idPenjualan}}" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+        <a href="api/export/export-data-invoice-pdf.php?id={{idPenjualan}}" target="_blank" class="btn btn-danger"><i class="fa fa-download"></i> Download PDF</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div>
+        <strong>No Penjualan :</strong> {{DetailPenjualan.NoPenjualan}}
+        <br/> <strong>Tgl. Penjualan :</strong> {{DetailPenjualan.Tanggal}}
+        <br/> <strong>Kode Pelanggan :</strong> {{DetailPenjualan.KodePelanggan}}
+        <br/> <strong>Nama Pelanggan :</strong> {{DetailPenjualan.NamaPelanggan}}
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:100px">No Invoice</th>
+              <th style="width:80px">Tanggal</th>
+              <th>Keterangan</th>
+              <!-- <th>Proyek</th> -->
+              <th style="width:100px">Jatuh Tempo</th>
+              <!-- <th style="width:100px">Total</th> -->
+              <!-- <th style="width:100px">PPN</th> -->
+              <th style="width:100px">Grand Total</th>
+              <th style="width:100px">Piutang Progress</th>
+              <th style="width:130px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_invoice" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.NoInv }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.Tanggal }}</p>
+              </td>
+              <!-- <td class="v-align-middle">
+                <p>{{ x.KodeProyek }} / {{ x.NamaProyek }}</p>
+              </td> -->
+              <td class="v-align-middle">
+                <p>{{ x.Keterangan }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.JatuhTempo }}</p>
+              </td>
+              <!-- 
+              <td class="v-align-middle">
+                <p>{{ x.Jumlah }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.PPN }}</p>
+              </td> -->
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.GrandTotal }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.Sisa }}</p>
+              </td>
+              </td>
+              <td class="v-align-middle">
+                <a class="btn btn-success btn-xs" title="History Pembayaran" ng-click="showModal2(x)"><i class="fa fa-history"></i></a>
+                <a href="#/invoice-penjualan/edit/{{ x.IDInvoice }}" class="btn btn-default btn-xs" title="Detail"><i class="fa fa-edit"></i></a>
+                <!-- 
+                <button class="btn btn-success btn-xs" ng-click="paidRow(x.IDInvoice)" ng-show="x.Status==='0'"><i class="fa fa-check"></i> Paid</button> 
+                -->
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDInvoice)" title="Hapus"><i class="fa fa-remove"></i></button>
+                <a href="" ng-click="doPrint(x.IDInvoice)" class="btn btn-primary btn-xs" title="Print"><i class="fa fa-print"></i></a>
+                <a href="api/export/export-invoice-pdf.php?id={{x.IDInvoice}}" target="_blank" class="btn btn-success btn-xs" title="Download PDF"><i class="fa fa-download"></i></a>
+              </td>
+            </tr>
+            <!-- 
+            <tr>
+              <td colspan="8" class="v-align-middle v-align-center" ng-show="data_invoice.length === 0">Belum ada Invoice yang dibuat</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade stick-middle" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header clearfix text-left">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+          </button>
+          <h5>History Pembayaran Invoice <span class="semi-bold">{{NoInv}}</span> </h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group-attached">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-less-space" id="basicTable">
+                  <thead>
+                    <tr>
+                      <th style="width:50px">No.</th>
+                      <th style="width:80px">No. Bukti</th>
+                      <th style="width:80px">Tanggal</th>
+                      <!-- <th>Bank</th> -->
+                      <th style="width:120px">Jumlah</th>
+                      <th style="width:120px">By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in detailpembayaran">
+                      <td class="v-align-middle v-align-center">
+                        {{ x.No }}
+                      </td>
+                      <td class="v-align-middle" ng-show="x.NoPembayaran !== ''">
+                        <strong>{{ x.NoPembayaran }}</strong>
+                      </td>
+                      <td class="v-align-middle" ng-show="x.NoPembayaran === ''">
+                        <strong>0000</strong>
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.Tanggal }}
+                      </td>
+                      <!-- <td class="v-align-middle">
+                        {{ x.Bank }}
+                      </td> -->
+                      <td class="v-align-middle">
+                        {{ x.Jumlah | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UserName }}
+                      </td>
+                    </tr>
+                    <tr ng-show="!detailpembayaran.length">
+                      <td colspan="5">Belum ada pembayaran yang diterima untuk Invoice ini...</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Total Pembayaran : </label>
+                      </td>
+                      <td class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{Terbayar | number}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Total Tagihan : </label>
+                      </td>
+                      <td class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{GrandTotal | number}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">
+                        <label>Sisa Piutang Progress : </label>
+                      </td>
+                      <td class="v-align-middle" style="text-align: right;border-bottom: none; padding: 10px 20px 0px !important;">{{Sisa | number}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <button type="button" ng-click="closeModal2()" class="btn btn-primary btn-block m-t-5">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

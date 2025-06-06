@@ -1,0 +1,186 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Penjualan MMS</a>
+        </li>
+        <li><a href="#/data-penjualan">Data Penjualan Barang</a>
+        </li>
+        <li><a class="active">Penjualan Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detail Penjualan Barang
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Detail Penjualan Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No. Penjualan</label>
+                <input type="text" name="no_penjualan" ng-model="no_penjualan" class="form-control" readonly="">
+              </div>
+              <div class="form-group">
+                <label>Pelanggan.</label>
+                <input type="text" name="pelanggan" ng-model="pelanggan" class="form-control" readonly="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tanggal.</label>
+                <input type="text" name="tanggal" ng-model="tanggal" class="form-control" readonly="">
+              </div>
+              <div class="form-group">
+                <label>User.</label>
+                <input type="text" name="userLoginName" ng-model="userLoginName" class="form-control" readonly="">
+              </div>
+            </div>
+          </div>
+          <h5>Daftar Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px"></th>
+                    <th>Nama Produk</th>
+                    <th style="width:120px">Serial Number</th>
+                    <th style="width:120px">Harga</th>
+                    <th style="width:120px">Qty</th>
+                    <th style="width:120px">Sub Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.NamaBarang }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Harga | number }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Qty | number }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SubTotal | number }}
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="6">Belum ada daftar barang yang diterima...</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6"><strong>Keterangan : </strong>{{ keterangan }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <br />
+            </div>
+          </div>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-xs-2" style="text-align: right;padding-top:5px;">Total Item :</label>
+                <div class="col-xs-10">
+                  <input type="text" name="totalItem" id="totalItem" ng-model="totalItem" class="form-control" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sub Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total" id="total" ng-model="total" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Diskon (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="diskon_persen" id="diskon_persen" ng-model="diskon_persen" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total2" id="total2" ng-model="total2" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">PPN (%) :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="ppn_persen" id="ppn_persen" ng-model="ppn_persen" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Grand Total :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="grand_total" id="grand_total" ng-model="grand_total" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Metode Pembayaran :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="metode_pembayaran" id="metode_pembayaran" ng-model="metode_pembayaran" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">&nbsp;</label>
+                <div class="col-xs-8">
+                  <input type="text" name="metode_pembayaran2" id="metode_pembayaran2" ng-model="metode_pembayaran2" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Pembayaran Awal :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="pembayarandp" id="pembayarandp" ng-model="pembayarandp" class="form-control hlprice price" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row" style="margin-top: 15px;margin-bottom: 10px;">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;"></label>
+                <div class="col-xs-8">
+                  <div style="border-top: dashed 1px #aaa;"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Kembali :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="kembali" id="kembali" ng-model="kembali" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Sisa :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="sisa" id="sisa" ng-model="sisa" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-info" ng-click="doPrint()"><i class="fa fa-print"></i> Print</button>
+          <a href="#/data-penjualan/" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li>
+          <a>Rekap Absent Proyek</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="form-group row">
+        <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Daily Report</label>
+        <div class="col-xs-6 col-sm-2 sm-m-b-10">
+          <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Dari" />
+        </div>
+        <div class="col-xs-6 col-sm-2 sm-m-b-10">
+          <input type="text" class="form-control datepick" ng-model="dateend" placeholder="Sampai" />
+        </div>
+        <div class="col-xs-12 col-sm-2 sm-m-b-10">
+          <select class="form-control" ng-model="karyawan" style="font-size:13px">
+            <option value="">SEMUA KARYAWAN</option>
+            <option ng-repeat="p in data_karyawan" value="{{p.IDKaryawan}}">{{p.Nama}}</option>
+          </select>
+        </div>
+        <div class="col-xs-12 col-sm-2 sm-m-b-10">
+          <select class="form-control" ng-model="kode_proyek" style="font-size:13px">
+            <option value="">SEMUA PROYEK</option>
+            <option ng-repeat="p in proyek" value="{{p.IDProyek}}">{{p.Nama}}</option>
+          </select>
+        </div>
+        <div class="col-xs-12 col-sm-1 sm-m-b-10 hidden-xs">
+          <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+        </div>
+        <div class="col-xs-12 col-sm-1 sm-m-b-10 visible-xs">
+          <button type="button" ng-click="refreshData()" class="btn btn-info btn-block" style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <table class="table table-smaller table-stripe table hak-akses-table centerHeader clearHeight" style="">
+            <thead>
+              <tr>
+                <th width="20">No</th>
+                <th>Karyawan</th>
+                <th width="150">Tanggal Absent</th>
+                <th width="300">Proyek</th>
+                <th width="100">Jam Absen Masuk</th>
+                <th width="100">Jam Absen Pulang</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in data_absent">
+                <td>{{x.No}}</td>
+                <td><strong>{{x.Karyawan}}</strong></td>
+                <td class="tdcenter">{{x.TanggalAbsent}}</td>
+                <td class="tdcenter">{{x.Proyek}}</td>
+                <td class="tdcenter">{{x.JamAbsen}}</td>
+                <td class="tdcenter">{{x.JamAbsenPulang}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+  </div>
+</div>
+</div>

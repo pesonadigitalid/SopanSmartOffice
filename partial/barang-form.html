@@ -1,0 +1,160 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-barang">Data Barang</a>
+        </li>
+        <li><a class="active">Barang Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Barang Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Silahkan lengkapi form dibawah ini...</h5>
+              <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                <div class="form-group autoGenerateBlock form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.kode_barang.$invalid }">
+                  <label>Kode Barang (AUTO)</label>
+                  <input type="text" name="kode_barang" id="kode_barang" ng-model="kode_barang"
+                    ng-change="lenghtkdbarang()" class="form-control" ng-readonly="disablecode" disabled="">
+                  <p ng-show="userForm.$submitted && userForm.kode_barang.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+                  <label>Nama</label>
+                  <input type="text" name="nama" ng-model="nama" class="form-control" required>
+                  <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori.$invalid }">
+                  <label>Departement</label>
+                  <select class="form-control" name="kategori" ng-model="kategori" required>
+                    <option value="">--- Silahkan pilih departement ---</option>
+                    <option ng-repeat="p in data_departement" value="{{p.IDDepartement}}">{{p.NamaDepartement}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.kategori.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.jenis.$invalid }">
+                  <label>Jenis</label>
+                  <select class="form-control" name="jenis" ng-model="jenis" required>
+                    <option value="">--- Silahkan pilih jenis ---</option>
+                    <option ng-repeat="x in data_material" value="{{x.IDMaterial}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.jenis.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.satuan.$invalid }">
+                  <label>Satuan</label>
+                  <select class="form-control" name="satuan" ng-model="satuan" required>
+                    <option value="">--- Silahkan pilih satuan ---</option>
+                    <option ng-repeat="x in data_satuan" value="{{x.IDSatuan}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.satuan.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.supplier.$invalid }">
+                  <label>Supplier</label>
+                  <select class="form-control" name="supplier" ng-model="supplier" required>
+                    <option value="">--- Silahkan pilih supplier ---</option>
+                    <option ng-repeat="x in data_supplier" value="{{x.IDSupplier}}">{{x.NamaPerusahaan}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.supplier.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.harga.$invalid }">
+                  <label>Harga Beli</label>
+                  <input type="text" name="harga" ng-model="harga" ng-change="countMargin()" class="form-control"
+                    fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.harga.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajual.$invalid }"
+                  style="display: none;">
+                  <label>Harga Jual</label>
+                  <input type="text" name="hargajual" ng-model="hargajual" ng-change="countMargin()"
+                    class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.hargajual.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <!-- 
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajualgrosir.$invalid }" style="display: none;">
+                  <label>Harga Jual Grosir</label>
+                  <input type="text" name="hargajualgrosir" ng-model="hargajualgrosir" ng-change="countMargin()"  class="form-control" fcsa-number="{  }" required>
+                    <p ng-show="userForm.$submitted && userForm.hargajualgrosir.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                -->
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.margin.$invalid }" style="display: none;">
+                  <label>Margin</label>
+                  <input type="text" name="margin" ng-model="margin" class="form-control" fcsa-number="{  }"
+                    readonly="">
+                  <p ng-show="userForm.$submitted && userForm.margin.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.margingrosir.$invalid }"
+                  style="display: none;">
+                  <label>Margin Grosir</label>
+                  <input type="text" name="margingrosir" ng-model="margingrosir" class="form-control" fcsa-number="{  }"
+                    readonly="">
+                  <p ng-show="userForm.$submitted && userForm.margingrosir.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori.$invalid }">
+                  <label>Kategori</label>
+                  <select class="form-control" name="kategori" ng-model="kategori" required>
+                    <option value="">--- Silahkan pilih kategori ---</option>
+                    <option value="1">Barang</option>
+                    <option value="2">Jasa</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.kategori.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.parent.$invalid }" style="display: none;">
+                  <label>Parent Product</label>
+                  <select class="form-control" name="parent" ng-model="parent" required>
+                    <option value="0">NO PARENT</option>
+                    <option ng-repeat="x in data_barang" value="{{x.IDBarang}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.parent.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease; display: none;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Status</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="isSerial" id="checkbox2" ng-model="isSerial" ng-checked="isSerial=='1'"
+                      ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox2">Barang ini menggunakan <strong>Serial Number</strong></label>
+                  </div>
+                </div>
+                <div class="form-group form-group-default" ng-show="isSerial">
+                  <label>Library Code (Barcode Scanner)</label>
+                  <input type="text" name="libCode" ng-model="libCode" class="form-control">
+                </div><br /><br />
+                <button type="submit" class="btn btn-info" ng-disabled="processing"
+                  ng-show="kategori === departement"><i class="fa fa-save"></i> Simpan</button>
+                <a href="javascript:history.back()" type="button" class="btn btn-link"><i
+                    class="fa fa-long-arrow-left"></i> Kembali</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

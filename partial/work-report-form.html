@@ -1,0 +1,122 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Work Report</a>
+        </li>
+        <li><a href="#/data-work-report">Data Work Report</a>
+        </li>
+        <li><a class="active">Work Report Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Work Report Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat work report baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data"
+            autocomplete="off">
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.no_report.$invalid }">
+              <label>No. Work Report</label>
+              <input type="text" name="no_report" ng-model="no_report" class="form-control"
+                placeholder="No. Work Report (Auto)" disabled>
+              <p ng-show="userForm.$submitted && userForm.no_report.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.work_schedule.$invalid }">
+              <label>Work Order</label>
+              <select name="work_schedule" id="work_schedule" ng-model="work_schedule" class="form-control select2">
+                <option value="">--- Silahkan Work Order ---</option>
+                <option ng-repeat="x in data_work_schedule" value="{{x.IDWorkSchedule}}" select2>{{x.NoWorkSchedule}} -
+                  {{x.NoSPB}} / {{x.Pelanggan}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.work_schedule.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+              <label>Tanggal Kunjungan</label>
+              <input type="text" name="tanggal" ng-model="tanggal" class="form-control datepick" required>
+              <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+              <label>Keterangan</label>
+              <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height:200px"
+                required></textarea>
+              <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div
+              style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+              <label
+                style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Status</label>
+              <div class="checkbox check-primary checkbox-circle">
+                <input type="checkbox" name="isCompleted" id="checkbox2" ng-model="isCompleted"
+                  ng-checked="isCompleted=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                <label for="checkbox2">Set Work Order as Completed</label>
+              </div>
+            </div>
+
+            <div id="list-file-container">
+              <div class="row" style="margin-left: 0; margin-right: 0" ng-repeat="file in files">
+                <div class="col-md-6">
+                  <div class="form-group form-group-default">
+                    <label>Foto / PDF {{ $index+1 }}</label>
+                    <input type="file" name="foto" ngf-select ng-model="foto[$index]" class="form-control"
+                      ngf-pattern="'image/*,application/pdf'" ngf-accept="'image/*,application/pdf'"
+                      style="margin-top: 7px;">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/work_report_sopan/{{fotoName[$index]}}"
+                      ng-show="fotoName[$index]" target="_blank">Download</a>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group form-group-default">
+                    <label>Kategori</label>
+                    <select name="category_file" ng-model="category_file[$index]" class="form-control"
+                      style="margin-top: 7px">
+                      <option value="">--- Pilih Kategori File ---</option>
+                      <option ng-repeat="x in data_file_category" value="{{x.IDFileWorkReportCategory}}">{{x.Nama}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn btn-danger" ng-click="deleteItem($index)"><i
+                      class="fa fa-times"></i></button>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-success" ng-click="addItem()"><i class="fa fa-plus-circle"></i> Add New
+              File</button>
+            <br /><br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+              Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+              Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    $('.price').focus(function () {
+      $(this).val($(this).val().toString().replace(/,/g, ""));
+    });
+
+    $('.price').focusout(function () {
+      $(this).val(numberWithCommas($(this).val()));
+    });
+  });
+</script>

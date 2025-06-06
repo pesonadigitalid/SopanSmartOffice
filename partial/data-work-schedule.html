@@ -1,0 +1,133 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Work Order</a>
+        </li>
+        <li><a class="active">Data Work Order</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter
+            :</label>
+          <div class="col-xs-6 col-sm-1 sm-m-b-10">
+            <input type="text" ng-model="datestart" class="form-control datepick" placeholder="Tanggal Awal" />
+          </div>
+          <div class="col-xs-6 col-sm-1 sm-m-b-10">
+            <input type="text" ng-model="dateend" class="form-control datepick" placeholder="Tanggal Akhir" />
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <select class="form-control" ng-model="tipe">
+              <option value="">Semua Tipe</option>
+              <option value="3">Survey Unit Water Heater</option>
+              <option value="1">Pemasangan Unit Water Heater</option>
+              <option value="2">Service / Maintenance Unit Water Heater</option>
+              <option value="4">Pengiriman Unit</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <select class="form-control select2filter select2" ng-model="spb">
+              <option value="">Semua SPB</option>
+              <option ng-repeat="x in data_spb" value="{{x.IDPenjualan}}" select2>{{x.NoPenjualan}} /
+                {{x.NamaPelanggan}}
+              </option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <select class="form-control" ng-model="status">
+              <option value="">Semua Status</option>
+              <option value="0">In-Progress</option>
+              <option value="1">Completed</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-3 sm-m-b-10">
+            <select class="form-control" ng-model="karyawan">
+              <option value="">Semua Karyawan</option>
+              <option ng-repeat="x in data_karyawan" value="{{x.IDKaryawan}}" select2>{{x.Nama}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10 hidden-xs"></div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs" style="padding-top:8px;">
+            <button type="button" ng-click="filterData()" class="btn btn-info"><i class="fa fa-filter"></i>
+              Filter</button>
+            <button type="button" ng-click="doPrint2()" class="btn btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+          </div>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="filterData()" class="btn btn-block btn-info"><i class="fa fa-filter"></i>
+              Filter</button>
+            <button type="button" ng-click="doPrint2()" class="btn btn-danger"
+              style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print</button>
+            <a href="#/work-schedule/new/{{ work_schedule }}" type="button" class="btn btn-block btn-info"><i
+                class="fa fa-plus"></i>
+              Add new</a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10 hidden-xs">
+        <a href="#/work-schedule/new/{{ work_schedule }}" type="button" class="btn btn-info"><i class="fa fa-plus"></i>
+          Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:150px">Work Order</th>
+              <th>SPB / Pelanggan</th>
+              <th style="width:180px">Teknisi</th>
+              <th style="width:180px">Tipe</th>
+              <th style="width:120px">Status</th>
+              <th style="width:110px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_work_schedule" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>
+                  {{ x.NoWorkSchedule }}<br>
+                  Tanggal Order: {{ x.Tanggal }}
+                </p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NoSPB }} - {{ x.Pelanggan }}</p>
+              <td class="v-align-middle">
+                <p>{{ x.Karyawan }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NamaTipe }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Status }}</p>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/work-schedule/edit/{{ x.IDWorkSchedule }}" class="btn btn-default btn-xs" title="Edit"><i
+                    class="fa fa-edit"></i></a>
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDWorkSchedule)" title="Hapus"><i
+                    class="fa fa-remove"></i></button>
+                <a href="#/data-work-report/{{ x.IDWorkSchedule }}" class="btn btn-info btn-xs" title="Report"><i
+                    class="fa fa-file"></i></a>
+                <a ng-click="doPrint(x.IDWorkSchedule)" class="btn btn-info btn-xs" title="Report"><i
+                    class="fa fa-print"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

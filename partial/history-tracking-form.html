@@ -1,0 +1,50 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+            <ul class="breadcrumb">
+                <li>
+                    <a>History Tracking</a>
+                </li>
+                <li><a href="#/data-history-tracking">Data History Tracking</a>
+                </li>
+                <li><a href="#" class="active">History Tracking Baru</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Input History Tracking Baru
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h5>Silahkan lengkapi form dibawah untuk membuat akun history tracking baru...</h5>
+                    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                        <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.tgl_perbaikan.$invalid }">
+                            <label>Tanggal Perbaikan</label>
+                            <input type="text" name="tgl_perbaikan" ng-model="tgl_perbaikan" class="form-control datepick" required>
+                            <p ng-show="userForm.$submitted && userForm.tgl_perbaikan.$invalid" class="help-block">Wajib diisi.</p>
+                        </div>
+                        <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.serial_number.$invalid }">
+                            <label>Serial Number</label>
+                            <input type="text" name="serial_number" ng-model="serial_number" class="form-control" ng-disabled="disablecode" required>
+                            <p ng-show="userForm.$submitted && userForm.serial_number.$invalid" class="help-block">Wajib diisi.</p>
+                        </div>
+                        <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.detail_perbaikan.$invalid }">
+                            <label>Detail Perbaikan</label>
+                            <textarea name="detail_perbaikan" ng-model="detail_perbaikan" class="form-control" style="height: 200px;" required></textarea>
+                            <p ng-show="userForm.$submitted && userForm.detail_perbaikan.$invalid" class="help-block">Wajib diisi.</p>
+                        </div><br />
+                        <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+                        <a href="#/data-jenis-barang" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

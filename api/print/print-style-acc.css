@@ -1,0 +1,106 @@
+@font-face{
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-R.ttf");
+}
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-B.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-RI.ttf");
+    font-style: italic;
+}
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-BI.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+body{
+    font-family: "CFont";
+    font-size: 12px;
+    line-height: 1.4em;
+    color: #333;
+    padding: 20px;
+    margin: 0;
+}
+
+h1{
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 !important;
+}
+
+h2{
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.title2{
+    font-size: 9pt !important;
+}
+
+.divider{
+    border-bottom:solid 1px #d3d3d3;
+}
+
+table{
+    width: 100%;
+    border: none;
+}
+
+table td{
+    vertical-align: text-top;
+}
+.center{
+    text-align: center;
+}
+
+.red{
+    color: #9b1400;
+}
+
+.blue{
+    color: #236484;
+}
+
+.tbLabaRugi{
+    margin: 30px auto;
+}
+.tbLabaRugi td{
+    text-align: left;
+}
+
+.labelHeader{
+    color: #236484;
+    font-weight: bold;
+}
+
+.labelHeader2{
+    color: #333;
+    font-weight: bold;
+}
+
+.deep1{
+    padding-left: 20px;
+}
+
+.deep2{
+    padding-left: 40px;
+}
+
+.newPage { 
+  page-break-before: always;
+}
+
+.spacer{
+    height: 20px !important;
+}
+
+.newPage { 
+  page-break-before: always;
+}

@@ -1,0 +1,104 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-penjualan">Data SPB</a>
+        </li>
+        <li><a class="active">Data VO SPB</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">DATA VO SPB - {{DetailSPB.NoPenjualan}} - {{DetailSPB.NamaPelanggan}}
+      </div>
+      <div class="btn-group pull-right m-b-10">
+        <a href="#/vo-spb/new/{{idPenjualan}}" ng-show="listMenu.spb.write===true" type="button" class="btn btn-info"><i
+            class="fa fa-plus"></i> Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:120px">No VO</th>
+              <th style="width:100px">Tanggal</th>
+              <th>Keterangan</th>
+              <th style="width:150px">Nilai VO</th>
+              <th style="width:150px">Nilai Akhir SPB</th>
+              <th style="width:60px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_vo" jq-table>
+              <td class="v-align-middle v-align-center" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ $index+1 }}</p>
+              </td>
+              <td class="v-align-middle" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ x.NoVO }}</p>
+              </td>
+              <td class="v-align-middle" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ x.TanggalID }}</p>
+              </td>
+              <td class="v-align-middle" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ x.Keterangan }}</p>
+              </td>
+              <td class="v-align-middle v-align-center" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ x.GrandTotal | number }}</p>
+              </td>
+              <td class="v-align-middle v-align-center" ng-class="{'removed' : x.Status == 2}">
+                <p>{{ x.GrandTotalSPBAkhir | number }}</p>
+              </td>
+              </td>
+              <td class="v-align-middle">
+                <!-- <a href="#/vo-spb/edit/{{x.IDPenjualanVO}}" class="btn btn-default btn-xs" title="Edit"
+                  ng-show="listMenu.spb.write===true" ng-show="listMenu.spb.write===true"><i class="fa fa-edit"></i></a> -->
+                <a href="#/vo-spb/detail/{{ x.IDPenjualanVO }}" class="btn btn-success btn-xs" title="Detail"><i
+                    class="fa fa-search"></i></a>
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDPenjualanVO,x.NoVO)" title="Hapus"
+                  ng-show="listMenu.spb.write===true && x.Status != 2"><i class="fa fa-remove"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade stick-middle" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Hapus <span class="semi-bold">Variant Order</span> {{noVO}}</h5>
+      </div>
+      <div class="modal-body">
+        <form name="userForm" ng-submit="submitFormDelete(userForm.$valid)" enctype="multipart/form-data" autocomplete="off">
+          <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.remark.$invalid }">
+            <label>Masukan alasan kenapa ingin menghapus variant order ini</label>
+            <textarea name="remark" ng-model="remark" class="form-control" style="height:150px" required></textarea>
+            <p ng-show="userForm.$submitted && userForm.remark.$invalid" class="help-block">Wajib diisi.</p>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <button type="submit" class="btn btn-info btn-block" ng-disabled="processing">Simpan</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

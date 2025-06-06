@@ -1,0 +1,184 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="#/reimburse/new" class="btn btn-complete btn-block btn-compose m-b-30"><i class="pg-plus"></i> REIMBURSE BARU</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === ''}">
+        <a href="" ng-click="doFilter('')">
+          <span class="title"><i class="pg-tables"></i> Semua Reimburse</span>
+          <span class="badge pull-right">{{ all }}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '0'}">
+        <a href="" ng-click="doFilter('0')">
+          <span class="title"><i class="pg-folder"></i> Reimburse Baru</span>
+          <span class="badge pull-right">{{new}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '1'}">
+        <a href="" ng-click="doFilter('1')">
+          <span class="title"><i class="fa fa-check"></i> Approved By HRD</span>
+          <span class="badge pull-right">{{approved}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '2'}">
+        <a href="" ng-click="doFilter('2')">
+          <span class="title"><i class="fa fa-check"></i> Complete Reimburse</span>
+          <span class="badge pull-right">{{complete}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>Kasir &amp; Finance</a>
+            </li>
+            <li><a class="active">Data Reimburse</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="width: 100%;">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+              <div class="col-xs-6 col-sm-3 sm-m-b-10">
+                <select class="form-control" ng-model="bulan" style="font-size:13px">
+                  <option value="">Bulan</option>
+                  <option ng-repeat="p in month" value="{{p.id}}">{{p.value}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3 sm-m-b-10">
+                <select class="form-control" ng-model="tahun" style="font-size:13px">
+                  <option value="">Tahun</option>
+                  <option ng-repeat="p in year" value="{{p}}">{{p}}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs">
+                <button type="button" ng-click="filterdata()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+              </div>
+              <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+                <button type="button" ng-click="filterdata()" class="btn btn-info btn-block"><i class="fa fa-filter"></i> Filter</button>
+                <a href="#/reimburse/new" class="btn btn-complete btn-block btn-block btn-compose m-b-30"><i class="pg-plus"></i> REIMBURSE BARU</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:20px">No</th>
+                  <th style="width:120px">No. Reimburse</th>
+                  <th style="width:200px">Kategori</th>
+                  <th style="width:120px">No. Kend</th>
+                  <th>Karyawan</th>
+                  <th style="width:100px">Jumlah</th>
+                  <th style="width:100px">Status</th>
+                  <th style="width:150px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in data_reimburse" jq-table>
+                  <td class="v-align-middle v-align-center">
+                    <p>{{ x.No }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.NoReimburse }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Kategori }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.NoKendaraan }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Karyawan }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.TotalNilai | number }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Status }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <a href="#/reimburse/edit/{{ x.IDReimburse }}" class="btn btn-default btn-xs" title="Edit" ng-show="x.Status!=='Terbayar'"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-success btn-xs" title="Paid" ng-click="showModal(x.NoReimburse,x.TotalNilai,x.Karyawan,x.Bank,x.NoRek,x.IDReimburse)" ng-show="x.Status==='Approved'"><i class="fa fa-check"></i></a>
+                    <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDReimburse)" title="Hapus" ng-show="x.Status!=='Terbayar'"><i class="fa fa-remove"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5><span class="bold">Pembayaran Reimburse</span></h5>
+      </div>
+      <form role="form" ng-submit="updateRFID()">
+        <div class="modal-body">
+          <div class="form-group-attached">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group form-group-default">
+                  <label>No Reimburse</label>
+                  {{Detail.NoReimburse}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group form-group-default">
+                  <label>Karyawan</label>
+                  {{Detail.Karyawan}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label>Jumlah Reimburse</label>
+                  {{Detail.Jumlah | number}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group form-group-default">
+                  <label>Bank</label>
+                  {{Detail.Bank}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group form-group-default">
+                  <label>No. Rekening</label>
+                  {{Detail.NoRekening}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:20px;">
+            <div class="col-sm-12">
+              <button type="button" ng-click="setTerbayar()" class="btn btn-primary btn-block m-t-5" style="font-weight: bold;">Set Status Menjadi TERBAYAR</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

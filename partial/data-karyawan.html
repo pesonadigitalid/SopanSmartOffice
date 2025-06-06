@@ -1,0 +1,267 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="{{newUrl}}" class="btn btn-complete btn-block btn-compose m-b-30"
+      ng-show="listMenu.karyawan.write===true"><i class="pg-plus"></i> KARYAWAN
+      BARU</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === '1'}">
+        <a href="" ng-click="doFilter('1')">
+          <span class="title"><i class="fa fa-check"></i> Karyawan Aktif</span>
+          <span class="badge pull-right">{{active}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '0'}">
+        <a href="" ng-click="doFilter('0')">
+          <span class="title"><i class="fa fa-remove"></i> Resign </span>
+          <span class="badge pull-right">{{resign}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === ''}">
+        <a href="" ng-click="doFilter('')">
+          <span class="title"><i class="pg-tables"></i> Semua Karyawan</span>
+          <span class="badge pull-right">{{all}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>Master Data</a>
+            </li>
+            <li ng-show="!isHarian"><a class="active">Data Karyawan</a>
+            <li ng-show="isHarian"><a class="active">Data Karyawan Harian</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="width: 100%;">
+            <div class="form-group row mobile-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+              <div class="col-xs-12 col-sm-2" ng-show="!isHarian">
+                <select class="form-control" ng-model="jabatan" style="font-size:13px">
+                  <option value="">Jabatan</option>
+                  <option ng-repeat="x in data_jabatan" value="{{ x.IDJabatan }}">{{ x.Jabatan }}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-2">
+                <select class="form-control" ng-model="status_karyawan" style="font-size:13px">
+                  <option value="">Status Karyawan</option>
+                  <option value="Harian">Harian</option>
+                  <option value="Kontrak" ng-show="!isHarian">Kontrak</option>
+                  <option value="Tetap" ng-show="!isHarian">Tetap</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-2" ng-show="!isHarian">
+                <select class="form-control" ng-model="departement" style="font-size:13px">
+                  <option value="">Semua Departement</option>
+                  <option ng-repeat="x in data_departement" value="{{ x.IDDepartement }}">{{ x.Nama }}</option>
+                </select>
+              </div>
+              <!-- <div class="col-xs-2 s2cont">
+                <select class="form-control select2filter select2" name="proyek" id="proyek" ng-model="proyek"
+                  style="font-size:13px">
+                  <option value="">Semua Proyek</option>
+                  <option ng-repeat="x in data_proyek" value="{{x.IDProyek}}" select2>{{ x.KodeProyek }} /
+                    {{ x.Tahun }} / {{ x.NamaProyek }}</option>
+                </select>
+              </div> -->
+              <div class="col-xs-12 col-sm-2" ng-show="isHarian">
+                <select class="form-control" name="agama" ng-model="agama">
+                  <option value="">Semua Agama</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Budha">Budha</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Islam">Islam</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-2 hidden-xs" ng-show="!isHarian">
+                <button type="button" ng-click="refreshData()" class="btn btn-info"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+              </div>
+              <div class="col-xs-12 col-sm-2 visible-xs" ng-show="!isHarian">
+                <button type="button" ng-click="refreshData()" class="btn btn-info btn-block"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+              </div>
+              <div class="col-xs-1" ng-show="!isHarian">
+              </div>
+              <div class="col-xs-12 hidden-xs" style="margin-top:10px" ng-show="!isHarian">
+                <button type="button" ng-click="printData()" class="btn btn-danger"
+                        style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Print Data
+                  Karyawan</button>
+                <button type="button" ng-click="doPrint2()" class="btn btn-danger"
+                        style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Print Karyawan
+                  Per
+                  Departement</button>
+                <a href="#/laporan-karyawan-tahunan" class="btn btn-danger"
+                   style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Laporan
+                  Karyawan Tahunan</a>
+              </div>
+              <div class="col-xs-12 hidden-xs" ng-show="isHarian">
+                <button type="button" ng-click="refreshData()" class="btn btn-info"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+                <button type="button" ng-click="printData()" class="btn btn-danger"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print Data Karyawan</button>
+              </div>
+
+              <div class="col-xs-12 visible-xs" style="margin-top:10px" ng-show="!isHarian">
+                <button type="button" ng-click="printData()" class="btn btn-block btn-danger"
+                        style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Print Data
+                  Karyawan</button>
+                <button type="button" ng-click="doPrint2()" class="btn btn-block btn-danger"
+                        style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Print Karyawan
+                  Per
+                  Departement</button>
+                <a href="#/laporan-karyawan-tahunan" class="btn btn-block btn-danger"
+                   style="font-size:13px;text-transform: none; margin: 2px 0;"><i class="fa fa-print"></i> Laporan
+                  Karyawan Tahunan</a>
+                <a href="#/purchase-order/new" class="btn btn-block btn-complete btn-block btn-compose m-b-30 visible-xs"><i
+                        class="pg-plus"></i> KARYAWAN BARU</a>
+              </div>
+              <div class="col-xs-12 visible-xs" ng-show="isHarian">
+                <button type="button" ng-click="refreshData()" class="btn btn-block btn-info"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+                <button type="button" ng-click="printData()" class="btn btn-block btn-danger"
+                        style="font-size:13px;text-transform: none;"><i class="fa fa-print"></i> Print Data Karyawan</button>
+                <a href="#/purchase-order/new" class="btn btn-block btn-complete btn-block btn-compose m-b-30 visible-xs"><i
+                        class="pg-plus"></i> KARYAWAN BARU</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-hover" id="basicTable">
+            <thead>
+              <tr>
+                <th style="width:20px">No</th>
+                <th style="width:120px">NIK</th>
+                <th>Nama</th>
+                <th style="width:100px" ng-show="!isHarian">Status</th>
+                <th style="width:100px" ng-show="!isHarian">Jabatan</th>
+                <th style="width:100px" ng-show="!isHarian">AbsentID</th>
+                <th style="width:100px" ng-show="isHarian">Status / Jabatan</th>
+                <th style="width:100px" ng-show="isHarian">Proyek</th>
+                <th style="width:100px" ng-show="isHarian">Agama</th>
+                <th style="width:180px">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in data_karyawan" jq-table>
+                <td class="v-align-middle v-align-center">
+                  <p>{{ x.No }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <p>{{ x.NIK }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <p>{{ x.Nama }}</p>
+                </td>
+                <td class="v-align-middle" ng-show="!isHarian">
+                  <p>
+                    {{ x.Status }}
+                    <ng-container ng-show="x.Status==='Harian'"> {{ x.StatusLainnya }}</ng-container>
+                  </p>
+                </td>
+                <td class="v-align-middle" ng-show="!isHarian">
+                  <p>{{ x.Jabatan }}</p>
+                </td>
+                <td class="v-align-middle" ng-show="!isHarian">
+                  <p>{{ x.AbsentID }}</p>
+                </td>
+                <td class="v-align-middle" ng-show="isHarian">
+                  <p>
+                    {{ x.Status }}
+                    <ng-container ng-show="x.Status==='Harian'"> {{ x.StatusLainnya }}</ng-container>
+                    / {{ x.Jabatan }}
+                  </p>
+                </td>
+                <td class="v-align-middle" ng-show="isHarian">
+                  <p>{{ x.Proyek }}</p>
+                </td>
+                <td class="v-align-middle" ng-show="isHarian">
+                  <p>{{ x.Agama }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <!-- <a href="#/karyawan/edit/{{ x.IDKaryawan }}" class="btn btn-default btn-xs" target="_blank" title="Edit Karyawan" ng-show="WriteData"><i class="fa fa-edit"></i></a>
+                    <a href="#/hak-akses/{{ x.IDKaryawan }}" class="btn btn-primary btn-xs" target="_blank"  title="Update Hak Akses" ng-show="WriteData"><i class="fa fa-gear"></i></a>
+                    <a href="#/data-manage-device/{{ x.IDKaryawan }}" class="btn btn-warning btn-xs" target="_blank" title="Update Device" ng-show="WriteData"><i class="pg-tablet"></i></a>
+                    <a class="btn btn-info btn-xs" ng-click="showModal(x.Nama,x.IDKaryawan,x.CardNumber)" title="RFID Card" ng-show="WriteData"><i class="fa fa-credit-card"></i></a>
+                    <a class="btn btn-success btn-xs" ng-click="doPrint(x.IDKaryawan)" title="Print Data" ng-show="WriteData"><i class="fa fa-print"></i></a>
+                    <a class="btn btn-danger btn-xs" ng-click="removeRow(x.IDKaryawan)" title="Hapus Karyawan" ng-show="WriteData"><i class="fa fa-remove"></i></a> -->
+                  <a href="{{editUrl}}{{ x.IDKaryawan }}" class="btn btn-default btn-xs" target="_blank"
+                    title="Edit Karyawan" ng-show="listMenu.karyawan.write===true" style="margin: 1px !important"><i class="fa fa-edit"></i></a>
+                  <!-- <a href="#/hak-akses/{{ x.IDKaryawan }}" class="btn btn-primary btn-xs" target="_blank"
+                    title="Update Hak Akses" ng-show="listMenu.karyawan.write===true" ng-hide="isHarian"><i
+                      class="fa fa-gear"></i></a>
+                  <a href="#/data-manage-device/{{ x.IDKaryawan }}" class="btn btn-warning btn-xs" target="_blank"
+                    title="Update Device" ng-show="listMenu.karyawan.write===true" ng-hide="isHarian"><i
+                      class="pg-tablet"></i></a> -->
+                  <a class="btn btn-info btn-xs" ng-click="showModal(x.Nama,x.IDKaryawan,x.CardNumber)"
+                    title="RFID Card" ng-hide="isHarian" style="margin: 1px !important"><i class="fa fa-credit-card"></i></a>
+                  <!-- <a class="btn btn-success btn-xs" ng-click="doPrint(x.IDKaryawan)" title="Print Data"><i class="fa fa-print"></i></a> -->
+                  <a href="{{profileUrl}}{{ x.IDKaryawan }}" class="btn btn-success btn-xs" target="_blank"
+                    title="Profile Karyawan" ng-hide="isHarian" style="margin: 1px !important"><i class="fa fa-user"></i></a>
+                  <a class="btn btn-danger btn-xs" ng-click="removeRow(x.IDKaryawan)" title="Hapus Karyawan"
+                    ng-show="listMenu.karyawan.write===true" style="margin: 1px !important"><i class="fa fa-remove"></i></a>
+                  <a ng-href="{{setFingerPrintURL(x.IDKaryawan)}}" class="btn btn-info btn-xs"
+                    ng-click="registerFingerPrint(x.IDKaryawan, x.Nama, x.CountFinger, $index)" style="margin: 1px !important"><i
+                      class="fa fa-plus"></i> Finger Print ({{x.CountFinger}})</a>
+                  <button class="btn btn-danger btn-xs" ng-click="resetFP(x.IDKaryawan)" style="margin: 1px !important"><i class="fa fa-remove"></i>
+                    Reset FP</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Ubah <span class="semi-bold">RFID Card</span> Karyawan</h5>
+        <p>Silahkan tap <strong style="color: #000;">RFID Card</strong> milik saudara/saudari <strong
+            style="color: #000;">{{person_name}}</strong>.</p>
+      </div>
+      <form role="form" ng-submit="updateRFID()">
+        <div class="modal-body">
+          <div class="form-group-attached">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label>RFID Code</label>
+                  <input type="text" name="rfidcode" id="rfidcode" ng-model="rfidcode" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <button type="button" ng-click="updateRFID()" class="btn btn-primary btn-block m-t-5">Update</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

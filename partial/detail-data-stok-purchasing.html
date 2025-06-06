@@ -1,0 +1,71 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Persediaan</a>
+        </li>
+        <li><a href="#/data-stok-purchasing">Data Stok Purchasing</a>
+        </li>
+        <li><a class="active">Detail Stok Purchasing</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">DETAIL DATA STOK PURCHASING
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:50px">Kode</th>
+              <th>Nama Barang</th>
+              <th style="width:150px">SPB</th>
+              <th style="width:100px">Serial Number</th>
+              <th style="width:100px">Lokasi</th>
+              <th style="width:130px">Tgl. Penerimaan</th>
+              <th style="width: 100px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_stok_purchasing" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.KodeBarang }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NamaBarang }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.SPB }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.SN }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Gudang }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.TanggalPenerimaan }}</p>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/detail-stok-purchasing/edit/{{ x.IDStokPurchasing }}" class="btn btn-primary btn-xs"
+                  title="Detail"><i class="fa fa-edit"></i> Edit Serial Number</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

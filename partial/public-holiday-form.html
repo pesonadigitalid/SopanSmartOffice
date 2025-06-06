@@ -1,0 +1,53 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>HRD</a>
+        </li>
+        <li><a href="#/data-public-holiday">Data Public Holiday</a></li>
+        <li><a href="#" class="active">Public Holiday Baru</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Public Holiday
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat public holiday baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama_hari_libur.$invalid }">
+              <label>Nama Hari Libur</label>
+              <input type="text" name="nama_hari_libur" ng-model="nama_hari_libur" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.nama_hari_libur.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.dari_tanggal.$invalid }">
+              <label>Dari Tanggal</label>
+              <input type="text" name="dari_tanggal" ng-model="dari_tanggal" ng-change="countDate()" class="form-control datepick" required>
+              <p ng-show="userForm.$submitted && userForm.dari_tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.sampai_tanggal.$invalid }">
+              <label>Sampai Tanggal</label>
+              <input type="text" name="sampai_tanggal" ng-model="sampai_tanggal" class="form-control datepick" ng-change="countDate()" required>
+              <p ng-show="userForm.$submitted && userForm.sampai_tanggal.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+              <label>Keterangan</label>
+              <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height: 100px"></textarea>
+              <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib diisi.</p>
+            </div><br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

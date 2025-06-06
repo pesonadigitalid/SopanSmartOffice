@@ -1,0 +1,330 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-barang">Data Barang</a>
+        </li>
+        <li><a class="active">Barang Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Barang Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-5">
+              <h5>Silahkan lengkapi form dibawah ini...</h5>
+              <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                <div class="form-group autoGenerateBlock form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.kode_barang.$invalid }">
+                  <label>Kode Barang (AUTO)</label>
+                  <input type="text" name="kode_barang" id="kode_barang" ng-model="kode_barang"
+                    ng-change="lenghtkdbarang()" class="form-control" ng-readonly="disablecode" disabled="">
+                  <p ng-show="userForm.$submitted && userForm.kode_barang.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+                  <label>Nama</label>
+                  <input type="text" name="nama" ng-model="nama" class="form-control" required>
+                  <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori.$invalid }">
+                  <label>Departement</label>
+                  <select class="form-control" name="kategori" ng-model="kategori" required>
+                    <option value="">--- Silahkan pilih departement ---</option>
+                    <option ng-repeat="p in data_departement" value="{{p.IDDepartement}}">{{p.NamaDepartement}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.kategori.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.jenis.$invalid }">
+                  <label>Jenis</label>
+                  <select class="form-control" name="jenis" ng-model="jenis" required>
+                    <option value="">--- Silahkan pilih jenis ---</option>
+                    <option ng-repeat="x in data_material" value="{{x.IDMaterial}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.jenis.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.satuan.$invalid }">
+                  <label>Satuan</label>
+                  <select class="form-control" name="satuan" ng-model="satuan" required>
+                    <option value="">--- Silahkan pilih satuan ---</option>
+                    <option ng-repeat="x in data_satuan" value="{{x.IDSatuan}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.satuan.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.supplier.$invalid }">
+                  <label>Supplier</label>
+                  <select class="form-control" name="supplier" ng-model="supplier" required>
+                    <option value="">--- Silahkan pilih supplier ---</option>
+                    <option ng-repeat="x in data_supplier" value="{{x.IDSupplier}}">{{x.NamaPerusahaan}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.supplier.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.hargaPublish.$invalid }">
+                  <label>Harga Beli (Publish)</label>
+                  <input type="text" name="hargaPublish" ng-model="hargaPublish" ng-change="countMargin(null)"
+                    class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.hargaPublish.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.diskonPersen.$invalid }">
+                  <label>Diskon</label>
+                  <input type="text" name="diskonPersen" ng-model="diskonPersen" ng-change="countMargin(true)"
+                    class="form-control" required>
+                  <p ng-show="userForm.$submitted && userForm.diskonPersen.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.harga.$invalid }">
+                  <label>Harga Beli</label>
+                  <input type="text" name="harga" ng-model="harga" ng-change="countMargin(false)" class="form-control"
+                    fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.harga.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Barang
+                    Include PPN</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="IsBarangPPN" id="checkbox4" ng-model="IsBarangPPN"
+                      ng-checked="IsBarangPPN=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox4">Set barang ini sebagai <strong>Barang Include PPN</strong></label>
+                  </div>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajual.$invalid }"
+                  ng-show="IsBarangPPN==='1'">
+                  <label>PPN Persen</label>
+                  <input type="text" name="ppnPersen" ng-model="ppnPersen" ng-change="countDpp(true)"
+                    class="form-control" required>
+                  <p ng-show="userForm.$submitted && userForm.ppnPersen.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajual.$invalid }"
+                  ng-show="IsBarangPPN==='1'">
+                  <label>DPP</label>
+                  <input type="text" name="dpp" ng-model="dpp" ng-change="countDpp(false)" class="form-control"
+                    fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.dpp.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajual.$invalid }">
+                  <label>Harga Jual</label>
+                  <input type="text" name="hargajual" ng-model="hargajual" ng-change="countMargin(null);countDpp(null)"
+                    class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.hargajual.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <!-- <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.hargajualgrosir.$invalid }">
+                  <label>Harga Jual Grosir</label>
+                  <input type="text" name="hargajualgrosir" ng-model="hargajualgrosir" ng-change="countMargin()"  class="form-control" fcsa-number="{  }" required>
+                    <p ng-show="userForm.$submitted && userForm.hargajualgrosir.$invalid" class="help-block">Wajib diisi.</p>
+                </div> -->
+                <!-- <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.margin.$invalid }">
+                  <label>Margin</label>
+                  <input type="text" name="margin" ng-model="margin" class="form-control" ng-change="countMargin()" fcsa-number="{  }" readonly="">
+                  <p ng-show="userForm.$submitted && userForm.margin.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.margingrosir.$invalid }">
+                  <label>Margin Grosir</label>
+                  <input type="text" name="margingrosir" ng-model="margingrosir" class="form-control" fcsa-number="{  }" readonly="">
+                  <p ng-show="userForm.$submitted && userForm.margingrosir.$invalid" class="help-block">Wajib diisi.</p>
+                </div> -->
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.isBarang.$invalid }">
+                  <label>Kategori</label>
+                  <select class="form-control" name="isBarang" ng-model="isBarang" required>
+                    <option value="">--- Silahkan pilih kategori ---</option>
+                    <option value="1">Barang</option>
+                    <option value="2">Jasa</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.isBarang.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default"
+                  ng-class="{ 'has-error' : userForm.$submitted && userForm.parent.$invalid }" style="display: none;">
+                  <label>Parent Product</label>
+                  <select class="form-control" name="parent" ng-model="parent" required>
+                    <option value="0">NO PARENT</option>
+                    <option ng-repeat="x in data_barang" value="{{x.IDBarang}}">{{x.Nama}}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.parent.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default">
+                  <label>Foto 1</label>
+                  <input type="file" name="foto1" ngf-select ng-model="foto1" class="form-control"
+                    ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+                  <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/barang_sopan/{{getfoto1}}" width="150"
+                    ng-show="getfoto1" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+                </div>
+                <div class="form-group form-group-default">
+                  <label>Foto 2</label>
+                  <input type="file" name="foto2" ngf-select ng-model="foto2" class="form-control"
+                    ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+                  <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/barang_sopan/{{getfoto2}}" width="150"
+                    ng-show="getfoto2" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+                </div>
+                <div class="form-group form-group-default">
+                  <label>Foto 3</label>
+                  <input type="file" name="foto3" ngf-select ng-model="foto3" class="form-control"
+                    ngf-pattern="'image/*'" ngf-accept="'image/*'" style="margin-top: 7px;">
+                  <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/barang_sopan/{{getfoto3}}" width="150"
+                    ng-show="getfoto3" style="margin-top: 5px; margin-bottom: 10px;display:block; width: 130px" />
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Status</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="isSerial" id="checkbox2" ng-model="isSerial" ng-checked="isSerial=='1'"
+                      ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox2">Barang ini menggunakan <strong>Serial Number</strong></label>
+                  </div>
+                </div>
+                <div class="form-group form-group-default" ng-show="isSerial=='1'">
+                  <label>Library Code (Barcode Scanner)</label>
+                  <input type="text" name="libCode" ng-model="libCode" class="form-control">
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Barang
+                    Penjualan</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="isSellingProduct" id="checkbox3" ng-model="isSellingProduct"
+                      ng-checked="isSellingProduct=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox3">Set barang ini sebagai <strong>Barang Penjualan</strong></label>
+                  </div>
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Service
+                    6 Bulan</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="IsNotifiedService6" id="checkbox5" ng-model="IsNotifiedService6"
+                      ng-checked="IsNotifiedService6=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox5">Set Notifikasi untuk <strong>Service 6 Bulan</strong></label>
+                  </div>
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Service
+                    12 Bulan</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="IsNotifiedService12" id="checkbox6" ng-model="IsNotifiedService12"
+                      ng-checked="IsNotifiedService12=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox6">Set Notifikasi untuk <strong>Service 12 Bulan</strong></label>
+                  </div>
+                </div>
+                <div
+                  style="margin-bottom:10px;background-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                  <label
+                    style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Service
+                    18 Bulan</label>
+                  <div class="checkbox check-primary checkbox-circle">
+                    <input type="checkbox" name="IsNotifiedService18" id="checkbox7" ng-model="IsNotifiedService18"
+                      ng-checked="IsNotifiedService18=='1'" ng-true-value="'1'" ng-false-value="'0'">
+                    <label for="checkbox7">Set Notifikasi untuk <strong>Service 18 Bulan</strong></label>
+                  </div>
+                </div><br /><br />
+                <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+                  Simpan</button>
+                <a href="javascript:history.back()" type="button" class="btn btn-link"><i
+                    class="fa fa-long-arrow-left"></i> Kembali</a>
+              </form>
+            </div>
+            <div class="col-md-7" ng-show="id !== '' && isBarang==='1'">
+              <h5>Paket Barang</h5>
+              <div class="row" style="margin: 0;">
+                <div class="col-sm-4">
+                  <!--
+                    <select class="form-control select2" name="kode" id="kode" ng-model="kode" ng-change="changeKode()">
+                        <option value="">Kode Aktivitas</option>
+                        <option ng-repeat="x in data_activity" value="{{$index}}" select2activity>{{ x.Kode }} | {{ x.Nama }}</option>
+                    </select>
+                    -->
+                  <input id="kode" name="kode" class="form-control select2" ng-model="kode" ng-change="testingS()" />
+                </div>
+                <div class="col-sm-5">
+                  <input type="text" name="anama" id="anama" ng-model="anama" placeholder="Nama Barang"
+                    class="form-control" readonly="">
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" name="aqty" id="aqty" ng-model="aqty" placeholder="Qty" class="form-control">
+                </div>
+                <div class="col-sm-1">
+                  <button type="button" class="btn btn-danger" ng-disabled="processCart" ng-click="addToCart()"
+                    ng-disabled="processCart"><i class="fa fa-plus-circle"></i></button>
+                </div>
+              </div>
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;"></th>
+                    <th style="width: 20px;">No</th>
+                    <th style="width: 40px;">Kode</th>
+                    <th>Nama Barang</th>
+                    <th width="120px">Harga</th>
+                    <th width="50px">Qty</th>
+                    <th width="100px">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in barang_child">
+                    <td class="v-align-middle" style="font-size:12px">
+                      <button type="button" class="btn btn-danger btn-xs"
+                        ng-click="removeRowChild(x.IDBarangChildren); $event.stopPropagation();"><i
+                          class="fa fa-remove"></i></button>
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      {{x.No}}
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      {{x.KodeBarang}}
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      {{x.Nama}}
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      <input type="text" ng-model="zHarga" id="Harga{{x.IDBarangChildren}}"
+                        ng-change="calcSubTotal(x.IDBarangChildren)" class="form-control" ng-value="x.Harga"
+                        fcsa-number="" style="width: 120px !important;" />
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      <input type="text" ng-model="zQty" id="Qty{{x.IDBarangChildren}}"
+                        ng-change="calcSubTotal(x.IDBarangChildren)" class="form-control" ng-value="x.Qty"
+                        fcsa-number="" style="width: 80px !important;" />
+                    </td>
+                    <td class="v-align-middle" style="font-size:12px">
+                      {{x.Total | number}}
+                    </td>
+                  </tr>
+                  <tr ng-show="!barang_child.length">
+                    <td colspan="5">Belum ada paket barang yang dilakukan..</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

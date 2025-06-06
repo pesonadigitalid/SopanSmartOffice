@@ -1,0 +1,93 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+            <ul class="breadcrumb">
+                <li>
+                    <a>Purchasing</a>
+                </li>
+                <li><a href="#/data-faktur-pajak-po">Data Faktur Pajak PO</a>
+                </li>
+                <li><a class="active">Faktur Pajak PO Baru</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Input Pajak PO Baru
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h5>Silahkan lengkapi form dibawah untuk menginput Faktur Pajak baru...</h5>
+                    <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data"
+                        novalidate>
+                        <div class="form-group form-group-default"
+                            ng-class="{ 'has-error' : userForm.$submitted && userForm.no_faktur.$invalid }">
+                            <label>No. Faktur Pajak</label>
+                            <input type="text" name="no_faktur" id="no_faktur" ng-model="no_faktur" class="form-control"
+                                required>
+                            <p ng-show="userForm.$submitted && userForm.no_faktur.$invalid" class="help-block">Wajib
+                                diisi.</p>
+                        </div>
+                        <div class="form-group form-group-default"
+                            ng-class="{ 'has-error' : userForm.$submitted && userForm.id_po.$invalid }">
+                            <label>PO</label>
+                            <select class="form-control select2filter select2" name="id_po" id="id_po" ng-model="id_po"
+                                ng-change="changePO()" required>
+                                <option value="" select2>Pilih No PO</option>
+                                <option ng-repeat="(key, x) in data_po" value="{{x.IDPO}}" select2>{{ x.NoPO }} / {{
+                                    x.Supplier }}</option>
+                            </select>
+                            <p ng-show="userForm.$submitted && userForm.id_po.$invalid" class="help-block">Wajib diisi.
+                            </p>
+                        </div>
+                        <div class="form-group form-group-default"
+                            ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+                            <label>Tanggal</label>
+                            <input type="text" name="tanggal" id="tanggal" ng-model="tanggal"
+                                class="form-control datepick" required>
+                            <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib
+                                diisi.</p>
+                        </div>
+                        <div class="form-group form-group-default"
+                            ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+                            <label>Keterangan</label>
+                            <textarea type="text" name="keterangan" id="keterangan" ng-model="keterangan"
+                                class="form-control" rows="5" required></textarea>
+                            <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib
+                                diisi.</p>
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Outstanding Faktur Pajak</label>
+                            <input type="text" name="outstanding" id="outstanding" ng-model="outstanding"
+                                class="form-control" required disabled>
+                        </div>
+                        <div class="form-group form-group-default"
+                            ng-class="{ 'has-error' : userForm.$submitted && userForm.nilai.$invalid }">
+                            <label>Nilai</label>
+                            <input type="text" name="nilai" id="nilai" ng-model="nilai" class="form-control" required>
+                            <p ng-show="userForm.$submitted && userForm.nilai.$invalid" class="help-block">Wajib diisi.
+                            </p>
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>File</label>
+                            <input type="file" ngf-select ng-model="file" name="file" class="form-control">
+                            <p ng-if="fileview!=null">{{ fileview }}</p>
+                        </div>
+                        <br />
+                        <input type="hidden" name="idfaktur" ng-model="idfaktur">
+                        <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+                            Simpan</button>
+                        <a href="javascript:history.back()" type="button" class="btn btn-link"><i
+                                class="fa fa-long-arrow-left"></i> Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

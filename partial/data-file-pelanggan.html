@@ -1,0 +1,68 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#" class="active">Data File {{fileCategory}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">
+        Data File: {{fileCategory}}<br />
+        Pelanggan: {{pelangganName}}
+      </div>
+      <div class="btn-group pull-right m-b-10">
+        <a href="#/file-pelanggan/new/{{idFileCategory}}/{{idPelanggan}}" type="button" class="btn btn-info"><i
+            class="fa fa-plus"></i> Add
+          new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:150px">Nama</th>
+              <th>Keterangan</th>
+              <th style="width:180px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(key, x) in data" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ key + 1 }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Nama }}
+                </p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Keterangan }}
+                </p>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/file-pelanggan/edit/{{idFileCategory}}/{{idPelanggan}}/{{x.ID}}"
+                  class="btn btn-default btn-xs" title="Edit Data"><i class="fa fa-edit"
+                    ng-show="listMenu.proyek.write===true"></i> Edit</a>
+                <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/mms_pelanggan_sopan/{{x.File}}"
+                  class="btn btn-primary btn-xs" title="Edit Data" ng-show="x.File"><i class="fa fa-download"
+                    ng-show="listMenu.proyek.write===true"></i> Download</a>
+                <button class="btn btn-danger btn-xs" ng-show="listMenu.proyek.write===true"
+                  ng-click="removeRow(x.ID)"><i class="fa fa-remove"></i> Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

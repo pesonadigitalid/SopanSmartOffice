@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="page-header">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{ trip.name }} </h4>
+            <form id="form-add-trip" role="form">
+              <div class="form-group">
+                <label for="tripName">Nama Perjalanan:</label>
+                <input ng-model="trip_name" type="text" class="form-control" id="tripName" placeholder="isi dengan nama perjalanan disini...">
+              </div>
+              <div class="form-group">
+                <label for="tripCity">Kota Tujuan:</label>
+                <input ng-model="trip_city" type="text" class="form-control" id="tripCity" placeholder="isi dengan kota tujuan sewaktu Anda berlibur...">
+              </div>
+              <div class="form-group">
+                <label>Jenis Wisata:</label>
+                <select class="form-control" ng-model="trip_chosen_category">
+                    <option ng-repeat="trip in trip_category" value="{{ trip }}">
+                        {{ trip }}
+                    </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Ceritakan perjalanan Anda:</label>
+                <textarea class="form-control" rows="10" ng-model="trip_description"></textarea>
+              </div>
+              <div style="margin:20px;">
+                    <a href="#/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Batal</a> 
+                    <a href="javascript:void(0);" ng-click="submitTrip();" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Simpan</a>
+                    <span id="spinnerLoader" style="display: none;">aaa</span>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>

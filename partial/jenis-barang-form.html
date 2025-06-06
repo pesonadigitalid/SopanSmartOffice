@@ -1,0 +1,55 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <ul class="breadcrumb">
+          <li>
+            <a>Master Data</a>
+          </li>
+          <li><a href="#/data-jenis-material">Data Jenis Barang</a>
+          </li>
+          <li><a href="#" class="active">Jenis Barang Baru</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+      <div class="container-fluid container-fixed-lg bg-white">
+        <div class="row">
+              <div class="col-md-6">
+        <div class="panel panel-transparent">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Input Jenis Barang Baru
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <h5>Silahkan lengkapi form dibawah untuk membuat akun jenis barang baru...</h5>
+                    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+                        <label>Nama Jenis</label>
+                        <input type="text" name="nama" ng-model="nama" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                      <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.parent.$invalid }">
+                        <label>Parent</label>
+                        <select class="form-control" name="parent" ng-model="parent" required>
+                            <option value="0">ROOT</option>
+                            <option ng-repeat="x in data_material" value="{{x.IDMaterial}}">{{x.Nama}}</option>
+                        </select>
+                        <p ng-show="userForm.$submitted && userForm.parent.$invalid" class="help-block">Wajib dipilih.</p>
+                      </div>
+                      <div style="margin-bottom:10px;background-color: #fff;position: relative;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                        <div class="checkbox check-primary checkbox-circle">
+                          <input type="checkbox" name="isparent" id="checkbox2" ng-model="isparent" ng-true-value="1" ng-false-value="0" ng-checked="isparent=='1'">
+                          <label for="checkbox2">Jadikan Parent</label>
+                        </div>
+                      </div>                    
+                      <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+                      <a href="#/data-jenis-barang" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+                    </form>
+                  </div>
+                </div>
+        </div>
+        </div>
+        </div>
+

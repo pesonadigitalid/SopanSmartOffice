@@ -1,0 +1,93 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li>
+          <a href="#/data-karyawan">Data Karyawan</a>
+        </li>
+        <li><a class="active">Manage Hak Akses</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">Hak Akses Karyawan</div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12">
+        <div class="hak-akses-container">
+          <div class="theader">
+            <div class="thkaryawan">Karyawan</div>
+            <div class="thmodule" ng-repeat="x in data_module">{{ x.moduleName | titleCase }}</div>
+          </div>
+          <div class="tbodyContainer">
+            <div class="tbody" ng-repeat="x in data_hak_akses" id="row{{$index}}" ng-click="updateHover($index);">
+              <div class="thkaryawan">{{x.Nama}}</div>
+              <div class="thmodule" ng-repeat="h in x.Permission">
+                <table style="width: 100%">
+                  <tr>
+                    <td class="v-align-middle" style="text-align: center;font-weight: bold;">
+                      <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-checked="h.read" id="read{{x.IDKaryawan}}{{h.idmodule}}" ng-click="doUpdate(x.IDKaryawan,h.idmodule,'read');" value="1"> R
+                    </td>
+                    <td class="v-align-middle" style="text-align: center;font-weight: bold;">
+                      <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-checked="h.write" id="write{{x.IDKaryawan}}{{h.idmodule}}" ng-click="doUpdate(x.IDKaryawan,h.idmodule,'write');" value="1"> W
+                    </td>
+                    <td class="v-align-middle" style="text-align: center;font-weight: bold;">
+                      <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-checked="h.delete" id="delete{{x.IDKaryawan}}{{h.idmodule}}" ng-click="doUpdate(x.IDKaryawan,h.idmodule,'delete');" value="1"> D
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <!-- <button class="btn btn-info" ng-click="doSave()" ng-disabled="processing"><i class="fa fa-save"></i> Simpan Hak Akses</button> -->
+    </div>
+  </div>
+</div>
+<div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Access Request ke <span class="semi-bold">Gaji</span> Karyawan</h5>
+        <p>Silahkan password authentikasi agar user mendapatkan akses ke Data Gaji Karyawan.</p>
+      </div>
+      <form role="form" ng-submit="grantAccess()">
+        <div class="modal-body">
+          <div class="form-group-attached">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label>Verfikasi Password (Direktur)</label>
+                  <input type="password" name="password" id="password" ng-model="password" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 m-t-10 sm-m-t-10">
+              <input type="hidden" name="a" id="a">
+              <input type="hidden" name="b" id="b">
+              <input type="hidden" name="c" id="c">
+              <input type="hidden" name="d" id="d">
+              <button type="button" ng-click="grantAccess()" class="btn btn-primary btn-block m-t-5">Beri Akses</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

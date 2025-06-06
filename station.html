@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Lintas Daya - MMS . Office Station</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="themes/pages/ico/76.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta content="Pesona Creative" name="description" />
+    <meta content="Pesona Creative" name="author" />
+    <link href="themes/assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="themes/pages/css/station.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body onload="startTime()">
+    <div class="wrapper">
+        <p id="date">Rabu, 11 Januari 2017</p>
+        <p id="clock"></p>
+        <button class="inButton" onclick="showModal('IN')">IN</button>
+        <button class="outButton" onclick="showModal('OUT')">OUT</button>
+        <p id="copy">Lintas Daya - SOPAN Smart Office. &copy; 2017</p>
+    </div>
+    <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content purple">
+                <div class="modal-header clearfix text-left"></div>
+                <div class="modal-body" style="text-align: center;padding: 20px 20px 40px;">
+                    <img src="themes/assets/images/smile.png" />
+                    <h2 id="tapIDText" style="color: #fff;">Silahkan Tap RFID anda!</h2>
+                    <h3 id="contentHolder" style="color: #fff;">untuk<br/><strong id="typeCategory">MASUK KANTOR</strong></h3>
+                    <input type="text" name="rfidcode" id="rfidcode" ng-model="rfidcode" ng-keypress="afterScan($event)" class="inputPurple" autocomplete="off"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="themes/assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="themes/assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var clickType = 0;
+
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i
+        }
+        return i;
+    }
+
+    function showModal(a) {
+        $('.modal-content').removeClass('red');
+        $('.modal-content').removeClass('green');
+        $('.modal-content').addClass('purple');
+        $('#rfidcode').removeClass();
+        $('#rfidcode').addClass('inputPurple');
+        $('#tapIDText').html("Silahkan Tap RFID anda!");
+        $('#contentHolder').html('untuk<br/><strong id="typeCategory">MASUK KANTOR</strong>');
+
+        $('#rfidcode').val('');
+        clickType = a;
+        if (a === 'IN')
+            $('#typeCategory').html('MASUK KANTOR');
+        else
+            $('#typeCategory').html('KELUAR KANTOR');
+
+        $('#myModal').modal('show');
+        $('#myModal').children('.modal-dialog').removeClass('modal-lg');
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#rfidcode').focus();
+        });
+    }
+
+
+
+    $(document).ready(function() {
+        var audio = new Audio('sound/salam.wav');
+        audio.play();
+
+        var documentHeight = parseInt($(document).height());
+        var cHeight = parseInt($('.wrapper').height());
+
+        var marginTop = parseInt((documentHeight - cHeight) / 2);
+        $('.wrapper').css({
+            'margin-top': marginTop + 'px'
+        });
+
+        $('.modal').click(function() {
+            $('#rfidcode').focus();
+        });
+
+        $('#rfidcode').change(function(event) {
+            var rfidcode = $('#rfidcode').val();
+            $('#rfidcode').val('');
+            $('#contentHolder').html("<div class='uil-ring-css' style='transform:scale(0.6);'><div></div></div>");
+            $.post("api/station/station.php?act=TabIN", {
+                rfcode: rfidcode,
+                tapType: clickType
+            }, function(data) {
+                if (data == 0) {
+                    $('.modal-content').removeClass('purple');
+                    $('.modal-content').removeClass('green');
+                    $('.modal-content').addClass('red');
+                    $('#rfidcode').removeClass();
+                    $('#rfidcode').addClass('inputRed');
+                    $('#tapIDText').html("RFID Tidak Terdaftar atau Salah !");
+                    $('#contentHolder').html("Silahkan <strong>Tap Ulang RFID</strong> Anda");
+                } else if (data == 2) {
+                    $('.modal-content').removeClass('purple');
+                    $('.modal-content').removeClass('green');
+                    $('.modal-content').addClass('red');
+                    $('#rfidcode').removeClass();
+                    $('#rfidcode').addClass('inputRed');
+                    $('#tapIDText').html("Akses Ditolak !");
+                    $('#contentHolder').html("Silahkan selesaikan dulu. <strong>Job In Out</strong> Anda sebelum memulai yang baru.");
+                } else if (data == 3) {
+                    $('.modal-content').removeClass('purple');
+                    $('.modal-content').removeClass('green');
+                    $('.modal-content').addClass('red');
+                    $('#rfidcode').removeClass();
+                    $('#rfidcode').addClass('inputRed');
+                    $('#tapIDText').html("Akses Ditolak !");
+                    $('#contentHolder').html("Anda tidak memiliki jadwal tugas keluar !");
+                } else {
+                    $('.modal-content').removeClass('purple');
+                    $('.modal-content').removeClass('red');
+                    $('.modal-content').addClass('green');
+                    $('#rfidcode').removeClass();
+                    $('#rfidcode').addClass('inputGreen');
+                    if (clickType === 'IN')
+                        $('#tapIDText').html("Selamat Datang !");
+                    else
+                        $('#tapIDText').html("Selamat Bertugas !");
+                    $('#contentHolder').html("<strong>Yogi Pratama</strong>");
+                }
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

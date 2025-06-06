@@ -1,0 +1,645 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="{{backUrl}}">Data Karyawan</a>
+        </li>
+        <li><a class="active">Form Karyawan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">Input Data Karyawan</div>
+          <h5>Silahkan lengkapi form dibawah untuk mendaftarkan data karyawan..</h5>
+        </div>
+        <div class="panel-body">
+          <img src="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_photo_sopan/{{foto}}" width="150"
+            class="photo" ng-show="foto" style="margin-bottom: 10px;display:block" />
+          <img src="./files/karyawan_photo/default.jpg" ng-hide="foto" class="photo" style="margin-bottom: 10px;" />
+          <a class="btn btn-danger btn-xs" ng-click="removePhoto(id_karyawan)" ng-show="foto"
+            style="margin-bottom: 10px;"><i class="fa fa-remove"></i> Hapus Foto</a>
+          <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" />
+          <br>
+          <h3>{{nama}}</h3>
+          <p>{{jabatanValue}}</p>
+          <div ng-show="nik">
+            <h5 style="margin: 20px 0 10px;">History Jabatan</h5>
+            <table class="table table-hover table-less-space" id="basicTable">
+              <tbody>
+                <tr ng-repeat="x in history_jabatan">
+                  <td class="v-align-middle" style="font-size:12px">
+                    {{x.jabatan}}
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    {{x.periode_awal}} - {{x.periode_akhir}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h5 style="margin: 20px 0 10px;">File Uploaded</h5>
+            <table class="table table-hover table-less-space" id="basicTable">
+              <tbody>
+                <tr ng-show="file_surat_lamaran">
+                  <td class="v-align-middle" style="font-size:12px">
+                    Surat Lamaran
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_surat_lamaran}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_ktp">
+                  <td class="v-align-middle" style="font-size:12px">
+                    KTP
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_ktp}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_kartu_keluarga">
+                  <td class="v-align-middle" style="font-size:12px">
+                    Kartu Keluarga
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_kartu_keluarga}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_ijasah">
+                  <td class="v-align-middle" style="font-size:12px">
+                    Ijazah
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_ijasah}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_sertifikat_asuransi">
+                  <td class="v-align-middle" style="font-size:12px">
+                    Sertifikat Asuransi
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_sertifikat_asuransi}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_bpjs_kesehatan">
+                  <td class="v-align-middle" style="font-size:12px">
+                    BPJS Kesehatan
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_bpjs_kesehatan}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_bpjs_ketenagakerjaan">
+                  <td class="v-align-middle" style="font-size:12px">
+                    BPJS Ketenagakerjaan
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_bpjs_ketenagakerjaan}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="file_sertifikat_keterangan_kerja">
+                  <td class="v-align-middle" style="font-size:12px">
+                    Sertifikat Keterangan Kerja
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/karyawan_file_sopan/{{file_sertifikat_keterangan_kerja}}"
+                      class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <h5 style="margin: 20px 0 10px;">Training Record</h5>
+            <table class="table table-hover table-less-space" id="basicTable">
+              <tbody>
+                <tr ng-repeat="x in history_training">
+                  <td class="v-align-middle" style="font-size:12px">
+                    {{x.NamaTraining}}
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    {{x.TanggalMulai}} - {{x.TanggalSelesai}}
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    {{x.Durasi}} Hari
+                  </td>
+                  <td class="v-align-middle" style="font-size:12px">
+                    <a href="https://lintasdaya.s3-ap-southeast-1.amazonaws.com/training_record_file_sopan/{{x.FileSertifikat}}"
+                      class="btn btn-primary btn-xs" ng-show="x.FileSertifikat"><i class="fa fa-download"></i></a>
+                  </td>
+                </tr>
+                <tr ng-show="!history_training.length">
+                  <td colspan="4">Belum ada training record pada karyawan ini...</td>
+                </tr>
+              </tbody>
+            </table> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="panel panel-transparent">
+        <div class="panel-body" style="margin-top: 90px;">
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data"
+            autocomplete="off">
+            <p>Informasi Karyawan</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default required">
+                    <label>Jabatan</label>
+                    <select class="form-control" name="jabatan" ng-model="jabatan" ng-change="changeJabatan()" required>
+                      <option value="">Pilih Jabatan</option>
+                      <option ng-repeat="x in data_jabatan" value="{{x.IDJabatan}}">{{x.Jabatan}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Jabatan II</label>
+                    <select class="form-control" name="jabatan2" ng-model="jabatan2">
+                      <option value="">Pilih Jabatan</option>
+                      <option value="0">Tidak Ada</option>
+                      <option ng-repeat="x in data_jabatan" value="{{x.IDJabatan}}">{{x.Jabatan}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default required">
+                    <label>Departement</label>
+                    <select class="form-control" name="departement" ng-model="departement" required>
+                      <option value="">Pilih Departement</option>
+                      <option value="0">NON-DEPARTEMENT</option>
+                      <option ng-repeat="x in data_departement" value="{{x.IDDepartement}}">{{x.NamaDepartement}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default required">
+                    <label>NIK (Manual)</label>
+                    <input type="text" name="nik2" ng-model="nik2" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default autoGenerateBlock required">
+                    <label>NIK (Auto System)</label>
+                    <input type="text" name="nik" ng-model="nik" class="form-control" readonly="">
+                  </div>
+                </div>
+                <!-- <div class="col-sm-8">
+                  <div class="form-group form-group-default required">
+                    <label>Proyek</label>
+                    <select class="form-control select2" name="id_proyek" id="id_proyek" ng-model="id_proyek"
+                      ng-change="checkProyek()">
+                      <option value="">Pilih Proyek</option>
+                      <option ng-repeat="x in data_proyek" value="{{x.IDProyek}}" select2>{{ x.KodeProyek }} /
+                        {{ x.Tahun }} / {{ x.NamaProyek }}</option>
+                    </select>
+                  </div>
+                </div> -->
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-3">
+                  <div class="form-group form-group-default required">
+                    <label>Th. Masuk</label>
+                    <input type="text" name="thn_masuk" ng-model="thn_masuk" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default required">
+                    <label>Bulan Masuk</label>
+                    <select class="form-control" name="bln_masuk" ng-model="bln_masuk" required>
+                      <option value="">Pilih Bulan</option>
+                      <option value="01">Januari</option>
+                      <option value="02">Februari</option>
+                      <option value="03">Maret</option>
+                      <option value="04">April</option>
+                      <option value="05">Mei</option>
+                      <option value="06">Juni</option>
+                      <option value="07">Juli</option>
+                      <option value="08">Agustus</option>
+                      <option value="09">September</option>
+                      <option value="10">Oktober</option>
+                      <option value="11">November</option>
+                      <option value="12">Desember</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group form-group-default required">
+                    <label>Tgl Masuk</label>
+                    <input type="text" name="tgl_masuk" ng-model="tgl_masuk" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Informasi Pribadi</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default required">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="nama" ng-model="nama" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="form-group form-group-default">
+                    <label>No KTP / SIM / Identitas Lain</label>
+                    <input type="text" name="no_ktp" ng-model="no_ktp" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Pendidikan Terakhir</label>
+                    <select class="form-control" name="pendidikan_terakhir" ng-model="pendidikan_terakhir">
+                      <option value="Strata 3 (S3)">Strata 3 (S3)</option>
+                      <option value="Strata 2 (S2)">Strata 2 (S2)</option>
+                      <option value="Strata 1 / Diploma 4 (S1/D4)">Strata 1 / Diploma 4 (S1/D4)</option>
+                      <option value="Diploma 3 (D3)">Diploma 3 (D3)</option>
+                      <option value="Diploma 2 (D2)">Diploma 2 (D2)</option>
+                      <option value="Diploma 1 (D1)">Diploma 1 (D1)</option>
+                      <option value="SMA">SMA</option>
+                      <option value="SMP">SMP</option>
+                      <option value="SD">SD</option>
+                      <option value="Tidak Sekolah">Tidak Sekolah</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Tempat lahir</label>
+                    <input type="text" name="tempat_lahir" id="tempat_lahir
+" ng-model="tempat_lahir" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Tanggal Lahir</label>
+                    <input type="text" name="tanggal_lahir" id="tanggal_lahir
+" ng-model="tanggal_lahir" class="form-control datepick">
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default required">
+                    <label>Jenis Kelamin</label>
+                    <select class="form-control" name="jenis_kelamin" ng-model="jenis_kelamin" required>
+                      <option value="">Jenis Kelamin</option>
+                      <option value="L">Laki - laki</option>
+                      <option value="P">Perempuan</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No. Telp / HP</label>
+                    <input type="text" name="no_telp" ng-model="no_telp" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat Sementara</label>
+                    <textarea type="text" name="alamat_sementara" ng-model="alamat_sementara" class="form-control"
+                      style="height: 50px"></textarea>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat KTP</label>
+                    <textarea type="text" name="alamat_ktp" ng-model="alamat_ktp" class="form-control"
+                      style="height: 50px"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>Email Pribadi</label>
+                    <input type="email" name="email" ng-model="email" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Informasi Keluarga</p>
+            <div class="form-group-attached">
+              <div class="form-group form-group-default">
+                <label>Nama Ayah</label>
+                <input type="text" name="nama_ayah" ng-model="nama_ayah" class="form-control">
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No. Telp</label>
+                    <input type="text" name="no_telp_ayah" ng-model="no_telp_ayah" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat</label>
+                    <input type="text" name="alamat_ayah" ng-model="alamat_ayah" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-default">
+                <label>Nama Ibu</label>
+                <input type="text" name="nama_ibu" ng-model="nama_ibu" class="form-control">
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No. Telp</label>
+                    <input type="text" name="no_telp_ibu" ng-model="no_telp_ibu" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat</label>
+                    <input type="text" name="alamat_ibu" ng-model="alamat_ibu" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-default">
+                <label>Nama Suami / Istri</label>
+                <input type="text" name="nama_suami" ng-model="nama_suami" class="form-control">
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No. Telp</label>
+                    <input type="text" name="no_telp_suami" ng-model="no_telp_suami" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat</label>
+                    <input type="text" name="alamat_suami" ng-model="alamat_suami" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group form-group-default">
+                <label>Nama Wali</label>
+                <input type="text" name="nama_wali" ng-model="nama_wali" class="form-control">
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No. Telp</label>
+                    <input type="text" name="no_telp_wali" ng-model="no_telp_wali" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Alamat</label>
+                    <input type="text" name="alamat_wali" ng-model="alamat_wali" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Informasi Login</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default required">
+                    <label>Username</label>
+                    <input type="text" name="usrname" id="usrname" ng-model="usrname" ng-change="chageUsername()"
+                      class="form-control" required>
+                    <p ng-show="userValid==2" class="help-block">Username sudah digunakan.</p>
+                    <style>
+                      .loaded {
+                        background: url(../themes/assets/images/ajax-loader.gif) no-repeat center right 10px;
+                      }
+                    </style>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Password</label>
+                    <input type="password" name="pass" ng-model="pass" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Finger Print Absent ID</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>ID Absen Finger Print</label>
+                    <input type="text" name="absen_id" id="absen_id" ng-model="absen_id" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Informasi Bank dan Rekening</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Nama Bank dan Cabang</label>
+                    <input type="text" name="namabank" id="namabank" ng-model="namabank" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>No Rekening</label>
+                    <input type="text" name="norekening" id="norekening" ng-model="norekening" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Status dan Informasi Lain</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Agama</label>
+                    <select class="form-control" name="agama" ng-model="agama">
+                      <option value="Hindu">Hindu</option>
+                      <option value="Budha">Budha</option>
+                      <option value="Katolik">Katolik</option>
+                      <option value="Kristen">Kristen</option>
+                      <option value="Islam">Islam</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Status Hubungan</label>
+                    <select class="form-control" name="martial_stts" ng-model="martial_stts">
+                      <option value="Lajang">Lajang</option>
+                      <option value="Menikah">Menikah</option>
+                      <option value="Duda">Duda</option>
+                      <option value="Janda">Janda</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Jumlah Anak</label>
+                    <input type="text" name="jumlah_anak" id="jumlah_anak
+" ng-model="jumlah_anak" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-4">
+                  <div class="form-group form-group-default">
+                    <label>Status Karyawan</label>
+                    <select class="form-control" name="stts_karyawan" ng-model="stts_karyawan" ng-disabled="isHarian">
+                      <option value="Kontrak">Kontrak</option>
+                      <option value="Tetap">Tetap</option>
+                      <option value="Harian">Harian</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="form-group form-group-default">
+                    <label>Status Lainnya</label>
+                    <select class="form-control" name="stts_lainnya" ng-model="stts_lainnya">
+                      <option value="Kantor">Kantor</option>
+                      <option value="Proyek">Proyek</option>
+                      <option value="Maintenance">Maintenance</option>
+                      <option ng-show="stts_karyawan!=='Harian'" value="Spesial">Spesial</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Status Aktif Karyawan</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default input-group" style="height: 54px;">
+                    <label class="inline">Karyawan Aktif</label>
+                    <span class="input-group-addon bg-transparent">
+                      <input type="checkbox" name="statusUser" id="checkbox2" ng-model="statusUser" ng-true-value="1"
+                        ng-false-value="0" ng-disabled="isHarian" />
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group form-group-default">
+                    <label>Tanggal Resign</label>
+                    <input type="text" name="tanggal_resign" id="tanggal_resign" ng-model="tanggal_resign"
+                      class="form-control datepick">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p class="m-t-10">Upload File Informasi Karyawan</p>
+            <div class="form-group-attached">
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File Surat Lamaran</label>
+                    <input type="file" ngf-select ng-model="file_surat_lamaran" name="file_surat_lamaran" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;">{{ file_surat_lamaran }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File KTP</label>
+                    <input type="file" ngf-select ng-model="file_ktp" name="file_ktp" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_ktp }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File Kartu Keluarga</label>
+                    <input type="file" ngf-select ng-model="file_kartu_keluarga" name="file_kartu_keluarga" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_kartu_keluarga }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File Ijazah</label>
+                    <input type="file" ngf-select ng-model="file_ijasah" name="file_ijasah" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;">{{ file_ijasah }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File Sertifikat Asuransi</label>
+                    <input type="file" ngf-select ng-model="file_sertifikat_asuransi" name="file_sertifikat_asuransi" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_sertifikat_asuransi }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File BPJS Kesehatan</label>
+                    <input type="file" ngf-select ng-model="file_bpjs_kesehatan" name="file_bpjs_kesehatan" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_bpjs_kesehatan }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File BPJS Ketenagakerjaan</label>
+                    <input type="file" ngf-select ng-model="file_bpjs_ketenagakerjaan"
+                      name="file_bpjs_ketenagakerjaan" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_bpjs_ketenagakerjaan }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row clearfix" style="margin: 0;">
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>File Sertifikat Keterangan Kerja</label>
+                    <input type="file" ngf-select ng-model="file_sertifikat_keterangan_kerja"
+                      name="file_sertifikat_keterangan_kerja" />
+                    <p style="margin-top: 5px;margin-bottom: 5px;"> {{ file_sertifikat_keterangan_kerja }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+              Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+              Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

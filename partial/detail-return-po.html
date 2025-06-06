@@ -1,0 +1,117 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Purchasing</a>
+        </li>
+        <li><a href="#/data-return-barang">Data Return Barang</a>
+        </li>
+        <li><a class="active">Detail Return Barang</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detail Return Barang
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Summary Return Barang</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_return.$invalid }">
+                <label>No. Return</label>
+                <input type="text" name="no_return" ng-model="no_return" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.no_return.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+                <label>Tanggal.</label>
+                <input type="text" name="tanggal" ng-model="tanggal" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.supplier.$invalid }">
+                <label>Supplier.</label>
+                <input type="text" name="supplier" id="supplier" ng-model="supplier" class="form-control" readonly="">
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.usrlogin.$invalid }">
+                <label>User.</label>
+                <input type="text" name="usrlogin" ng-model="usrlogin" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.usrlogin.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+            </div>
+          </div>
+          <h5>Detail Cart.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px">No</th>
+                    <th>Nama Barang</th>
+                    <th style="width:100px">Qty</th>
+                    <th style="width:200px">SN</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.NamaBarang }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Qty }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="4">Belum ada barang pada cart ini...</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><strong>Keterangan : </strong>{{ keterangan }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <br />
+            </div>
+          </div>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <p ng-hide="completed!=='1'"><strong>Status PO :</strong>
+                <br/><i class="fa fa-check"></i> Complete - Barang telah diterima semua.</p>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Item :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="totalitem" id="totalitem" ng-model="totalitem" class="form-control hlprice price" readonly="" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.dpp.$invalid }">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Ongkos Kirim :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="ongkos_kirim" id="ongkos_kirim" ng-model="ongkos_kirim" class="form-control hlprice" fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-info" ng-click="doPrint()"><i class="fa fa-print"></i> Cetak Invoice</button>
+          <a href="#/data-purchase-order" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

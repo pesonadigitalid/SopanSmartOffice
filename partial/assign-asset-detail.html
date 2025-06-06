@@ -1,0 +1,105 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-assign-asset">Assign Asset</a>
+        </li>
+        <li><a class="active">Assign Asset Detail</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">Assign Asset</div>
+          <h5>Informasi detail data assign asset..</h5>
+        </div>
+        <div class="panel-body" style="padding-bottom: 0 !important;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="list-data">
+                <div class="nama-label small-width">Nomor Assign</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">{{no_assign}}</div>
+              </div>
+              <div class="list-data">
+                <div class="nama-label small-width">Tanggal</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">{{tanggal}}</div>
+              </div>
+              <div class="list-data">
+                <div class="nama-label small-width">Karyawan</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">{{karyawan}}</div>
+              </div>
+              <div class="list-data" ng-show="status_assign=='1'">
+                <div class="nama-label small-width">Tanggal Diterima</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">{{tanggal_diterima}}</div>
+              </div>
+              <div class="list-data">
+                <div class="nama-label small-width">Status</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">
+                  <span class="approved" ng-show="status_assign==='1'">Diterima oleh Karyawan</span>
+                  <span class="pending" ng-show="status_assign==='0'">Pending</span>
+                </div>
+              </div>
+              <div class="list-data">
+                <div class="nama-label small-width">CC Kepada</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label">
+                  <strong>{{CCTo}}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:50px">#</th>
+                    <th style="width:150px">Kode</th>
+                    <th>Nama Asset</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.KodeAsset }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.Nama }}
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="3">Belum ada asset yang ingin di-<em>assign</em>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-2 col-md-offset-10">
+              <div class="list-data">
+                <div class="nama-label small-width">Total Item</div>
+                <div class="titik-dua">:</div>
+                <div class="isi-label"><strong>{{total_item}}</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-print" style="margin: 40px 0 20px 0; ">
+    <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+  </div>
+</div>

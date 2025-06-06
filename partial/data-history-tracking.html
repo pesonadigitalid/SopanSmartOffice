@@ -1,0 +1,82 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>History Tracking</a>
+              </li>
+              <li><a class="active">Data History Tracking</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title" style="min-width: 800px;">
+                  <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                    <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+                    <div class="col-xs-2">
+                      <input type="text" ng-model="datestart" class="form-control datepick" placeholder="Tanggal Awal" />
+                    </div>
+                    <div class="col-xs-2">
+                      <input type="text" ng-model="dateend" class="form-control datepick" placeholder="Tanggal Akhir" />
+                    </div>
+                    <div class="col-xs-4">
+                      <input type="text" ng-model="serial_number" class="form-control" placeholder="Serial Number" />
+                    </div>
+                    <div class="col-xs-2">
+                      <button type="button" ng-click="refreshData()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+                    </div>
+                  </div>
+                </div>    
+                <div class="btn-group pull-right m-b-10">
+                  <a href="#/history-tracking/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+                </div>           
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:20px">No</th>
+                        <th style="width:140px">Tgl. Perbaikan</th>
+                        <th style="width:100px">Serial Number</th>
+                        <th>Nama Barang</th>
+                        <th style="width:130px">Detail Perbaikan</th>
+                        <th style="width:180px">Garansi Sampai Dengan</th>
+                        <th style="width:100px">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_tracking" jq-table>
+                        <td class="v-align-middle v-align-center">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.TanggalPerbaikan }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.SerialNumber }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.NamaBarang }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.DetailPerbaikan }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Garansi }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <a href="#/history-tracking/edit/{{ x.IDHistoryTracking }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                          <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDHistoryTracking)"><i class="fa fa-remove"></i> Hapus</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

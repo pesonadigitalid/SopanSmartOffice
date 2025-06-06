@@ -1,0 +1,70 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Master Data</a>
+              </li>
+              <li><a href="#" class="active">Data User</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title">MANAGEMENT DATA USER
+                </div>
+                <div class="btn-group pull-right m-b-10">
+                  <a href="#/user/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+                </div>                
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:1%">
+                          <button class="btn"><i class="pg-trash"></i>
+                          </button>
+                        </th>
+                        <th style="width:20px">No</th>
+                        <th>Nama</th>
+                        <th style="width:100px">Level</th>
+                        <th style="width:100px">Status</th>
+                        <th style="width:150px">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_user" jq-table>
+                        <td class="v-align-middle">
+                          <div class="checkbox ">
+                            <input type="checkbox" value="3" id="checkbox1">
+                            <label for="checkbox1"></label>
+                          </div>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Nama }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Level }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p ng-switch="x.Status"><strong ng-switch-when="Aktif">Aktif</strong><span ng-switch-default>Tdk Aktif</span></p>
+                        </div>
+                        </td>
+                        <td class="v-align-middle">
+                          <a href="#/user/edit/{{ x.IDUser }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                          <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDUser)"><i class="fa fa-remove"></i> Hapus</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

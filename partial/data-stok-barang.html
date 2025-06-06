@@ -1,0 +1,71 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>MMS</a>
+              </li>
+              <li><a class="active">Data Stok Barang</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title" style="min-width: 800px;">
+                    <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                    <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+                    <div class="col-xs-3">
+                        <select class="form-control" ng-model="jenis" style="font-size:13px">
+                          <option value="">JENIS MATERIAL</option>
+                          <option ng-repeat="x in data_material" value="{{ x.IDMaterial }}">{{ x.Nama }}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                    </div>
+                    </div>
+                </div>            
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:20px">No</th>
+                        <th style="width:140px">Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th style="width:140px">Jenis</th>
+                        <th style="width:140px">Stok Gudang</th>
+                        <th style="width:140px">Stok Purchasing</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_stok_barang" jq-table>
+                        <td class="v-align-middle">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.KodeBarang }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Nama }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Jenis }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.StokGudang }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.StokPurchasing }}</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

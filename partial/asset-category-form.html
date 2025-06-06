@@ -1,0 +1,63 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-barang">Data Asset Category</a>
+        </li>
+        <li><a href="#" class="active">Asset Category Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Asset Category Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat akun asset category baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+              <label>Nama</label>
+              <input type="text" name="nama" ng-model="nama" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default"
+              ng-class="{ 'has-error' : userForm.$submitted && userForm.jenis.$invalid }">
+              <label>Jenis</label>
+              <select name="jenis" ng-model="jenis" class="form-control" required>
+                <option value="Asset">Asset</option>
+                <option value="Ijin-Usaha">Ijin-Usaha</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.jenis.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i>
+              Simpan</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+              Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    $('.price').focus(function () {
+      $(this).val($(this).val().toString().replace(/,/g, ""));
+    });
+
+    $('.price').focusout(function () {
+      $(this).val(numberWithCommas($(this).val()));
+    });
+  });
+</script>

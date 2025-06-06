@@ -1,0 +1,188 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Persediaan</a>
+              </li>
+              <li><a class="active">Data Stok Opname</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title" style="min-width: 800px;">
+                    <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                    <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+                    <div class="col-xs-3">
+                        <select class="form-control" ng-model="jenis" style="font-size:13px">
+                          <option value="">JENIS MATERIAL</option>
+                          <option ng-repeat="x in data_material" value="{{ x.IDMaterial }}">{{ x.Nama }}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                    </div>
+                    </div>
+                </div>            
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="basicTable">
+                    <thead>
+                      <tr>
+                        <th style="width:20px">No</th>
+                        <th style="width:100px">Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th style="width:80px">Jenis</th>
+                        <th style="width:140px">Stok Gudang</th>
+                        <th style="width:140px">Stok Purchasing</th>
+                        <th style="width:280px">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_stok_opname" jq-table>
+                        <td class="v-align-middle">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.KodeBarang }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Nama }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Jenis }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.StokGudang }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.StokPurchasing }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <button class="btn btn-xs btn-primary" ng-click="editgudang(x.IDBarang,x.Nama,x.StokGudang)"><i class="fa fa-edit"></i> Edit Stok Gudang</button>
+                          <button class="btn btn-xs btn-danger" ng-click="editpurchasing(x.IDBarang,x.Nama,x.StokPurchasing)"><i class="fa fa-edit"></i> Edit Stok Purchasing</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade stick-up" id="StokGudang" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header clearfix text-left">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                      </button>
+                      <h5>Update <span class="semi-bold">Stok Gudang</span></h5>
+                      <p>Lengkapi form dibawah jika anda ingin melakukan perubahan stok pada barang ini.</p>
+                    </div>
+                    <div class="modal-body">
+                      <form role="form">
+                        <div class="form-group-attached">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group form-group-default">
+                                <label>Nama Barang</label>
+                                <input type="text" name="nama_barang" ng-model="nama_barang" readonly="" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group form-group-default">
+                                <label>Stok</label>
+                                <input type="text" name="stok" ng-model="stok" readonly="" fcsa-number="{  }" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group form-group-default">
+                                <label>Stok Saat Ini</label>
+                                <input type="text" name="stok_now" ng-model="stok_now" fcsa-number="{  }" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group form-group-default">
+                                <label>Keterangan</label>
+                                <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height: 60px;"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-sm-4 col-sm-offset-8 m-t-10 sm-m-t-10">
+                          <input type="hidden" name="id_barang" ng-model="id_barang" readonly="" class="form-control">
+                          <button type="button" ng-click="updateStokGudang()" class="btn btn-primary btn-block m-t-5">Update</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <div class="modal fade stick-up" id="StokPurchasing" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header clearfix text-left">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                      </button>
+                      <h5>Update <span class="semi-bold">Stok Purchasing</span></h5>
+                      <p>Lengkapi form dibawah jika anda ingin melakukan perubahan stok pada barang ini.</p>
+                    </div>
+                    <div class="modal-body">
+                      <form role="form">
+                        <div class="form-group-attached">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group form-group-default">
+                                <label>Nama Barang</label>
+                                <input type="text" name="nama_barang" ng-model="nama_barang" readonly="" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="form-group form-group-default">
+                                <label>Stok</label>
+                                <input type="text" name="stok" ng-model="stok" readonly="" fcsa-number="{  }" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group form-group-default">
+                                <label>Stok Saat Ini</label>
+                                <input type="text" name="stok_now" ng-model="stok_now" fcsa-number="{  }" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="form-group form-group-default">
+                                <label>Keterangan</label>
+                                <textarea name="keterangan" ng-model="keterangan" class="form-control" style="height: 60px;"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-sm-4 col-sm-offset-8 m-t-10 sm-m-t-10">
+                          <input type="hidden" name="id_barang" ng-model="id_barang" readonly="" class="form-control">
+                          <button type="button" ng-click="updateStokPurchasing()" class="btn btn-primary btn-block m-t-5">Update</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>

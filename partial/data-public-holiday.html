@@ -1,0 +1,75 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>HRD</a>
+        </li>
+        <li><a class="active">Data Public Holiday</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title" style="width: 100%;">
+        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+          <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+          <div class="col-xs-12 col-sm-2 sm-m-b-10">
+            <select class="form-control" ng-model="datestart">
+              <option ng-repeat="x in yearlist" value="{{x}}">{{x}}</option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10 hidden-xs">
+            <button type="button" ng-click="filterdata()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+          </div>
+          <div class="col-xs-12 col-sm-1 sm-m-b-10 visible-xs">
+            <button type="button" ng-click="filterdata()" class="btn btn-info btn-block"><i class="fa fa-filter"></i> Filter</button>
+            <a href="#/public-holiday/new/" type="button" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Add new</a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group pull-right m-b-10 hidden-xs">
+        <a href="#/public-holiday/new/" type="button" class="btn btn-info"><i class="fa fa-plus"></i> Add new</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th>Nama Hari Libur</th>
+              <th style="width:200px">Tanggal</th>
+              <th style="width:100px">Jumlah Hari</th>
+              <th style="width:100px">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_holiday" jq-table>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.NamaHariLibur }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.DariTanggal }} <span ng-hide="x.SampaiTanggal==='00/00/0000'">- {{ x.SampaiTanggal }}</span></p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.JumlahHari }}</p>
+              </td>
+              <td class="v-align-middle">
+                <a href="#/public-holiday/edit/{{ x.IDPublicHoliday }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDPublicHoliday)"><i class="fa fa-remove"></i> Hapus</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

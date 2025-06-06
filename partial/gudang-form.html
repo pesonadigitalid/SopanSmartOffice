@@ -1,0 +1,47 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+            <ul class="breadcrumb">
+                <li>
+                    <a>Master Data</a>
+                </li>
+                <li><a href="#/data-gudang">Data Gudang</a></li>
+                <li><a class="active">Gudang Baru</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Input Gudang Baru
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h5>Silahkan lengkapi form dibawah untuk membuat gudang baru...</h5>
+                    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                        <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama.$invalid }">
+                            <label>Nama Gudang</label>
+                            <input type="text" name="nama" id="nama" ng-model="nama" class="form-control" required>
+                            <p ng-show="userForm.$submitted && userForm.nama.$invalid" class="help-block">Wajib diisi.</p>
+                        </div>
+                        <div style="margin-bottom:10px;ackground-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+                            <label style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Default?</label>
+                            <div class="checkbox check-primary checkbox-circle">
+                                <input type="checkbox" name="is_default" id="checkbox2" ng-model="is_default" ng-checked="is_default=='1'" ng-true-value="1" ng-false-value="0">
+                                <label for="checkbox2">Jadikan default gudang ini</label>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+                        <a href="#/data-gudang" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

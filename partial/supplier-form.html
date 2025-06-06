@@ -1,0 +1,166 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-supplier">Data Supplier</a>
+        </li>
+        <li><a class="active">Supplier Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Supplier Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form dibawah untuk membuat data supplier baru...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)">
+            <div class="form-group autoGenerateBlock form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kode_supplier.$invalid }">
+              <label>Kode Supplier (AUTO)</label>
+              <input type="text" name="kode_supplier" id="kode_supplier" ng-model="kode_supplier" ng-change="lenghtkdsupplier()" class="form-control" ng-readonly="disablecode" disabled="">
+              <p ng-show="userForm.$submitted && userForm.kode_supplier.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <!-- <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori2.$invalid }">
+              <label>Jenis Material</label>
+              <div class="row">
+                <div class="col-xs-6" ng-repeat="p in data_material" style="padding-left: 7px !important;">
+                  <input type="checkbox" ng-model="kategori2[p.IDMaterial]" name="kategori2" id="{{p.IDMaterial}}"/>
+                    {{p.Nama}}<br/>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kategori.$invalid }">
+              <label>Departement</label>
+              <select class="form-control" name="kategori" ng-model="kategori" required>
+                <option value="">--- Silahkan pilih departement ---</option>
+                <option ng-repeat="p in data_departement" value="{{p.IDDepartement}}">{{p.NamaDepartement}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.kategori.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div style="border-bottom: 1px dashed #ccc; margin: 10px 0;"></div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama_perusahaan.$invalid }">
+              <label>Nama Perusahaan</label>
+              <input type="text" name="nama_perusahaan" ng-model="nama_perusahaan" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.nama_perusahaan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.alamat.$invalid }">
+              <label>Alamat</label>
+              <input type="text" name="alamat" ng-model="alamat" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.alamat.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kota.$invalid }">
+              <label>Kota</label>
+              <input type="text" name="kota" ng-model="kota" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.kota.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.provinsi.$invalid }">
+              <label>Provinsi</label>
+              <input type="text" name="provinsi" ng-model="provinsi" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.provinsi.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.kode_pos.$invalid }">
+              <label>Kode Pos</label>
+              <input type="text" name="kode_pos" ng-model="kode_pos" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.kode_pos.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_telp.$invalid }">
+              <label>No. Telepon</label>
+              <input type="text" name="no_telp" ng-model="no_telp" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.no_telp.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_fax.$invalid }">
+              <label>No. Fax</label>
+              <input type="text" name="no_fax" ng-model="no_fax" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.no_fax.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.email.$invalid }">
+              <label>Alamat Email</label>
+              <input type="text" name="email" ng-model="email" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.email.$invalid" class="help-block">Wajib diisi dan harus memiliki format example@mail.com</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.website.$invalid }">
+              <label>Website</label>
+              <input type="text" name="website" ng-model="website" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.website.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.deskripsi.$invalid }">
+              <label>Deskripsi Produk</label>
+              <input type="text" name="deskripsi" ng-model="deskripsi" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.deskripsi.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div style="border-bottom: 1px dashed #ccc; margin: 10px 0 0;"></div>
+            <div class="row" style="margin: 0;">
+              <div class="col-md-6">
+                <h6 style="margin-top: 20px;"><strong>KONTAK PERSON I</strong></h6>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.namakp1.$invalid }">
+                  <label>Nama</label>
+                  <input type="text" name="namakp1" ng-model="namakp1" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.namakp1.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.jabatankp1.$invalid }">
+                  <label>Jabatan</label>
+                  <input type="text" name="jabatankp1" ng-model="jabatankp1" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.jabatankp1.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.emailkp1.$invalid }">
+                  <label>Email</label>
+                  <input type="text" name="emailkp1" ng-model="emailkp1" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.emailkp1.$invalid" class="help-block">Wajib diisi dan harus memiliki format example@mail.com</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.hpkp1.$invalid }">
+                  <label>HP</label>
+                  <input type="text" name="hpkp1" ng-model="hpkp1" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.hpkp1.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6 style="margin-top: 20px;"><strong>KONTAK PERSON II</strong></h6>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.namakp2.$invalid }">
+                  <label>Nama</label>
+                  <input type="text" name="namakp2" ng-model="namakp2" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.namakp2.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.jabatankp2.$invalid }">
+                  <label>Jabatan</label>
+                  <input type="text" name="jabatankp2" ng-model="jabatankp2" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.jabatankp2.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.emailkp2.$invalid }">
+                  <label>Email</label>
+                  <input type="text" name="emailkp2" ng-model="emailkp2" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.emailkp2.$invalid" class="help-block">Wajib diisi dan harus memiliki format example@mail.com</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.hpkp2.$invalid }">
+                  <label>HP</label>
+                  <input type="text" name="hpkp2" ng-model="hpkp2" class="form-control">
+                  <p ng-show="userForm.$submitted && userForm.hpkp2.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+              </div>
+            </div>
+            <div style="border-bottom: 1px dashed #ccc; margin: 0 0 10px;"></div>
+            <div style="margin-bottom:10px;ackground-color: #fff;position: relative;border: 1px solid rgba(0, 0, 0, 0.07);border-radius: 2px;padding-top: 7px;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;overflow: hidden;-webkit-transition: background-color 0.2s ease;transition: background-color 0.2s ease;">
+              <label style="font-family: 'Century Gothic';font-size: 11px;text-transform: uppercase;font-weight: 600;">Status</label>
+              <div class="checkbox check-primary checkbox-circle">
+                <input type="checkbox" name="statusUser" id="checkbox2" ng-model="statusUser" ng-checked="statusUser=='1'" ng-true-value="1" ng-false-value="0">
+                <label for="checkbox2">Aktifkan supplier ini</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+            <button ng-show="id_supplier.length" class="btn btn-primary" ng-click="doPrint()"><i class="fa fa-print"></i> Print</button>
+            <a href="#/data-supplier" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,163 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>HRD</a>
+        </li>
+        <li><a href="#/data-gaji-karyawan">Data Gaji Karyawan</a>
+        </li>
+        <li><a class="active">Gaji Karyawan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Data Gaji Karyawan
+          </div>
+        </div>
+        <div class="panel-body">
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data" novalidate>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Update Data Gaji</h5>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.efektif_bln.$invalid }">
+                  <label>Efektif Bulan</label>
+                  <select class="form-control" name="efektif_bln" ng-model="efektif_bln" required>
+                    <option value="">--- Silahkan pilih bulan ---</option>
+                    <option value="01">Januari</option>
+                    <option value="02">Februari</option>
+                    <option value="03">Maret</option>
+                    <option value="04">April</option>
+                    <option value="05">Mei</option>
+                    <option value="06">Juni</option>
+                    <option value="07">Juli</option>
+                    <option value="08">Agustus</option>
+                    <option value="09">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Desember</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.efektif_bln.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.efektif_thn.$invalid }">
+                  <label>Efektif Tahun</label>
+                  <select class="form-control" name="efektif_thn" ng-model="efektif_thn" required>
+                    <option value="">--- Silahkan pilih tahun ---</option>
+                    <option ng-repeat="x in year" value="{{ x }}">{{ x }}</option>
+                  </select>
+                  <p ng-show="userForm.$submitted && userForm.efektif_thn.$invalid" class="help-block">Wajib dipilih.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.gaji_pokok.$invalid }">
+                  <label>Gaji Pokok</label>
+                  <input type="text" name="gaji_pokok" ng-model="gaji_pokok" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.gaji_pokok.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_makan.$invalid }">
+                  <label>Uang Makan</label>
+                  <input type="text" name="uang_makan" ng-model="uang_makan" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.uang_makan.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_transport.$invalid }">
+                  <label>Uang Transport</label>
+                  <input type="text" name="uang_transport" ng-model="uang_transport" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.uang_transport.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_pulsa.$invalid }">
+                  <label>Uang Pulsa</label>
+                  <input type="text" name="uang_pulsa" ng-model="uang_pulsa" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.uang_pulsa.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_performance.$invalid }">
+                  <label>Tunjangan Jabatan</label>
+                  <input type="text" name="uang_performance" ng-model="uang_performance" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.uang_performance.$invalid" class="help-block">Wajib diisi.</p>
+                </div>
+                <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_lain2.$invalid }">
+                  <label>Tunjangan Khusus</label>
+                  <input type="text" name="uang_lain2" ng-model="uang_lain2" class="form-control" fcsa-number="{  }" required>
+                  <p ng-show="userForm.$submitted && userForm.uang_lain2.$invalid" class="help-block">Wajib diisi.</p>
+                </div><br />
+                <input type="hidden" name="idgaji" ng-model="idgaji">
+                <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+                <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+              </div>
+              <div class="col-md-9">
+                <h5>&nbsp;</h5>
+                <div class="row" style="margin: 0;">
+                  <div class="col-md-6">
+                    <label style="width: 140px; display: inline-block;">NIK</label> : {{nik}}
+                    <br />
+                    <label style="width: 140px; display: inline-block;">Nama Karyawan</label> : {{nama}}
+                    <br />
+                    <label style="width: 140px; display: inline-block;">Jabatan Terakhir</label> : {{jabatan}}
+                  </div>
+                  <div class="col-md-6">
+                    <label style="width: 140px; display: inline-block;">Status Karyawan</label> : {{stts_karyawan}}
+                    <br />
+                    <label style="width: 140px; display: inline-block;">Mark</label> : {{stts_lainnya}}
+                    <br />
+                    <label style="width: 140px; display: inline-block;">Status</label> : {{status_user}}
+                  </div>
+                </div>
+                <h5>History Gaji</h5>
+                <table class="table table-hover table-less-space tabel-gaji" id="basicTable">
+                  <thead>
+                    <tr>
+                      <th>Periode</th>
+                      <th>Gaji Pokok</th>
+                      <th>Uang Makan</th>
+                      <th>Transport</th>
+                      <th>Uang Pulsa</th>
+                      <th>T. Jabatan</th>
+                      <th>T. Khusus</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in data_gaji">
+                      <td class="v-align-middle">
+                        {{ x.Periode }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.GajiPokok | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UangMakan | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UangTransport | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UangPulsa | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.UangPerformance | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        {{ x.LainLain | number }}
+                      </td>
+                      <td class="v-align-middle">
+                        <a ng-click="EditHistoryGaji(x.IDGaji)" class="btn btn-default btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger btn-xs" ng-click="removeHistoryGaji(x.IDGaji)" title="Hapus"><i class="fa fa-remove"></i></a>
+                      </td>
+                    </tr>
+                    <tr ng-show="!data_gaji.length">
+                      <td colspan="8">Tidak ada History Gaji...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

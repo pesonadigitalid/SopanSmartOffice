@@ -1,0 +1,91 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li>
+          <a>Daily Report</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="form-group row">
+        <label class="col-xs-1" style="text-align: left;padding-top:5px;font-size:13px">Daily Report</label>
+        <div class="col-xs-2">
+          <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Filter Tanggal" />
+        </div>
+        <div class="col-xs-2">
+          <select class="form-control" ng-model="no_surat_jalan">
+            <option value="0">No. Surat Jalan</option>
+            <option ng-repeat="x in data_surat_jalan" value="{{x.NoSuratJalan}}">{{x.NoSuratJalan}}</option>
+          </select>
+        </div>
+        <div class="col-xs-1">
+          <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12">
+          <table class="table table-smaller table-stripe table hak-akses-table centerHeader clearHeight" style="">
+            <thead>
+              <tr>
+                <th width="200">Karyawan</th>
+                <th width="120">Tanggal</th>
+                <th>Report</th>
+                <th width="80">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in reports">
+                <td><strong>{{x.Nama}}</strong></td>
+                <td class="tdcenter">{{x.Tanggal}}</td>
+                <td style="padding:0  !important;">
+                  <table class="childTable" width="100%" ng-repeat="h in x.ReportTabStation">
+                    <tr>
+                      <td class="tdcenter"><strong>Keluar:</strong> {{h.Out}}</td>
+                      <td class="tdcenter"><strong>Masuk:</strong> {{h.In}}</td>
+                      <td class="tdcenter highlighted"><strong>Durasi: {{h.Duration}}</strong></td>
+                    </tr>
+                    <tr ng-show="h.ReportDetail.length>0">
+                      <td colspan="3" style="padding:0  !important;">
+                        <table class="childTable" width="100%">
+                          <tr ng-repeat="y in h.ReportDetail">
+                            <td>
+                              <a href="../smartoffice/files/daily_report/{{y.Image1}}" target="_blank" ng-show="y.Image1!==null"><img src="../smartoffice/files/daily_report/{{y.Image1}}" align="right" width="50" height="50"></a>
+                              <a href="../smartoffice/files/daily_report/{{y.Image2}}" target="_blank" ng-show="y.Image2!==null"><img src="../smartoffice/files/daily_report/{{y.Image2}}" align="right" width="50" height="50" style="margin-right: 5px;"></a>
+                              <a href="../smartoffice/files/daily_report/{{y.Image3}}" target="_blank" ng-show="y.Image3!==null"><img src="../smartoffice/files/daily_report/{{y.Image3}}" align="right" width="50" height="50" style="margin-right: 5px;"></a>
+                              <p style="margin-bottom: 5px"><strong>{{y.Subject}}</strong></p>
+                              <p style="margin-bottom: 5px">{{y.Report}}</p>
+                              <p style="margin-bottom: 5px"><strong>Time:</strong> {{y.TimeReport}}</p>
+                              <p style="margin-bottom: 5px" ng-show="y.Lat !== '' && y.Lat !== null"><strong><a href="../smartoffice/api/proyek/daily-report-map.php?lat={{y.Lat}}&lng={{y.Lng}}" target="_blank">Cek Lokasi</a></strong></p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr ng-show="h.ReportDetail.length===0">
+                      <td colspan="3">Tidak ada report</td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="tdcenter">{{x.Count}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+  </div>
+</div>
+</div>

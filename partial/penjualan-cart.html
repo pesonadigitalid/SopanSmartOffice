@@ -1,0 +1,253 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <ul class="breadcrumb">
+          <li>
+            <a href="#/data-penjualan">Data Penjualan</a>
+          </li>
+          <li><a class="active">Penjualan Detail</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+      <div class="container-fluid container-fixed-lg bg-white">
+        <div class="row">
+            <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+              
+                <div class="panel panel-transparent">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Input Penjualan Baru
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <h5>Summary penjualan tour.</h5>
+                    <div class="row" style="margin: 0;">
+                    <div class="col-md-6">
+                      <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.tourname.$invalid }">
+                        <label>Tour Name.</label>
+                        <input type="text" name="tourname" ng-model="tourname" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.tourname.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                      <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.ref.$invalid }">
+                        <label>Ref.</label>
+                        <input type="text" name="ref" ng-model="ref" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.ref.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row" style="margin: 0;">
+                        <div class="col-sm-6">
+                          <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.period.$invalid }">
+                            <label>Period.</label>
+                            <input type="text" name="period" ng-model="period" class="form-control datepick" id="datepicker-range" required>
+                            <p ng-show="userForm.$submitted && userForm.period.$invalid" class="help-block">Wajib diisi.</p>
+                          </div>
+                        </div>
+                        <div class="col-sm-6"  datePick>
+                          <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.until.$invalid }">
+                            <label>Until.</label>
+                            <input type="text" name="until" ng-model="until" class="form-control datepick" required>
+                            <p ng-show="userForm.$submitted && userForm.until.$invalid" class="help-block">Wajib diisi.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.pax.$invalid }">
+                        <label>Pax.</label>
+                        <input type="number" name="pax" ng-model="pax" class="form-control" required>
+                        <p ng-show="userForm.$submitted && userForm.pax.$invalid" class="help-block">Wajib diisi.</p>
+                      </div>
+                    </div>
+                    </div>
+                    
+                    <h5>Detail aktivitas.</h5>
+                    <div class="row" style="margin: 0;">
+                        <div class="col-sm-2">
+                            <!--
+                            <select class="form-control select2" name="kode" id="kode" ng-model="kode" ng-change="changeKode()">
+                                <option value="">Kode Aktivitas</option>
+                                <option ng-repeat="x in data_activity" value="{{$index}}" select2activity>{{ x.Kode }} | {{ x.Nama }}</option>
+                            </select>
+                            -->
+                            <input id="kode" name="kode" class="form-control select2" ng-model="kode" ng-change="testingS()"/>
+                            
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" name="aktivitas" id="aktivitas" ng-model="aktivitas" placeholder="Aktivitas" class="form-control" readonly="">
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                              <input type="text" name="harga" id="harga" ng-model="harga" fcsa-number="{  }" placeholder="Harga (USD/RP)" class="form-control">
+                              <!--<span class="input-group-addon primary" ng-switch="usd"><span ng-switch-when="1">USD</span><span ng-switch-default>RP</span></span>-->
+                              <span class="input-group-addon primary" style="padding: 0 3px;">
+                                <select class="cs-select cs-skin-slide" id="usd" ng-model="usd" ng-change="activateRate()" style="border: none; padding:0 !important;margin:0 !important;">
+                                  <option value="0">RP</option>
+                                  <option value="1">USD</option>
+                                </select>
+                              </span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="text" name="rate" id="rate" ng-model="rate" ng-readonly="rateUSD" fcsa-number="{  }" placeholder="Rate" class="form-control">
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="text" name="unit" id="unit" ng-model="unit" fcsa-number="{  }" placeholder="Unit/Pax" class="form-control">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-danger" ng-disabled="processCart" ng-click="addToCart()" ng-disabled="processCart"><i class="fa fa-plus-circle"></i></button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 0;">
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-less-space" id="basicTable">
+                            <thead>
+                              <tr>
+                                <th style="width:20px"></th>
+                                <th style="width:20px">Kode</th>
+                                <th>Aktivitas</th>
+                                <th style="width:120px">Price</th>
+                                <th style="width:120px">Rate</th>
+                                <th style="width:120px">Pax/Unit</th>
+                                <th style="width:120px">Sub Total</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="x in data_activities" ng-click="showModal(x.Nama,x.Harga,x.Rate,x.Pax,x.TotalBiaya,x.IDDetail,x.USD)">
+                                <td class="v-align-middle">
+                                 <button type="button" class="btn btn-danger btn-xs" ng-click="removeRow(x.IDDetail); $event.stopPropagation();"><i class="fa fa-remove"></i></button>
+                                </td>
+                                <td class="v-align-middle">
+                                  {{ x.Kode }}
+                                </td>
+                                <td class="v-align-middle">
+                                  {{ x.Nama }}
+                                </td>
+                                <td class="v-align-middle">
+                                  {{ x.Harga | number }} {{ x.HargaAdd }}
+                                </td>
+                                <td class="v-align-middle">
+                                  <span ng-if="x.Rate!=0">{{ x.Rate | number }}</span>
+                                  <span ng-if="x.Rate==0">-</span>
+                                </td>
+                                <td class="v-align-middle">
+                                  {{ x.Pax | number}}
+                                </td>
+                                <td class="v-align-middle">
+                                  {{ x.TotalBiaya | number}}
+                                </td>
+                              </tr>
+                              <tr ng-show="!data_activities.length">
+                                <td colspan="7">Belum ada aktivitas pada tour ini...</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <small style="font-style: italic;">* Klik pada tabel row untuk melakukan perubahan terhadap data aktivitas...</small><br /><br />
+                    </div>
+                    </div>
+                    <div class="row" style="margin: 0;">
+                    <div class="col-md-6">
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">Penjualan (USD) :</label>
+                            <div class="col-xs-8"><input type="text" name="pricem" ng-model="pricem" class="form-control hlprice" ng-change="calcSumary()" fcsa-number="{  }" required></div>
+                        </div>
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.ratem.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">Rate (USD) :</label>
+                            <div class="col-xs-8"><input type="text" name="ratem" ng-model="ratem" class="form-control hlprice" ng-change="calcSumary()" fcsa-number="{  }" required></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.tbiaya.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">Grand Total Biaya :</label>
+                            <div class="col-xs-8"><input type="text" name="tbiaya" ng-model="tbiaya" class="form-control hlprice" readonly="" fcsa-number="{  }" required></div>
+                        </div>
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.tsale.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Penjualan (Rp) :</label>
+                            <div class="col-xs-8"><input type="text" name="tsale" ng-model="tsale" class="form-control hlprice" readonly="" fcsa-number="{  }" required></div>
+                        </div>
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.margin.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">Margin :</label>
+                            <div class="col-xs-8"><input type="text" name="margin" ng-model="margin" class="form-control hlprice" readonly="" fcsa-number="{  }" required></div>
+                        </div>
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.dpp.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">DPP :</label>
+                            <div class="col-xs-8"><input type="text" name="dpp" ng-model="dpp" class="form-control hlprice" readonly="" fcsa-number="{  }" required></div>
+                        </div>
+                        <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.ppn.$invalid }">
+                            <label class="col-xs-4" style="text-align: right;padding-top:5px;">PPN :</label>
+                            <div class="col-xs-8"><input type="text" name="ppn" ng-model="ppn" class="form-control hlprice" readonly="" fcsa-number="{  }" required></div>
+                        </div>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+                    <a href="#/data-penjualan" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+                  </div>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                  </button>
+                  <h5>Update <span class="semi-bold">Aktivitas</span></h5>
+                  <p>Lengkapi form dibawah jika anda ingin melakukan perubahan terhadap aktivitas anda.</p>
+                </div>
+                <div class="modal-body">
+                  <form role="form">
+                    <div class="form-group-attached">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group form-group-default">
+                            <label>Aktivitas</label>
+                            <input type="text" name="aaktivitas" ng-model="aaktivitas" readonly="" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group form-group-default">
+                            <label>Harga</label>
+                            <input type="text" name="aharga" ng-model="aharga" ng-change="recalcActivitas()" fcsa-number="{  }" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group form-group-default">
+                            <label>Rate</label>
+                            <input type="text" name="arate" ng-model="arate" ng-change="recalcActivitas()" fcsa-number="{  }" ng-disabled="ausddisable" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group form-group-default">
+                            <label>Unit/Pax</label>
+                            <input type="text" name="aunit" ng-model="aunit" ng-change="recalcActivitas()" fcsa-number="{  }" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <div class="p-t-20 clearfix p-l-10 p-r-10">
+                        <div class="pull-left">
+                          <p class="bold text-uppercase">TOTAL</p>
+                        </div>
+                        <div class="pull-right">
+                          <p class="bold text-uppercase">{{ subtotal | number }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 m-t-10 sm-m-t-10">
+                      <button type="button" ng-click="updateAktivitas()" class="btn btn-primary btn-block m-t-5">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+

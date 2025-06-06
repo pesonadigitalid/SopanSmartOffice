@@ -1,0 +1,376 @@
+@font-face {
+  font-family: "CFont";
+  src: url("fonts/Ubuntu-R.ttf");
+}
+
+@font-face {
+  font-family: "CFont";
+  src: url("fonts/Ubuntu-B.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "CFont";
+  src: url("fonts/Ubuntu-RI.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "CFont";
+  src: url("fonts/Ubuntu-BI.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+body {
+  font-family: "CFont";
+  font-size: 12px;
+  line-height: 1.6em;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 13px;
+  color: #000;
+  margin: 0 !important;
+}
+
+.title-print {
+  font-size: 30px !important;
+  margin: 0;
+}
+
+.divider {
+  border-bottom: 1px solid #eee !important;
+  margin: 10px 0 40px 0 !important;
+}
+
+.divider-black {
+  border-bottom: 1px solid #000 !important;
+  margin: 5px 0 0 0 !important;
+}
+
+.sideLabel {
+  border-right: 3px solid #000;
+  float: left;
+  text-align: right;
+  padding-right: 5px;
+  margin-right: 5px;
+  width: 55%;
+}
+
+.sideText {
+  text-align: left !important;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border: none;
+}
+
+table td {
+  vertical-align: text-top;
+}
+
+.center {
+  text-align: center;
+}
+
+.tabelList {
+  margin-top: 10px;
+}
+
+.tabelList th {
+  background: #eee;
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+  padding: 5px;
+}
+
+.tabelList td {
+  padding: 5px;
+}
+
+.tabelList2.border-solid {
+  border-collapse: collapse;
+}
+
+.tabelList2.border-solid tr td,
+.tabelList2.border-solid tr th {
+  border: 1px solid #333;
+  border-collapse: collapse;
+}
+
+.tabelList2 th {
+  background: #eee;
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+  padding: 5px;
+}
+
+.tabelList2 td {
+  padding: 5px;
+  border-bottom: dashed 1px #ccc;
+  font-size: 11px;
+}
+
+.border-bottom {
+  border-bottom: dashed 1px #ccc;
+}
+
+.border-bottom2 {
+  border-bottom: solid 1px #ccc;
+}
+
+.asignment {
+  margin-top: 0px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.laporanTitle {
+  text-align: center;
+  margin: 10px 0 20px;
+  padding-top: 20px;
+  border-top: solid 1px #ccc;
+}
+
+.bottom {
+  vertical-align: bottom !important;
+}
+
+.middle {
+  vertical-align: middle !important;
+}
+
+.smallfont th {
+  font-size: 9px;
+}
+
+.biggerfont td {
+  font-size: 11px;
+}
+
+.data-container {
+  margin-bottom: 50px;
+}
+
+.data-container h4 {
+  margin: 15px 5px 10px 5px;
+  font-size: 14px;
+}
+
+.data-container fieldset {
+  border: none;
+  padding: 2px 5px;
+}
+
+.data-container fieldset label {
+  width: 150px;
+  display: inline-block;
+}
+
+.sub-label {
+  padding-left: 20px;
+  width: 130px !important;
+}
+
+.container {
+  display: table;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.container.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.container img,
+.img-kosong {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #000;
+  padding: 4px;
+}
+
+.img-kosong {
+  text-align: center;
+  font-size: 14px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.side-title h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 20px 0 5px 0;
+}
+
+.img-karyawan,
+.side-top {
+  display: table-cell;
+  width: 18%;
+  vertical-align: top;
+}
+
+.side-top {
+  width: 82%;
+}
+
+.side-left,
+.side-right {
+  display: table-cell;
+  width: 50%;
+  vertical-align: top;
+}
+
+.list-data {
+  display: table;
+  margin: 4px 0;
+}
+
+.nama-label,
+.titik-dua,
+.isi-label {
+  display: table-cell;
+}
+
+.nama-label {
+  width: 170px;
+  font-weight: bold;
+}
+
+.small-width {
+  width: 100px;
+}
+
+.sub-label2 {
+  padding-left: 15px !important;
+  width: 155px !important;
+}
+
+.titik-dua {
+  width: 10px;
+}
+
+
+/* KWITANSI */
+
+.title-company h1 {
+  font-size: 20px !important;
+}
+
+.title-kwitansi h2 {
+  font-size: 30px !important;
+  margin: 20px 0;
+  letter-spacing: 2px;
+  padding: 0;
+}
+
+.info-container,
+.info-container2 {
+  width: 80%;
+  display: table;
+  float: right;
+  vertical-align: middle;
+}
+
+.info-container2 {
+  width: 100% !important;
+  float: left !important;
+}
+
+.n-info,
+.titik-dua,
+.v-info {
+  display: table-cell;
+  width: auto;
+  vertical-align: middle;
+}
+
+.n-info {
+  width: 60px;
+  padding-right: 5px;
+}
+
+.n-info p,
+.data-container-kwitansi p {
+  margin: 0;
+}
+
+.titik-dua {
+  width: 10px;
+}
+
+.n-divider {
+  display: block;
+  border-bottom: 1px solid #000;
+}
+
+.data-container-kwitansi {
+  border: 1px solid #000 !important;
+  margin-top: 10px;
+}
+
+.data-container-kwitansi table tr td {
+  padding: 5px 5px 0 5px;
+}
+
+.data-container-kwitansi table tr td.nopaddingtop {
+  padding-top: 0 !important;
+}
+
+.data-container-kwitansi table tr td.nopadding {
+  padding: 0 !important;
+  text-align: center;
+}
+
+.data-container-kwitansi table tr.bigheight td {
+  height: 70px;
+}
+
+.side-price {
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  width: 300px;
+  margin: 0px 0 5px;
+  padding: 2px 0;
+}
+
+.side-price2 h4 {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  width: 300px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 0;
+}
+
+.pilihan-container {
+  display: block;
+  width: 100%;
+}
+
+.sub-pil {
+  display: inline-block;
+  width: auto;
+  padding-right: 20px;
+  font-weight: bold;
+}
+.check-container{
+    display: inline-block;
+    width: 18px;
+    height:18px;
+    text-align: center;
+    border: solid 1px #666;
+    margin-right: 5px;
+}

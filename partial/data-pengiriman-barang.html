@@ -1,0 +1,132 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="#/pengiriman-barang/new" class="btn btn-complete btn-block btn-compose m-b-30"><i class="pg-plus"></i> PENGIRIMAN BARU</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === ''}">
+        <a href="" ng-click="doFilter('')">
+          <span class="title"><i class="pg-tables"></i> Semua Pengiriman</span>
+          <span class="badge pull-right">{{ all }}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === 'Baru'}">
+        <a href="" ng-click="doFilter('Baru')">
+          <span class="title"><i class="pg-folder"></i> Baru</span>
+          <span class="badge pull-right">{{new}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === 'Diterima'}">
+        <a href="" ng-click="doFilter('Diterima')">
+          <span class="title"><i class="fa fa-check"></i> Diterima</span>
+          <span class="badge pull-right">{{success}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === 'Rejected'}">
+        <a href="" ng-click="doFilter('Rejected')">
+          <span class="title"><i class="fa fa-remove"></i> Rejected</span>
+          <span class="badge pull-right">{{rejected}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>Purchasing</a>
+            </li>
+            <li><a class="active">Data Pengiriman Barang</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="min-width: 800px;">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+              <div class="col-xs-2">
+                <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Tanggal awal" />
+              </div>
+              <div class="col-xs-2">
+                <input type="text" class="form-control datepick" ng-model="dateend" placeholder="Tanggal akhir" />
+              </div>
+              <div class="col-xs-4">
+                <select class="form-control" ng-model="kode_proyek" style="font-size:13px">
+                  <option value="">SEMUA PROYEK</option>
+                  <option ng-repeat="p in data_proyek" value="{{p.IDProyek}}">{{p.KodeProyek}} / {{p.Tahun}} / {{p.NamaProyek}}</option>
+                </select>
+              </div>
+              <div class="col-xs-1">
+                <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-search"></i> Filter</button>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:20px">No</th>
+                  <th style="width:130px">No. Pengiriman</th>
+                  <th style="width:80px">Tanggal</th>
+                  <th style="width:120px">Kode Proyek</th>
+                  <th>Diterima Oleh</th>
+                  <th style="width:80px">Status</th>
+                  <th style="width:80px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in data_pengiriman" jq-table>
+                  <td class="v-align-middle v-align-center">
+                    <p>{{ x.No }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.NoPengiriman }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Tanggal }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.KodeProyek }} / {{ x.Tahun }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p ng-show="x.Status.toString()==='Diterima'">{{ x.RecievedBy }}<br/>
+                    <i style="font-size:12px;font-weight: bold;color:red">{{ x.DateTimeRecieved }}</i></p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Status }}</p>
+                  </td>
+                  </td>
+                  <td class="v-align-middle">
+                    <a href="#/pengiriman-barang/detail/{{ x.IDPengiriman }}" class="btn btn-default btn-xs"><i class="fa fa-search"></i></a>
+                    <button class="btn btn-danger btn-xs" ng-click="rejectRow(x.IDPengiriman)" ng-hide="x.Status.toString()==='Rejected'"><i class="fa fa-remove"></i></button>
+                    <button class="btn btn-success btn-xs" ng-click="showModal(x.IDPengiriman)" ng-hide="x.Status.toString()==='Baru'"><i class="fa fa-check"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="margin-top: 100px;background: #900db9;border-color: #900db9;">
+      <div class="modal-header clearfix text-left"></div>
+      <div class="modal-body" style="text-align: center;padding: 20px 0 40px;">
+        <img src="themes/assets/images/smile.png" />
+        <h2 style="color: #fff;">Silahkan Tap RFID anda!</h2>
+        <input type="text" name="rfidcode" id="rfidcode" ng-model="rfidcode" ng-keypress="afterScan($event)" style="border: none;background: #fff;color: #900db9;" />
+      </div>
+    </div>
+  </div>
+</div>

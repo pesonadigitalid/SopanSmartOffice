@@ -1,0 +1,246 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-karyawan">Data Karyawan</a>
+        </li>
+        <li><a class="active">Profile Karyawan</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">Data Karyawan</div>
+          <h5>Informasi detail data karyawan..</h5>
+        </div>
+        <div class="panel-body" style="padding-bottom: 0 !important;">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="files/karyawan_photo/{{foto}}" width="150" class="photo" ng-show="foto" style="margin-bottom: 10px;display:block" />
+              <img src="files/karyawan_photo/default.jpg" ng-hide="foto" class="photo" style="margin-bottom: 10px;" />
+            </div>
+            <div class="info-karyawan">
+              <div class="col-md-5">
+                <div class="list-data">
+                    <div class="nama-label side-title"><h4 style="margin-top: 0 !important;">Data Karyawan</h4></div>
+                    <div class="titik-dua"></div>
+                    <div class="isi-label"></div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">NIK</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nik}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Jabatan I</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_jabatan}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Jabatan II</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_jabatan2}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Departement</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{departement2}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Bulan/Tahun Masuk</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{bln_masuk}}/{{thn_masuk}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Mark</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{stts_lainnya}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">Status</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_statusUser}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label side-title"><h4>Data Pribadi</h4></div>
+                    <div class="titik-dua"></div>
+                    <div class="isi-label"></div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">1. Nama</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">2. Jenis Kelamin</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{jenis_kelamin2}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">3. Alamat Sementara</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_sementara}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">4. Alamat Berdasarkan KTP</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_ktp}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">5. Nomor Telepon</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{no_telp}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">6. Email Pribadi</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{email}}</div>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="list-data">
+                    <div class="nama-label side-title"><h4 style="margin-top: 0 !important;">Data Keluarga</h4></div>
+                    <div class="titik-dua"></div>
+                    <div class="isi-label"></div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">1. Nama Ayah</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_ayah}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Alamat</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_ayah}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Nomor Telepon</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{no_telp_ayah}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">2. Nama Ibu</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_ibu}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Alamat</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_ibu}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Nomor Telepon</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{no_telp_ibu}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">3. Nama Suami/Istri</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_suami}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Alamat</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_suami}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Nomor Telepon</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{no_telp_suami}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">4. Sodara/Wali</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{nama_wali}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Alamat</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{alamat_wali}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label sub-label2">Nomor Telepon</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{no_telp_wali}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label side-title"><h4>Status</h4></div>
+                    <div class="titik-dua"></div>
+                    <div class="isi-label"></div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">1. Status Karyawan</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{stts_karyawan}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">2. Status Hubungan</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{martial_stts}}</div>
+                </div>
+                <div class="list-data">
+                    <div class="nama-label">3. Status Agama</div>
+                    <div class="titik-dua">:</div>
+                    <div class="isi-label">{{agama}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-history">
+              <div class="col-md-5 col-md-offset-2">
+                <h5 style="margin: 40px 20px 10px 0;">History Jabatan</h5>
+                <table class="table table-hover table-less-space" id="basicTable">
+                  <tbody>
+                    <tr ng-repeat="x in history_jabatan">
+                      <td class="v-align-middle" style="font-size:12px">
+                        {{x.jabatan}}
+                      </td>
+                      <td class="v-align-middle" style="font-size:12px">
+                        {{x.periode_awal}} - {{x.periode_akhir}}
+                      </td>
+                    </tr>
+                    <tr ng-show="!history_jabatan.length">
+                      <td colspan="2">Belum ada history jabatan pada karyawan ini...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-5">
+                <h5 style="margin: 40px 20px 10px 0;">Training Record</h5>
+                <table class="table table-hover table-less-space" id="basicTable">
+                  <tbody>
+                    <tr ng-repeat="x in history_training">
+                      <td class="v-align-middle" style="font-size:12px">
+                        {{x.NamaTraining}}
+                      </td>
+                      <td class="v-align-middle" style="font-size:12px">
+                        {{x.TanggalMulai}} - {{x.TanggalSelesai}}
+                      </td>
+                      <td class="v-align-middle" style="font-size:12px">
+                        {{x.Durasi}} Hari
+                      </td>
+                    </tr>
+                    <tr ng-show="!history_training.length">
+                      <td colspan="3">Belum ada training record pada karyawan ini...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-print" style="margin: 40px 0 20px 0; ">
+    <a class="btn btn-danger" ng-click="doPrint()" title="Print Data"><i class="fa fa-print"></i> Print</a>
+    <a href="#/data-karyawan" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+  </div>
+</div>

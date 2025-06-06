@@ -1,0 +1,216 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>HRD</a>
+        </li>
+        <li><a href="#/data-payroll">Slip Gaji</a>
+        </li>
+        <li><a class="active">Slip Gaji Baru</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Slip Gaji Baru
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.no_slip.$invalid }">
+                <label>No. Slip Gaji</label>
+                <input type="text" name="no_slip" ng-model="no_slip" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.no_slip.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group">
+                <label>Bulan</label>
+                <input type="text" name="bulan_name" ng-model="bulan_name" disabled="" class="form-control">
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.tanggal.$invalid }">
+                <label>Tahun</label>
+                <select class="form-control" ng-model="tahun" disabled="">
+                  <option ng-repeat="x in year" value="{{x}}">{{x}}</option>
+                </select>
+                <p ng-show="userForm.$submitted && userForm.tanggal.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.karyawan.$invalid }">
+                <label>Karyawan</label>
+                <select class="form-control select2" name="karyawan" ng-model="karyawan" ng-change="changeKaryawan();" required>
+                  <option value="">Pilih Karyawan</option>
+                  <option ng-repeat="p in data_karyawan" value="{{$index}}" select2>{{p.NamaKaryawan}}</option>
+                </select>
+                <p ng-show="userForm.$submitted && userForm.karyawan.$invalid" class="help-block">Wajib dipilih.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_absen.$invalid }">
+                <label>Total Hari Kerja Karyawan</label>
+                <input type="text" name="total_absen" ng-model="total_absen" ng-keyup="summary()" class="form-control">
+                <p ng-show="userForm.$submitted && userForm.total_absen.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_hari.$invalid }">
+                <label>Total Hari Kerja Perbulan</label>
+                <input type="text" name="total_hari" ng-model="total_hari" class="form-control" readonly="">
+                <p ng-show="userForm.$submitted && userForm.total_hari.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_cuti_minus.$invalid }">
+                <label>Total Cuti Minus</label>
+                <input type="text" name="total_cuti_minus" ng-model="total_cuti_minus" class="form-control" ng-change="summary()">
+                <p ng-show="userForm.$submitted && userForm.total_cuti_minus.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_alpha.$invalid }">
+                <label>Total Alpha</label>
+                <input type="text" name="total_alpha" ng-model="total_alpha" class="form-control" ng-change="summary()">
+                <p ng-show="userForm.$submitted && userForm.total_alpha.$invalid" class="help-block">Wajib diisi.</p>
+              </div>
+              <div class="form-group" ng-show="karyawan!==''">
+                <a href="#/laporan-data-absent/{{bulan}}/{{tahun}}/{{karyawan_selected}}" target="_blank" class="btn btn-danger">Lihat Detail Absen Karyawan</a>
+                <a href="#/laporan-cuti-karyawan/{{tahun}}/{{karyawan_selected}}" target="_blank" class="btn btn-danger">Lihat Detail Cuti Karyawan</a>
+              </div>
+              <div class="row" style="margin: 40px 0 0 !important;">
+                <div class="col-md-12" style="border-bottom: 1px dashed #ccc; margin: 5px 0 15px 0;border-top: 1px dashed #ccc; margin: 5px 0 15px 0;padding:10px 0;">
+                  <strong>Sumary Gaji</strong>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.gaji_pokok.$invalid }">
+                <label class="col-xs-4">Gaji Pokok :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="gaji_pokok" id="gaji_pokok" ng-model="gaji_pokok" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_uang_makan.$invalid }">
+                <label class="col-xs-4">Uang Makan :</label>
+                <div class="col-xs-2" style="vertical-align: middle;">
+                  <input type="text" name="uang_makan_perhari" id="uang_makan_perhari" ng-keyup="summary()" ng-model="uang_makan_perhari" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+                <div class="col-xs-1" style="vertical-align: middle; text-align: center;padding-top:7px;">x {{total_absen}}</div>
+                <div class="col-xs-5" style="vertical-align: middle;">
+                  <input type="text" name="total_uang_makan" id="total_uang_makan" ng-keyup="summary()" ng-model="total_uang_makan" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_uang_transport.$invalid }">
+                <label class="col-xs-4">Uang Transport :</label>
+                <div class="col-xs-2" style="vertical-align: middle;">
+                  <input type="text" name="uang_transport_perhari" id="uang_transport_perhari" ng-keyup="summary()" ng-model="uang_transport_perhari" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+                <div class="col-xs-1" style="vertical-align: middle; text-align: center;padding-top:7px;">x {{total_absen}}</div>
+                <div class="col-xs-5" style="vertical-align: middle;">
+                  <input type="text" name="total_uang_transport" id="total_uang_transport" ng-keyup="summary()" ng-model="total_uang_transport" class="form-control hlprice" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_pulsa.$invalid }">
+                <label class="col-xs-4">Uang Pulsa :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="uang_pulsa" id="uang_pulsa" ng-keyup="summary()" ng-model="uang_pulsa" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.tunjangan_performance.$invalid }">
+                <label class="col-xs-4">Tunjangan Jabatan :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="tunjangan_performance" id="tunjangan_performance" ng-keyup="summary()" ng-model="tunjangan_performance" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.tunjangan_khusus.$invalid }">
+                <label class="col-xs-4">Tunjangan Khusus :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="tunjangan_khusus" id="tunjangan_khusus" ng-keyup="summary()" ng-model="tunjangan_khusus" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.tunjangan_luar_kota.$invalid }">
+                <label class="col-xs-4">Tunjangan Luar Kota :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="tunjangan_luar_kota" id="tunjangan_luar_kota" ng-keyup="summary()" ng-model="tunjangan_luar_kota" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_lembur.$invalid }">
+                <label class="col-xs-4">Uang Lembur :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="uang_lembur" id="uang_lembur" ng-model="uang_lembur" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.uang_makan_lembur.$invalid }">
+                <label class="col-xs-4">Uang Makan Lembur :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="uang_makan_lembur" id="uang_makan_lembur" ng-model="uang_makan_lembur" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="row" style="margin: 0 !important;">
+                <div class="col-md-12" style="border-bottom: 1px dashed #ccc; margin: 5px 0 15px 0;"></div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4"></label>
+                <div class="col-xs-8">
+                  <input type="text" name="total1" id="total1" ng-model="total1" class="form-control hlprice price" fcsa-number="{  }" disabled="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4">Potongan Cuti :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_cuti" id="potongan_cuti" ng-model="potongan_cuti" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4">Potongan Alpha :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_alpha" id="potongan_alpha" ng-model="potongan_alpha" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }">
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.potongan_pinjaman.$invalid }">
+                <label class="col-xs-4">Potongan Pinjaman :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_pinjaman" id="potongan_pinjaman" ng-model="potongan_pinjaman" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.potongan_kasbon.$invalid }">
+                <label class="col-xs-4">Potongan Kasbon :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_kasbon" id="potongan_kasbon" ng-model="potongan_kasbon" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.potongan_jamsostek.$invalid }">
+                <label class="col-xs-4">Potongan Jamsostek :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_jamsostek" id="potongan_jamsostek" ng-model="potongan_jamsostek" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.potongan_lain.$invalid }">
+                <label class="col-xs-4">Potongan Lain-lain :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="potongan_lain" id="potongan_lain" ng-model="potongan_lain" ng-keyup="summary()" class="form-control hlprice price" fcsa-number="{  }" required>
+                </div>
+              </div>
+              <div class="row" style="margin: 0 !important;">
+                <div class="col-md-12" style="border-bottom: 1px dashed #ccc; margin: 5px 0 15px 0;"></div>
+              </div>
+              <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.total_gaji.$invalid }">
+                <label class="col-xs-4">Total Gaji Diterima :</label>
+                <div class="col-xs-8">
+                  <input type="text" name="total_gaji" id="total_gaji" ng-model="total_gaji" class="form-control hlprice price" fcsa-number="{  }" readonly="" required>
+                </div>
+              </div>
+              <div class="row" style="margin: 40px 0 0 !important;">
+                <div class="col-md-12" style="border-bottom: 1px dashed #ccc; margin: 5px 0 15px 0;border-top: 1px dashed #ccc; margin: 5px 0 15px 0;padding:10px 0;">
+                  <strong>Keterangan Slip Gaji</strong>
+                </div>
+              </div>
+              <div class="form-group" ng-class="{ 'has-error' : userForm.$submitted && userForm.karyawan.$invalid }">
+                <label>Keterangan Lain</label>
+                <textarea class="form-control" name="keterangan" ng-model="keterangan"></textarea>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:20px">
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+            <a href="#/data-payroll" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

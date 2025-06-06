@@ -1,0 +1,458 @@
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-R.ttf");
+}
+
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-B.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-RI.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "CFont";
+    src: url("fonts/Ubuntu-BI.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    font-family: "CFont";
+    font-size: 12px;
+    line-height: 1.8em;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-size: 13px;
+    color: #000;
+    margin: 0 !important;
+}
+
+.title-print {
+    font-size: 24px !important;
+    margin: 0;
+}
+
+.divider {
+    border-bottom: 1px solid #eee !important;
+    margin: 10px 0 40px 0 !important;
+}
+
+.sideLabel {
+    border-right: 3px solid #000;
+    float: left;
+    text-align: right;
+    padding-right: 5px;
+    margin-right: 5px;
+    width: 35% !important;
+}
+
+.sideText {
+    text-align: left !important;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border: none;
+}
+
+.noborder,
+.noborder th,
+.noborder td {
+    border: none !important;
+}
+
+.noborder input {
+    margin: 0px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+table td {
+    vertical-align: text-top;
+}
+
+.center {
+    text-align: center;
+}
+
+.tabelList {
+    margin-top: 10px;
+}
+
+.tabelList th {
+    background: #eee;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    padding: 5px;
+}
+
+.tabelList td {
+    padding: 5px;
+}
+
+.tabelList2.border-solid {
+    border-collapse: collapse;
+}
+
+.tabelList2.border-solid tr td,
+.tabelList2.border-solid tr th {
+    border: 1px solid #333;
+    border-collapse: collapse;
+}
+
+.tabelList2 th {
+    background: #eee;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    padding: 5px;
+}
+
+.tabelList2 td {
+    padding: 5px;
+    border-bottom: dashed 1px #ccc;
+    font-size: 10.5px;
+}
+
+.border-bottom {
+    border-bottom: dashed 1px #ccc;
+}
+
+.border-bottom2 {
+    border-bottom: solid 1px #ccc;
+}
+
+.asignment {
+    margin-top: 0px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.laporanTitle {
+    text-align: center;
+    margin: 10px 0 20px;
+    padding-top: 20px;
+    border-top: solid 1px #ccc;
+}
+
+.bottom {
+    vertical-align: bottom !important;
+}
+
+.smallfont th {
+    font-size: 9px;
+}
+
+.biggerfont td {
+    font-size: 11px;
+}
+
+.data-container {
+    margin-bottom: 50px;
+}
+
+.data-container h4 {
+    margin: 15px 5px 10px 5px;
+    font-size: 14px;
+}
+
+.data-container fieldset {
+    border: none;
+    padding: 2px 5px;
+}
+
+.data-container fieldset label {
+    width: 150px;
+    display: inline-block;
+}
+
+.sub-label {
+    padding-left: 20px;
+    width: 130px !important;
+}
+
+.container {
+    display: table;
+    width: 100%;
+    padding: 0 5px;
+}
+
+.container.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.container img,
+.img-kosong {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    padding: 4px;
+}
+
+.img-kosong {
+    text-align: center;
+    font-size: 14px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.side-title h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 0 5px 0;
+}
+
+.img-karyawan,
+.side-top {
+    display: table-cell;
+    width: 18%;
+    vertical-align: top;
+}
+
+.side-top {
+    width: 82%;
+}
+
+.side-left,
+.side-right {
+    display: table-cell;
+    width: 50%;
+    vertical-align: top;
+}
+
+.list-data {
+    display: table;
+    margin: 4px 0;
+}
+
+.nama-label,
+.titik-dua,
+.isi-label {
+    display: table-cell;
+}
+
+.nama-label {
+    width: 170px;
+    font-weight: bold;
+}
+
+.small-width {
+    width: 100px;
+}
+
+.sub-label2 {
+    padding-left: 15px !important;
+    width: 155px !important;
+}
+
+.titik-dua {
+    width: 10px;
+}
+
+.container-kwitansi {
+    border: 2px dashed #000;
+    max-width: 500px;
+    padding: 24px;
+    margin-top: 40px;
+}
+
+.tabel-desc,
+.tabel-summary {
+    font-size: 12px;
+}
+
+.container-kwitansi h1 {
+    font-size: 20px;
+    margin-bottom: 20px !important;
+}
+
+.total-kwitansi {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 8px 0;
+    width: 230px;
+    border-top: 4px solid #000;
+    border-bottom: 4px solid #000;
+    text-align: right;
+    letter-spacing: 1px;
+}
+
+.summary-gaji-container {
+    width: 500px !important;
+    margin-top: 40px;
+    padding: 0 24px;
+}
+
+.summary-gaji-container h1 {
+    font-size: 20px !important;
+    line-height: 1.3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px !important;
+    text-align: center;
+}
+
+.jarak-atas {
+    padding-top: 15px !important;
+}
+
+.right {
+    text-align: right;
+}
+
+.box {
+    border: 1px solid #000;
+}
+
+.tabelList3 {
+    margin-top: 10px margin-bottom: 10px;
+    border-collapse: collapse;
+    border: solid 1px #ccc;
+    padding: 10px 20px;
+}
+
+.tabelList3 td {
+    padding: 5px 10px;
+    font-size: 10.5px;
+}
+
+.tabelList3 td label {
+    display: inline-block;
+    width: 150px;
+}
+
+.tabelList4 {
+    margin-top: 10px margin-bottom: 10px;
+    border-collapse: collapse;
+    padding: 10px 20px;
+}
+
+.tabelList4 td {
+    padding: 5px 10px;
+    font-size: 10.5px;
+    border-collapse: collapse;
+    border: solid 1px #ccc;
+}
+
+.tabelList4 td label {
+    display: inline-block;
+    width: 180px;
+}
+
+.tabelList5 {
+    margin-top: 10px margin-bottom: 10px;
+    border-collapse: collapse;
+    border: solid 1px #ccc;
+    padding: 10px 20px;
+}
+
+.tabelList5 td {
+    padding: 5px 10px;
+    font-size: 10.5px;
+    border: solid 1px #ccc;
+}
+
+.tabelList5 td label {
+    display: inline-block;
+    width: 150px;
+    margin-left: 10px;
+}
+
+.red {
+    color: red !important;
+}
+
+.tabelList6.border-solid {
+    border-collapse: collapse;
+}
+
+.tabelList6.border-solid tr td,
+.tabelList6.border-solid tr th {
+    border: 1px solid #999;
+    border-collapse: collapse;
+}
+
+.tabelList6 th {
+    background: #eee;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    padding: 1px 3px;
+    font-size: 10px;
+}
+
+.tabelList6 td {
+    padding: 1px 3px;
+    border-bottom: dashed 1px #ccc;
+    font-size: 10px;
+}
+
+
+.tabelList7.border-solid {
+    border-collapse: collapse;
+}
+
+.tabelList7.border-solid tr td,
+.tabelList7.border-solid tr th {
+    border: 1px solid #999;
+    border-collapse: collapse;
+}
+
+.tabelList7 th {
+    background: #eee;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    padding: 1px 3px;
+    font-size: 8px;
+}
+
+.tabelList7 td {
+    padding: 1px 3px;
+    border-bottom: dashed 1px #ccc;
+    font-size: 8px;
+}
+
+.highlight2 td {
+    background: #eee !important;
+}
+
+.newPage {
+    page-break-before: always;
+}
+
+table.print-friendly {
+    page-break-after: auto
+}
+
+table.print-friendly tr {
+    page-break-inside: avoid;
+    page-break-after: auto
+}
+
+table.print-friendly td {
+    page-break-inside: avoid;
+    page-break-after: auto
+}
+
+table.print-friendly thead {
+    display: table-header-group
+}
+
+table.print-friendly tfoot {
+    display: table-footer-group
+}

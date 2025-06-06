@@ -1,0 +1,74 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Master Data</a>
+        </li>
+        <li><a href="#/data-training-record">Training Record</a>
+        </li>
+        <li><a class="active">Edit Training Record</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Input Training Record
+          </div>
+        </div>
+        <div class="panel-body">
+          <h5>Silahkan lengkapi form data training record dibawah ini...</h5>
+          <form name="userForm" ng-submit="submitForm(userForm.$valid)" enctype="multipart/form-data">
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.karyawan.$invalid }">
+              <label>Karyawan</label>
+              <select class="form-control" name="karyawan" ng-model="karyawan" required>
+                <option value="">--- Silahkan pilih departement ---</option>
+                <option ng-repeat="p in data_karyawan" value="{{p.IDKaryawan}}">{{p.Nama}}</option>
+              </select>
+              <p ng-show="userForm.$submitted && userForm.karyawan.$invalid" class="help-block">Wajib dipilih.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.nama_training.$invalid }">
+              <label>Nama Training</label>
+              <input type="text" name="nama_training" ng-model="nama_training" class="form-control" required>
+              <p ng-show="userForm.$submitted && userForm.nama_training.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.keterangan.$invalid }">
+              <label>Keterangan</label>
+              <textarea name="keterangan" ng-model="keterangan" class="form-control"></textarea>
+              <p ng-show="userForm.$submitted && userForm.keterangan.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.tgl_mulai.$invalid }">
+              <label>Tanggal Mulai</label>
+              <input type="text" name="tgl_mulai" ng-model="tgl_mulai" class="form-control datepick">
+              <p ng-show="userForm.$submitted && userForm.tgl_mulai.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.tgl_selesai.$invalid }">
+              <label>Tanggal Selesai</label>
+              <input type="text" name="tgl_selesai" ng-model="tgl_selesai" class="form-control datepick">
+              <p ng-show="userForm.$submitted && userForm.tgl_selesai.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default" ng-class="{ 'has-error' : userForm.$submitted && userForm.lokasi_training.$invalid }">
+              <label>Lokasi Training</label>
+              <input type="text" name="lokasi_training" ng-model="lokasi_training" class="form-control">
+              <p ng-show="userForm.$submitted && userForm.lokasi_training.$invalid" class="help-block">Wajib diisi.</p>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Sertifikat</label>
+              <input type="file" ngf-select name="file_sertifikat" ng-model="file_sertifikat" class="form-control">
+              <span ng-show="file_sertifikat">{{file_sertifikat}}</span>
+            </div><br />
+            <button type="submit" class="btn btn-info" ng-disabled="processing"><i class="fa fa-save"></i> Simpan</button>
+            <button ng-show="id_supplier.length" class="btn btn-primary" ng-click="doPrint()"><i class="fa fa-print"></i> Print</button>
+            <a href="javascript:history.back()" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i> Kembali</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

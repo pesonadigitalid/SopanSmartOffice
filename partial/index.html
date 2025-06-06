@@ -1,0 +1,83 @@
+<div ng-show="listMenu.dashboard.read===true || listMenu.dashboard.write===true">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+            <div class="inner">
+                <ul class="breadcrumb">
+                    <li>
+                        <a>Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid container-fixed-lg new-widget-bar">
+        <div style="padding: 30px 0">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="widged-bar bg-primary">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryAllSPB}}</p>
+                            <p class="widgedTitle text-white">{{totalAllSPB}} Total SPB</p>
+                            <i class="fa fa-dollar bg-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="widged-bar bg-success">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryActiveSPB}}</p>
+                            <p class="widgedTitle text-white">{{totalActiveSPB}} Active SPB</p>
+                            <i class="fa fa-file-text-o bg-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="widged-bar bg-info">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryCompletedSPB}}</p>
+                            <p class="widgedTitle text-white">{{totalCompletedSPB}} Completed SPB</p>
+                            <i class="fa fa-archive bg-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="widged-bar bg-warning">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryNewSPB}}</p>
+                            <p class="widgedTitle text-white">{{totalNewSPB}} New SPB</p>
+                            <i class="fa fa-files-o bg-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-t-20">
+                <div class="col-md-9">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <h2>{{title}}</h2>
+                            <canvas id="myChart" ng-hide="refreshChart"></canvas>
+                            <p ng-show="refreshChart" style="margin: 0; text-align: center"><i
+                                    class="fa fa-spin fa-refresh"></i> Loading chart...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="widged-bar bg-danger m-b-10">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryInvoices}}</p>
+                            <p class="widgedTitle text-white">{{totalInvoices}} Invoices</p>
+                            <i class="fa fa-dollar bg-icon"></i>
+                        </div>
+                    </div>
+                    <div class="widged-bar bg-danger">
+                        <div class="widgetContainer">
+                            <p class="widgedValue ng-binding">{{summaryPo}}</p>
+                            <p class="widgedTitle text-white">{{totalPo}} Purchasing Orders</p>
+                            <i class="fa fa-dollar bg-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

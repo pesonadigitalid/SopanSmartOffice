@@ -1,0 +1,81 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+          <div class="inner">
+            <ul class="breadcrumb">
+              <li>
+                <a>Laporan</a>
+              </li>
+              <li><a class="active">Laporan Data Pembelian</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+          <div class="container-fluid container-fixed-lg bg-white">
+            <div class="panel panel-transparent">
+              <div class="panel-heading">
+                <div class="panel-title" style="min-width: 800px;">
+                    <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+                        <label class="col-xs-1" style="text-align: right;padding-top:5px;font-size:13px">Filter :</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control datepick" ng-model="datestart" placeholder="Tanggal awal"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control datepick" ng-model="dateend" placeholder="Tanggal akhir"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <select class="form-control" ng-model="kode_proyek" style="font-size:13px">
+                              <option value="">KODE PROYEK</option>
+                              <option value="0">UMUM</option>
+                              <option ng-repeat="p in data_proyek" value="{{p.KodeProyek}}">{{p.KodeProyek}} | {{p.NamaProyek}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" ng-click="refreshData()" class="btn btn-info" style="font-size:13px;text-transform: none;"><i class="fa fa-filter"></i> Filter</button>
+                        </div>
+                        <div class="col-xs-1">
+                            <a href="" class="btn btn-info" style="margin-left: 20px; text-transform: capitalize;"><i class="fa fa-print"></i> Print</a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover table-smaller2">
+                    <thead>
+                      <tr>
+                        <th style="width:20px">No</th>
+                        <th>No. Pembelian</th>
+                        <th>Tanggal</th>
+                        <th>Kode Proyek</th>
+                        <th>Grand Total</th>
+                        <th>DP</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in data_pembelian" jq-table>
+                        <td class="v-align-middle">
+                          <p>{{ x.No }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.NoPembelian }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.Tanggal }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.KodeProyek }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.GrandTotal | number }}</p>
+                        </td>
+                        <td class="v-align-middle">
+                          <p>{{ x.PembayaranDP }}</p>
+                        </td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>

@@ -1,0 +1,158 @@
+<div class="jumbotron" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Persediaan</a>
+        </li>
+        <li><a href="#/data-transfer-stok">Data Transfer Stok</a>
+        </li>
+        <li><a class="active">Detail Transfer Stok</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Detail Transfer Stok
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="row" style="margin: 0">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>No. Transfer</label>
+                    <input type="text" ng-model="master.NoTransferStok" class="form-control" readonly="">
+                  </div>
+                </div>
+                <div class="row" style="margin: 0">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Dari Gudang.</label>
+                      <input type="text" ng-model="master.GudangFrom" class="form-control" readonly="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row" style="margin: 0">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tanggal.</label>
+                    <input type="text" ng-model="master.TanggalID" class="form-control" readonly>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>User.</label>
+                    <input type="text" ng-model="master.CreatedBy" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin: 0">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Ke Gudang.</label>
+                    <input type="text" ng-model="master.GudangTo" class="form-control" readonly="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5>Daftar Barang.</h5>
+          <div class="row" style="margin: 0;">
+            <div class="col-sm-12">
+              <table class="table table-hover table-less-space" id="basicTable">
+                <thead>
+                  <tr>
+                    <th style="width:20px"></th>
+                    <th>Nama Produk</th>
+                    <th style="width:120px">Serial Number</th>
+                    <th style="width:150px">HPP</th>
+                    <th style="width:120px">Qty</th>
+                    <th style="width:200px">Sub Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in data_detail">
+                    <td class="v-align-middle">
+                      {{ x.No }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.NamaBarang }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SN }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.HPP | number }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.TOTAL_QTY | number }}
+                    </td>
+                    <td class="v-align-middle">
+                      {{ x.SUB_TOTAL | number }}
+                    </td>
+                  </tr>
+                  <tr ng-show="!data_detail.length">
+                    <td colspan="6">Tidak ada daftar barang yang dapat ditampilkan pada Transfer Stok ini...</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6"><strong>Keterangan : </strong>{{ master.Keterangan }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <br />
+            </div>
+          </div>
+          <div class="row" style="margin: 0;">
+            <div class="col-md-6">
+              <div class="form-group m-b-40" ng-show="master.DeletedBy != null">
+                <div class="delete-card">
+                  <label>Deleted by :</label>
+                  {{ master.DeletedBy }} - {{ master.DeletedDateID }} <br>
+                  Remark : {{ master.DeletedRemark }}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Item :</label>
+                <div class="col-xs-8">
+                  <input type="text" ng-model="master.TotalQty" class="form-control hlprice price" fcsa-number="{  }"
+                    readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Jenis Item :</label>
+                <div class="col-xs-8">
+                  <input type="text" ng-model="master.TotalJenisItem" class="form-control hlprice price"
+                    fcsa-number="{  }" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-4" style="text-align: right;padding-top:5px;">Total Nilai HPP :</label>
+                <div class="col-xs-8">
+                  <input type="text" ng-model="master.TotalHPP" class="form-control hlprice price" fcsa-number="{  }"
+                    readonly="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <button class="btn btn-info" ng-click="doPrint()"><i class="fa fa-print"></i> Print</button> -->
+          <a href="#/data-transfer-stok/" type="button" class="btn btn-link"><i class="fa fa-long-arrow-left"></i>
+            Kembali</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <a>Asset Control</a>
+        </li>
+        <li><a class="active">Jadwal Perpanjangan STNK</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <h3>Jadwal Perpanjangan STNK</h3>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-hover" id="basicTable">
+          <thead>
+            <tr>
+              <th style="width:20px">No</th>
+              <th style="width:100px">Kode Asset</th>
+              <th style="width:100px">Kategori</th>
+              <th>Nama Kendaraan</th>
+              <th style="width:200px">Assign Kepada</th>
+              <th style="width:170px">Jatuh Tempo Samsat</th>
+              <th style="width:120px">Dalam Hari</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in data_display">
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.No }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.KodeAsset }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Category }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Nama }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ x.Karyawan }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.JatuhTempoSamsat }}</p>
+              </td>
+              <td class="v-align-middle v-align-center">
+                <p>{{ x.DueDate }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header clearfix text-left">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+          </button>
+          <h5>History <span class="semi-bold">Assignment</span></h5>
+          <p>History data asset assignment.</p>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover" id="basicTable">
+            <thead>
+              <tr>
+                <th style="width:100px">Tanggal</th>
+                <th style="width:150px">No. Assign</th>
+                <th style="width:150px">Karyawan</th>
+                <th>Proyek</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in data_assign" jq-table>
+                <td class="v-align-middle" style="padding-left: 15px;">
+                  <p>{{ x.Tanggal }}</p>
+                </td>
+                <td class="v-align-middle" style="padding-left: 10px;">
+                  <p>{{ x.NoAssign }}</p>
+                </td>
+                <td class="v-align-middle" style="padding-left: 10px;">
+                  <p>{{ x.Karyawan }}</p>
+                </td>
+                <td class="v-align-middle" style="padding-left: 10px;">
+                  <p>{{ x.Proyek }}</p>
+                </td>
+              </tr>
+              <tr ng-show="!data_assign.length">
+                <td colspan="4" class="v-align-middle" style="padding-left: 10px;">
+                  <p>Belum ada assinment dari asset ini...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="content full-height" style="padding-top: 0px">
+  <nav class="secondary-sidebar padding-30">
+    <a href="#/payroll/new/{{bulan}}-{{tahun}}" class="btn btn-complete btn-block btn-compose m-b-30"><i class="pg-plus"></i> Buat Slip Gaji</a>
+    <p class="menu-title">BROWSE</p>
+    <ul class="main-menu">
+      <li ng-class="{active : activeMenu === '0'}">
+        <a href="" ng-click="doFilter('0')">
+          <span class="title"><i class="pg-folder"></i> Slip Gaji Baru</span>
+          <span class="badge pull-right">{{new}}</span>
+        </a>
+      </li>
+      <li ng-class="{active : activeMenu === '1'}">
+        <a href="" ng-click="doFilter('1')">
+          <span class="title"><i class="fa fa-check"></i> Slip Gaji Terbayar</span>
+          <span class="badge pull-right">{{approved}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="inner-content full-height">
+    <div class="jumbotron" data-pages="parallax" style="margin-bottom: 0;">
+      <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        <div class="inner">
+          <ul class="breadcrumb">
+            <li>
+              <a>HRD</a>
+            </li>
+            <li><a class="active">Slip Gaji Karyawan</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-fixed-lg bg-white">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title" style="width: 100%;">
+            <div class="form-group row" ng-class="{ 'has-error' : userForm.$submitted && userForm.pricem.$invalid }">
+              <label class="col-xs-12 col-sm-1 sm-m-b-10" style="text-align: left;padding-top:5px;font-size:13px">Filter :</label>
+              <div class="col-xs-6 col-sm-3 sm-m-b-10">
+                <select class="form-control" ng-model="bulan" style="font-size:13px">
+                  <option ng-repeat="p in month" value="{{p.id}}">{{p.value}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3 sm-m-b-10">
+                <select class="form-control" ng-model="tahun" style="font-size:13px">
+                  <option value="">PILIH TAHUN</option>
+                  <option ng-repeat="p in year" value="{{p}}">{{p}}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-sm-2 sm-m-b-10 hidden-xs">
+                <button type="button" ng-click="doFilter()" class="btn btn-info"><i class="fa fa-filter"></i> Filter</button>
+              </div>
+              <div class="col-xs-12 col-sm-2 sm-m-b-10 visible-xs">
+                <button type="button" ng-click="doFilter()" class="btn btn-info btn-block"><i class="fa fa-filter"></i> Filter</button>
+                <a href="#/payroll/new/{{bulan}}-{{tahun}}" class="btn btn-complete btn-block btn-compose"><i class="pg-plus"></i> Buat Slip Gaji</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="basicTable">
+              <thead>
+                <tr>
+                  <th style="width:100px">NIK</th>
+                  <th>Nama</th>
+                  <th style="width:150px">Jabatan</th>
+                  <th style="width:100px">Total Gaji</th>
+                  <th style="width:100px">Paid (?)</th>
+                  <th style="width:120px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in data_payroll" jq-table>
+                  <td class="v-align-middle">
+                    <p>{{ x.NIK }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Nama }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.Jabatan }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ x.TotalGaji | number }}</p>
+                  </td>
+                  <td class="v-align-middle v-align-center">
+                    <p ng-show="x.Payroll==='1'"><i class="fa fa-check"></i></p>
+                  </td>
+                  </td>
+                  <td class="v-align-middle">
+                    <a class="btn btn-success btn-xs" ng-click="paid(x.IDSlipGaji)" title="Bayar Slip ini."  ng-show="x.Payroll==='0'"><i class="fa fa-check"></i></a>
+                    <button class="btn btn-primary btn-xs" ng-click="doPrint(x.IDSlipGaji)" title="Print"><i class="fa fa-print"></i></button>
+                    <!-- <a href="#/payroll/edit/{{ x.IDKaryawan }}" class="btn btn-default btn-xs" title="Edit"><i class="fa fa-edit"></i></a> -->
+                    <button class="btn btn-danger btn-xs" ng-click="removeRow(x.IDSlipGaji)" title="Hapus"><i class="fa fa-remove"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
