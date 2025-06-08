@@ -4,6 +4,7 @@ include_once "../library/class.sqlcore.php";
 include_once "../library/class.sqlmysql.php";
 include_once "../library/class.sqlmysql.php";
 include_once "../library/class.fungsi.php";
+include_once "./env.php";
 
 date_default_timezone_set("Asia/Kuala_Lumpur");
 
