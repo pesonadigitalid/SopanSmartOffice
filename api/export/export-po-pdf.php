@@ -575,7 +575,7 @@ $content .= '<tr>
           <br />
           <br />
           <br />
-          <br /><strong>( R. Yudha Satrio Prabowo )</strong>
+          <br /><strong></strong>
         </td>
         <td class="center" width="30%" style="padding-top:15px"><strong>Direktur</strong>
           <br />

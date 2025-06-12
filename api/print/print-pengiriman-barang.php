@@ -210,9 +210,9 @@ GROUP BY NoUrut, IDBarang");
             <td class="center">Pelanggan : </td>
         </tr>
         <tr>
-            <td width="20%" class="center"><strong>Administrasi</strong><br /><br /><br /><br /><strong>( Riski Ajeng F. )</strong>
+            <td width="20%" class="center"><strong>Administrasi</strong><br /><br /><br /><br /><strong>( Aryantini )</strong>
             </td>
-            <td class="center" width="20%"><strong>Kepala Cabang</strong><br /><br /><br /><br /><strong>( R. Yudha Satrio / Aryantini )</strong>
+            <td class="center" width="20%"><strong>Kepala Cabang</strong><br /><br /><br /><br /><strong>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</strong>
             </td>
             <td class="center" width="20%"><strong>Accounting</strong><br /><br /><br /><br /><strong>( Baidah )</strong>
             </td>

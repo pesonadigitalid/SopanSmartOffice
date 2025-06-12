@@ -273,9 +273,9 @@ function terbilang($angka)
             </td>
         </tr>
         <tr>
-            <td width="30%" class="center" style="padding-top:15px"><strong>Purchasing</strong><br /><br /><br /><br /><strong>( Riski Ajeng F. )</strong>
+            <td width="30%" class="center" style="padding-top:15px"><strong>Purchasing</strong><br /><br /><br /><br /><strong>( Aryantini )</strong>
             </td>
-            <td class="center" width="30%" style="padding-top:15px"><strong>Kepala Cabang</strong><br /><br /><br /><br /><strong>( R. Yudha Satrio Prabowo )</strong>
+            <td class="center" width="30%" style="padding-top:15px"><strong>Kepala Cabang</strong><br /><br /><br /><br /><strong>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</strong>
             </td>
             <td class="center" width="30%" style="padding-top:15px"><strong>Direktur</strong><br /><br /><br /><br /><strong>( Ir. Lukito Pramono )</strong>
             </td>
